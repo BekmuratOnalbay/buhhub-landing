@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuhHub — бумаги вашего бизнеса ведут себя сами</title>
+<meta name="description" content="Платформа документооборота для ИП и ТОО Казахстана: договоры, счета, оплаты и акты — в одном месте, без бухгалтерских знаний. Проверка контрагентов, напоминания, формы 1С.">
+<meta property="og:title" content="BuhHub — бумаги вашего бизнеса ведут себя сами">
+<meta property="og:description" content="Для ИП и ТОО малого бизнеса: сфотографируйте счёт — получите платёжку и документы. Платформа помнит, кто должен оплатить и подписать, и напоминает сама.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buhhub.bilimall.kz/">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23185fa5'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='-apple-system,sans-serif' font-weight='700'>B</text></svg>">
+<style>
+  :root{
+    --bg:#ffffff;--bg2:#f4f3ee;--bg3:#ecebe3;
+    --info-bg:#e6f1fb;--info:#185fa5;--succ-bg:#e8f3e2;--succ:#3b6d11;
+    --warn-bg:#faeeda;--warn:#854f0b;--dang-bg:#fcebeb;--dang:#a32d2d;
+    --t1:#1b1b19;--t2:#6c6b64;--t3:#9c9a92;
+    --br:rgba(0,0,0,.10);--br2:rgba(0,0,0,.18);
+  }
+  *{box-sizing:border-box;margin:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--t1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 20px;}
+  header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--br);z-index:10;}
+  .hrow{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
+  .logo{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:700;}
+  .logo span{width:30px;height:30px;border-radius:8px;background:var(--info);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--info);color:#fff;border:none;border-radius:12px;padding:15px 26px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .12s ease, box-shadow .12s ease;}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(24,95,165,.28);}
+  .btn.small{padding:10px 16px;font-size:13px;border-radius:10px;}
+  .btn.wa-green{background:#1fa855;}
+  .btn.wa-green:hover{box-shadow:0 6px 18px rgba(31,168,85,.3);}
+  .hero{padding:52px 0 30px;display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:var(--info-bg);color:var(--info);font-size:13px;font-weight:600;padding:6px 13px;border-radius:20px;margin-bottom:16px;}
+  h1{font-size:42px;line-height:1.12;font-weight:700;letter-spacing:-.02em;margin-bottom:14px;}
+  .sub{font-size:17px;color:var(--t2);margin-bottom:24px;max-width:480px;}
+  .hero-note{font-size:13px;color:var(--t3);margin-top:12px;}
+  .phone{width:320px;background:var(--bg);border:1px solid var(--br2);border-radius:30px;padding:18px 16px;box-shadow:0 24px 60px rgba(0,0,0,.14);margin:0 auto;}
+  .ph-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .ph-top b{font-size:15px;}
+  .ph-ava{width:30px;height:30px;border-radius:50%;background:var(--info-bg);color:var(--info);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;}
+  .ph-hi{font-size:19px;font-weight:600;margin-bottom:2px;}
+  .ph-sub{font-size:12px;color:var(--t2);margin-bottom:12px;}
+  .ph-row{display:flex;align-items:center;gap:10px;border:1px solid var(--br);border-radius:10px;padding:10px;margin-bottom:8px;}
+  .ph-ic{width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ph-row p{font-size:12.5px;font-weight:600;}
+  .ph-row small{font-size:11px;color:var(--t2);font-weight:400;display:block;}
+  .pill{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:6px;flex-shrink:0;}
+  .p-warn{background:var(--warn-bg);color:var(--warn);}
+  .p-info{background:var(--info-bg);color:var(--info);}
+  .ph-shield{display:flex;align-items:center;gap:9px;background:var(--succ-bg);border-radius:10px;padding:10px;}
+  .ph-shield p{font-size:12px;font-weight:600;color:var(--succ);}
+  .ph-shield small{font-size:10.5px;color:var(--succ);font-weight:400;display:block;}
+  section{padding:44px 0;}
+  .sec-label{font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+  h2{font-size:29px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px;line-height:1.2;}
+  .sec-sub{font-size:15px;color:var(--t2);margin-bottom:26px;max-width:560px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .card{border:1px solid var(--br);border-radius:14px;padding:20px;}
+  .card .ic{width:40px;height:40px;border-radius:10px;background:var(--info-bg);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+  .card h3{font-size:16px;font-weight:600;margin-bottom:5px;}
+  .card p{font-size:13.5px;color:var(--t2);}
+  .pain{background:var(--bg2);}
+  .pain .card{background:var(--bg);border:none;}
+  .pain .em{font-size:24px;margin-bottom:10px;}
+  .steps{counter-reset:step;}
+  .step{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--br);}
+  .step:last-child{border-bottom:none;}
+  .step-n{width:34px;height:34px;border-radius:50%;background:var(--info);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+  .step h3{font-size:16.5px;font-weight:600;margin-bottom:3px;}
+  .step p{font-size:14px;color:var(--t2);max-width:520px;}
+  .shield-demo{border:1px solid var(--br);border-radius:14px;overflow:hidden;max-width:440px;}
+  .sd-head{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--dang-bg);}
+  .sd-head p{font-size:14px;font-weight:700;color:var(--dang);}
+  .sd-head small{font-size:12px;color:var(--dang);font-weight:400;display:block;}
+  .sd-row{display:flex;align-items:center;gap:9px;padding:9px 14px;border-top:1px solid var(--br);font-size:13px;}
+  .sd-row small{color:var(--t3);font-size:11.5px;display:block;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+  .chip{border:1px solid var(--br);border-radius:20px;padding:8px 14px;font-size:13px;font-weight:500;background:var(--bg);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .tier{border:1px solid var(--br);border-radius:16px;padding:24px;}
+  .tier.hl{border:2px solid var(--info);background:var(--info-bg);}
+  .tier .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:12px;margin-bottom:12px;}
+  .tier h3{font-size:19px;font-weight:700;margin-bottom:6px;}
+  .tier>p{font-size:14px;color:var(--t2);margin-bottom:14px;}
+  .tier.hl>p{color:var(--info);}
+  .tier ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .tier li{display:flex;gap:8px;font-size:13.5px;align-items:flex-start;}
+  .tier li svg{flex-shrink:0;margin-top:2px;}
+  .cta{background:var(--info);border-radius:20px;padding:44px 28px;text-align:center;color:#fff;}
+  .cta h2{color:#fff;margin-bottom:8px;}
+  .cta p{font-size:15px;opacity:.85;margin-bottom:22px;}
+  .cta .btn{background:#fff;color:var(--info);}
+  .cta .hero-note{color:rgba(255,255,255,.7);}
+  footer{padding:26px 0 34px;border-top:1px solid var(--br);}
+  .frow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--t3);}
+  @media(max-width:820px){
+    .hero{grid-template-columns:1fr;padding:34px 0 24px;gap:28px;}
+    h1{font-size:31px;}
+    .grid3{grid-template-columns:1fr;}
+    .two{grid-template-columns:1fr;}
+    .phone{width:290px;}
+    h2{font-size:24px;}
+    section{padding:34px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hrow">
+    <div class="logo"><span>B</span>BuhHub</div>
+    <a class="btn small wa-green wa" href="#">Написать в WhatsApp</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="badge">Ранний доступ · для ИП и ТОО Казахстана</div>
+      <h1>Бумаги вашего бизнеса ведут себя сами</h1>
+      <p class="sub">Договоры, счета, оплаты и акты — в одном месте и без бухгалтерских знаний. Платформа помнит, кто должен оплатить и подписать, и напоминает сама.</p>
+      <a class="btn wa" href="#">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Хочу попробовать
+      </a>
+      <p class="hero-note">Откроется чат в WhatsApp — отвечу лично и подключу к раннему доступу</p>
+    </div>
+    <div class="phone">
+      <div class="ph-top"><b>ИП Алимов</b><span class="ph-ava">А</span></div>
+      <p class="ph-hi">Добрый день 👋</p>
+      <p class="ph-sub">1 дело ждёт вас — остальное идёт само</p>
+      <div class="ph-row">
+        <span class="ph-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6c6b64" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span>
+        <div style="flex:1;min-width:0;"><p>Подписать получение товара<small>ТОО «СтройМир» · 450 000 ₸</small></p></div>
+        <span class="pill p-warn">подпись</span>
+      </div>
+      <div class="ph-row">
+        <span class="ph-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6c6b64" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></span>
+        <div style="flex:1;min-width:0;"><p>Оплатить счёт — всё готово<small>ИП Нурлан · 80 000 ₸</small></p></div>
+        <span class="pill p-info">оплатить</span>
+      </div>
+      <div class="ph-shield">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="2"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        <p>Новый контрагент благонадёжен<small>проверили по 6 базам — чисто</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="pain">
+  <div class="wrap">
+    <p class="sec-label">Знакомо?</p>
+    <h2>Бизнес идёт, а бумаги — нет</h2>
+    <div class="grid3" style="margin-top:22px;">
+      <div class="card"><div class="em">😤</div><h3>Оплатили — а акт не подписали</h3><p>Контрагент тянет, вы забываете. Через полгода налоговая спрашивает документы — а их нет.</p></div>
+      <div class="card"><div class="em">🔎</div><h3>Счёт потерялся в WhatsApp</h3><p>Договорённости устные, счета в чатах, накладные в папке на полке. Что оплачено, кто должен — не помнит никто.</p></div>
+      <div class="card"><div class="em">🤝</div><h3>Непонятно, кому можно верить</h3><p>Новый поставщик просит предоплату. Фирма настоящая? Долги? Суды? Проверять некогда и негде.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sec-label">Как это работает</p>
+    <h2>Начните с одного документа</h2>
+    <p class="sec-sub">Никаких «внедрений» и обучения. Польза — с первой минуты.</p>
+    <div class="steps">
+      <div class="step"><span class="step-n">1</span><div><h3>Сфотографируйте счёт</h3><p>Платформа сама распознает реквизиты и сумму, подготовит платёжку для банка и нужные документы — доверенность, накладную или акт. Вводить руками ничего не нужно.</p></div></div>
+      <div class="step"><span class="step-n">2</span><div><h3>Платформа помнит и напоминает</h3><p>Кто должен оплатить, кто — подписать, какой этап договора подходит по сроку. Напоминания уходят контрагентам сами — вам не нужно быть «человеком, который всем про всё напоминает».</p></div></div>
+      <div class="step"><span class="step-n">3</span><div><h3>Всё по стандарту — как у бухгалтера</h3><p>Счета, накладные З-2, акты Р-1, доверенности — по формам, которые принимают банк, налоговая и контрагенты. Отправка и подписание — прямо в WhatsApp.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="pain">
+  <div class="wrap">
+    <p class="sec-label">Проверка контрагента</p>
+    <h2>Узнайте, с кем работаете, — до того как заплатите</h2>
+    <p class="sec-sub">Ввели БИН — и перед договором платформа сама проверит компанию по открытым базам: налоговая, судебные исполнители, суды, госзакупки.</p>
+    <div class="shield-demo" style="background:#fff;">
+      <div class="sd-head">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="2"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></svg>
+        <p>Будьте осторожны<small>долги у судебных исполнителей — работайте без предоплаты</small></p>
+      </div>
+      <div class="sd-row"><span style="color:#3b6d11;">✓</span><div>Зарегистрирована и действует<small>госбаза КГД</small></div></div>
+      <div class="sd-row"><span style="color:#3b6d11;">✓</span><div>Налоговая задолженность<small>КГД · чисто</small></div></div>
+      <div class="sd-row"><span style="color:#a32d2d;">✕</span><div>Долги у судебных исполнителей<small>3 производства на 2,4 млн ₸</small></div></div>
+      <div class="sd-row"><span style="color:#a32d2d;">✕</span><div>Судебные дела как ответчик<small>2 иска за последний год</small></div></div>
+    </div>
+    <div class="chips">
+      <span class="chip">📄 Договор</span><span class="chip">🧾 Счёт на оплату</span><span class="chip">🚚 Накладная З-2</span><span class="chip">✅ АВР Р-1</span><span class="chip">🪪 Доверенность</span><span class="chip">⚖️ Акт сверки</span><span class="chip">🏛 ЭСФ</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sec-label">Два способа вести дела</p>
+    <h2>Сначала сами — потом со специалистом, если захотите</h2>
+    <div class="two" style="margin-top:22px;">
+      <div class="tier hl">
+        <span class="tag" style="background:#fff;color:var(--info);">начните так</span>
+        <h3>Самостоятельно</h3>
+        <p>Вы за рулём — платформа подсказывает каждый шаг</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#185fa5" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>все документы и напоминания — сами</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#185fa5" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>проверка контрагентов перед сделкой</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#185fa5" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>баланс «кто кому должен» всегда под рукой</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <span class="tag" style="background:var(--bg2);color:var(--t2);">можно позже</span>
+        <h3>Со специалистом</h3>
+        <p>Живой финансист с командой ведёт все процессы за вас</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>оформление, контроль сроков, отчётность — не ваша забота</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>вас зовут только оплатить и подписать</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>подключается в любой момент — одной кнопкой</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta">
+      <h2>Попробуйте на своём следующем счёте</h2>
+      <p>Ранний доступ открыт для небольшого числа компаний — напишите, расскажу и подключу</p>
+      <a class="btn wa" href="#">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Написать в WhatsApp
+      </a>
+      <p class="hero-note">Обычно отвечаю в течение часа</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div class="logo" style="font-size:14px;"><span style="width:24px;height:24px;font-size:13px;border-radius:6px;">B</span>BuhHub</div>
+    <span>© 2026 BuhHub · Казахстан</span>
+  </div>
+</footer>
+
+<script>
+  // Номер WhatsApp для заявок — одно место для замены
+  var WA_NUMBER='77000000000'; // TODO: заменить на реальный номер
+  var WA_TEXT='Здравствуйте! Хочу попробовать BuhHub для своего бизнеса.';
+  document.querySelectorAll('a.wa').forEach(function(a){
+    a.href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(WA_TEXT);
+    a.target='_blank'; a.rel='noopener';
+  });
+</script>
+</body>
+</html>
