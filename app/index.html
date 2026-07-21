@@ -838,7 +838,9 @@
           <div id="st-tiles" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;"></div>
           <p style="font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;">Финансы</p>
           <div id="st-fin" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
-          <p style="font-size:12px;color:var(--color-text-tertiary);margin:0;line-height:1.55;">Цифры считаются из ваших документов сами. Динамика по месяцам и связка с продажами (Sauda) — на этапе кода.</p>
+          <p style="font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;">Динамика по месяцам</p>
+          <div id="st-chart" style="margin-bottom:12px;"></div>
+          <p style="font-size:12px;color:var(--color-text-tertiary);margin:0;line-height:1.55;">Цифры считаются из ваших документов сами. Связка с продажами (Sauda) — на этапе кода.</p>
         </div>
       </div>
     </section>
@@ -2375,6 +2377,30 @@ function renderStats(){
   myC.forEach(function(k){if(k.role==='i'&&k.cost){costAll+=k.cost;profitAll+=k.total-k.cost;profC++;}});
   if(profC) f.innerHTML+=finRow('Себестоимость ('+profC+' сдел.)',money(costAll))
     +finRow('Чистая прибыль по сделкам',money(profitAll),profitAll>=0?'var(--color-text-success)':'var(--color-text-danger)');
+  var ch=document.getElementById('st-chart');
+  if(ch){
+    var now=new Date(); var months=[];
+    for(var mi=5;mi>=0;mi--){var md=new Date(now.getFullYear(),now.getMonth()-mi,1);months.push({y:md.getFullYear(),m:md.getMonth(),inn:0,out:0});}
+    var MN=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+    var bucket=function(ds,amt,key){if(!ds)return;var d=new Date(ds);months.forEach(function(b){if(b.y===d.getFullYear()&&b.m===d.getMonth())b[key]+=amt;});};
+    myI.forEach(function(v){(v.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'inn');});});
+    myB.forEach(function(b){(b.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'out');});});
+    var mx=1; months.forEach(function(b){mx=Math.max(mx,b.inn,b.out);});
+    var any=months.some(function(b){return b.inn||b.out;});
+    var short=function(n){if(n>=1000000)return (Math.round(n/100000)/10)+'м';if(n>=1000)return Math.round(n/1000)+'к';return ''+n;};
+    if(!any){ch.innerHTML='<p style="font-size:12px;color:var(--color-text-tertiary);margin:0;">появится после первых оплат</p>';}
+    else{
+      ch.innerHTML='<div style="display:flex;gap:6px;align-items:flex-end;">'+months.map(function(b){
+        var h1=Math.round(72*b.inn/mx), h2=Math.round(72*b.out/mx);
+        return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;">'
+          +'<div style="display:flex;gap:3px;align-items:flex-end;height:88px;">'
+          +'<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;"><span style="font-size:9px;color:var(--color-text-success);">'+(b.inn?short(b.inn):'')+'</span><div style="width:13px;height:'+(b.inn?Math.max(h1,3):0)+'px;background:var(--color-text-success);opacity:.75;border-radius:3px 3px 0 0;"></div></div>'
+          +'<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;"><span style="font-size:9px;color:var(--color-text-danger);">'+(b.out?short(b.out):'')+'</span><div style="width:13px;height:'+(b.out?Math.max(h2,3):0)+'px;background:var(--color-text-danger);opacity:.55;border-radius:3px 3px 0 0;"></div></div>'
+          +'</div><span style="font-size:10px;color:var(--color-text-tertiary);">'+MN[b.m]+'</span></div>';
+      }).join('')+'</div>'
+      +'<div style="display:flex;gap:14px;margin-top:6px;"><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-success);opacity:.75;border-radius:2px;margin-right:4px;"></span>получено</span><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-danger);opacity:.55;border-radius:2px;margin-right:4px;"></span>оплачено вами</span></div>';
+    }
+  }
 }
 var inbills=[]; var currentInBill=-1; var inCp=-1; var inMatchNum=null; var ipProof=false; var doverCtx=-1;
 try{inbills=JSON.parse(localStorage.getItem('buhhub-inbills')||'[]');}catch(e){}
