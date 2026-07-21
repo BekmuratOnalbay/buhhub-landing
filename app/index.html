@@ -2099,17 +2099,27 @@ function renderHome(){
   }
   var hm=document.getElementById('home-money');
   if(hm){
-    var earned=0, expect=0;
-    invoices.filter(mine).forEach(function(v){earned+=v.paid;expect+=v.total-v.paid;});
+    var gotIn=0, waitIn=0;
+    invoices.filter(mine).forEach(function(v){gotIn+=v.paid;waitIn+=Math.max(0,v.total-v.paid);});
+    var paidOut=0, oweOut=0;
+    inbills.filter(mine).forEach(function(b){paidOut+=b.paid;oweOut+=Math.max(0,b.sum-b.paid);});
     var profit=0, profN=0;
     contracts.filter(mine).forEach(function(k){if(k.role==='i'&&k.cost){profit+=k.total-k.cost;profN++;}});
-    if(!(earned||expect||profN)){hm.innerHTML='';}
+    var today=new Date().toISOString().slice(0,10);
+    var over=0; invoices.filter(mine).forEach(function(v){if(v.due&&v.due<today&&v.paid<v.total)over+=v.total-v.paid;});
+    inbills.filter(mine).forEach(function(b){if(b.due&&b.due<today&&b.paid<b.sum)over+=b.sum-b.paid;});
+    if(!(gotIn||waitIn||paidOut||oweOut||profN)){hm.innerHTML='';}
     else{
-      hm.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:2px 0 8px;cursor:pointer;" onclick="nav(\'stats\')">'
-        +'<div style="background:var(--color-background-success);border-radius:8px;padding:10px;"><p style="font-size:15px;font-weight:600;color:var(--color-text-success);margin:0;white-space:nowrap;">'+money(earned)+'</p><p style="font-size:11px;color:var(--color-text-success);margin:2px 0 0;">заработано</p></div>'
-        +'<div style="background:var(--color-background-warning);border-radius:8px;padding:10px;"><p style="font-size:15px;font-weight:600;color:var(--color-text-warning);margin:0;white-space:nowrap;">'+money(expect)+'</p><p style="font-size:11px;color:var(--color-text-warning);margin:2px 0 0;">ожидается</p></div>'
-        +'<div style="background:var(--color-background-info);border-radius:8px;padding:10px;"><p style="font-size:15px;font-weight:600;color:var(--color-text-info);margin:0;white-space:nowrap;">'+(profN?money(profit):'—')+'</p><p style="font-size:11px;color:var(--color-text-info);margin:2px 0 0;">прибыль</p></div>'
+      var tile=function(sum,label,bg,fg){return '<div style="background:'+bg+';border-radius:8px;padding:10px;"><p style="font-size:15px;font-weight:600;color:'+fg+';margin:0;white-space:nowrap;">'+money(sum)+'</p><p style="font-size:11px;color:'+fg+';margin:2px 0 0;">'+label+'</p></div>';};
+      var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2px 0 0;cursor:pointer;" onclick="nav(\'stats\')">'
+        +tile(gotIn,'нам оплатили','var(--color-background-success)','var(--color-text-success)')
+        +tile(paidOut,'мы заплатили','var(--color-background-secondary)','var(--color-text-secondary)')
+        +tile(waitIn,'нам должны','var(--color-background-warning)','var(--color-text-warning)')
+        +tile(oweOut,'мы должны','var(--color-background-danger)','var(--color-text-danger)')
         +'</div>';
+      if(profN) html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--color-background-info);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="nav(\'stats\')"><span style="font-size:12px;color:var(--color-text-info);">чистая прибыль по сделкам</span><span style="font-size:13px;font-weight:600;color:var(--color-text-info);">'+money(profit)+'</span></div>';
+      if(over) html+='<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--color-background-danger);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="nav(\'documents\')"><i class="ti ti-alert-triangle" style="font-size:15px;color:var(--color-text-danger);"></i><span style="font-size:12px;font-weight:500;color:var(--color-text-danger);">просрочено '+money(over)+' — сроки оплаты прошли</span></div>';
+      hm.innerHTML=html+'<div style="height:8px;"></div>';
     }
   }
 }
