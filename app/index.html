@@ -61,6 +61,10 @@
   .side{display:none!important;}
   .stage{padding:16px 0;}
   .phone .navbar{display:none;}
+  @media (max-width:760px){
+    .gnav .nav-i[data-tab="more"] .nav-lbl{display:none;}
+    .gnav .nav-i[data-tab="more"]{justify-content:center;}
+  }
   .gnav{position:fixed;bottom:0;left:0;right:0;z-index:40;display:flex;justify-content:space-around;padding:10px 8px 14px;background:var(--color-background-primary);border-top:1px solid var(--color-border-tertiary);}
   @media (max-width:1099px){
     body.has-gnav .view.phoneview .phone{padding-bottom:60px;}
@@ -115,7 +119,6 @@
     <div class="grp" style="cursor:pointer;display:flex;align-items:center;gap:6px;" onclick="var e=document.getElementById('dbg-group');e.style.display=e.style.display==='none'?'block':'none';this.querySelector('i').className=e.style.display==='none'?'ti ti-chevron-right':'ti ti-chevron-down';"><i class="ti ti-chevron-right" style="font-size:12px;"></i>Все экраны</div>
     <div id="dbg-group" style="display:none;">
       <div class="navlink" data-go="onboard2" onclick="nav('onboard2')"><i class="ti ti-building-store"></i>Ваша компания</div>
-      <div class="navlink" data-go="companies" onclick="nav('companies')"><i class="ti ti-buildings"></i>Мои компании</div>
       <div class="navlink" data-go="drole" onclick="nav('drole')"><i class="ti ti-writing-sign"></i>Договор: роль</div>
       <div class="navlink" data-go="dogovor" onclick="nav('dogovor')"><i class="ti ti-writing-sign"></i>Договор: форма</div>
       <div class="navlink" data-go="cp-pick" onclick="nav('cp-pick')"><i class="ti ti-users"></i>Контрагент: выбор</div>
@@ -153,7 +156,7 @@
       <span class="nav-i" data-tab="home" onclick="nav('home')"><i class="ti ti-home" style="font-size:21px;"></i>Главная</span>
       <span class="nav-i" data-tab="docs" onclick="nav('documents')"><i class="ti ti-file-text" style="font-size:21px;"></i>Документы</span>
       <span class="nav-i" data-tab="bal" onclick="nav('balance')"><i class="ti ti-scale" style="font-size:21px;"></i>Баланс</span>
-      <span class="nav-i" data-tab="more" onclick="nav('more')"><i class="ti ti-dots" style="font-size:21px;"></i>Ещё</span>
+      <span class="nav-i" data-tab="more" onclick="nav('more')"><i class="ti ti-settings" style="font-size:21px;"></i><span class="nav-lbl">Настройки</span></span>
     </div>
 
     <section class="view" data-view="spec-board">
@@ -407,20 +410,6 @@
           </div>
           <button class="btn" style="margin-bottom:8px;" onclick="addCompany()">Да, добавить</button>
           <button class="btn-o" onclick="nav('onboard')">Ввести другой БИН</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="view phoneview" data-view="companies">
-      <div class="phone">
-        <div class="hd"><span class="t">Мои компании</span></div>
-        <div style="display:flex;flex-direction:column;min-height:540px;padding:0 18px 18px;">
-          <div style="flex:1;">
-            <p style="font-size:13px;color:var(--color-text-secondary);margin:2px 0 10px;">Рабочая зона — все компании, которые вы ведёте. Нажмите, чтобы переключиться.</p>
-            <div id="company-list" style="display:flex;flex-direction:column;gap:8px;"></div>
-            <div class="row" style="margin-top:8px;border-style:dashed;border-width:1.5px;border-color:var(--color-border-secondary);" onclick="newCompany()"><span class="ic" style="width:38px;height:38px;border-radius:50%;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-plus" style="font-size:19px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Добавить компанию</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">по БИН — как первую</p></div></div>
-          </div>
-          <button class="btn" onclick="nav('home')">В кабинет</button>
         </div>
       </div>
     </section>
@@ -1147,7 +1136,7 @@
 
     <section class="view phoneview" data-view="more">
       <div class="phone">
-        <div style="padding:18px 18px 12px;"><p style="font-size:20px;font-weight:500;margin:0;">Ещё</p></div>
+        <div style="padding:18px 18px 12px;"><p style="font-size:20px;font-weight:500;margin:0;">Настройки</p></div>
         <div style="padding:0 18px;">
           <div style="display:flex;align-items:center;gap:12px;padding:14px 12px;background:var(--color-background-secondary);border-radius:8px;margin-bottom:14px;"><span style="width:42px;height:42px;border-radius:50%;background:var(--color-background-info);color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;" class="company-avatar">М</span><div><p style="font-size:15px;font-weight:500;margin:0;" class="company-name">Моя компания</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;" id="company-bin-line">пройдите онбординг — данные появятся</p></div></div>
           <div style="display:flex;align-items:center;gap:12px;padding:14px 12px;border:2px solid var(--color-border-info);border-radius:8px;margin-bottom:14px;cursor:pointer;" onclick="nav('upgrade')"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-info);color:var(--color-text-info);"><i class="ti ti-user-shield" style="font-size:20px;"></i></span><div style="flex:1;"><p style="font-size:14px;font-weight:500;margin:0;">Доверить специалисту</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;">сейчас: самостоятельный тариф</p></div><i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-info);"></i></div>
@@ -1977,8 +1966,8 @@ function addCompany(){
   companies.push({name:name,bin:bin,ceo:ceoTxt});
   activeCompany=companies.length-1;
   applyCompany();renderCompanies();saveCompanies();
-  if(companies.length===1){if(typeof renderHome==='function')renderHome();nav('home');}
-  else nav('companies');
+  if(typeof renderHome==='function')renderHome();
+  nav('home');
 }
 function toggleCompanyMenu(ev){
   if(ev) ev.stopPropagation();
@@ -3361,7 +3350,7 @@ function updateGnav(id){
   var show=!!(sec&&sec.classList.contains('phoneview'))&&!pre;
   gn.style.display=show?'':'none';
   document.body.classList[show?'add':'remove']('has-gnav');
-  var map={home:'home',documents:'docs',doclist:'docs',folder:'docs','folder-pro':'docs',balance:'bal',more:'more',stats:'more','my-req':'more',employees:'more',upgrade:'more','upgrade-done':'more',companies:'more'};
+  var map={home:'home',documents:'docs',doclist:'docs',folder:'docs','folder-pro':'docs',balance:'bal',more:'more',stats:'more','my-req':'more',employees:'more',upgrade:'more','upgrade-done':'more'};
   var tab=map[id]||'home';
   gn.querySelectorAll('.nav-i').forEach(function(el){el.classList[el.getAttribute('data-tab')===tab?'add':'remove']('on');});
 }
