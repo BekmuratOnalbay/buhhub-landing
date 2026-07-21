@@ -454,7 +454,7 @@
         <div style="display:flex;flex-direction:column;min-height:540px;padding:6px 18px 18px;">
           <div style="flex:1;">
             <p style="font-size:20px;font-weight:500;margin:0 0 4px;">Как это будет</p>
-            <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 16px;line-height:1.5;">весь путь до денег — четыре шага, большую часть платформа делает сама</p>
+            <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 16px;line-height:1.5;">весь путь до денег — пять шагов, большую часть платформа делает сама</p>
             <div id="tg-steps"></div>
             <div style="display:flex;gap:8px;padding:11px 12px;background:var(--color-background-info);border:1px solid var(--color-border-info);border-radius:8px;margin-top:14px;"><i class="ti ti-bell-ringing" style="font-size:16px;color:var(--color-text-info);flex-shrink:0;margin-top:1px;"></i><p style="font-size:12px;color:var(--color-text-info);margin:0;line-height:1.5;">мы напомним о каждом шаге — ничего держать в голове не нужно</p></div>
           </div>
@@ -652,6 +652,9 @@
             </div>
           </div>
 
+          <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 6px;">Себестоимость <span style="color:var(--color-text-tertiary);">· не обязательно</span></p>
+          <input class="inp" id="dg-cost" style="margin-bottom:4px;" placeholder="ваши затраты по этой сделке · 0 ₸" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
+          <p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 14px;">на этапе 5 покажем чистую прибыль сделки — можно указать и позже</p>
           <div id="single-pay">
           <div style="height:1px;background:var(--color-border-tertiary);margin:0 0 14px;"></div>
           <p style="font-size:14px;font-weight:500;margin:0 0 2px;">Условия оплаты</p>
@@ -803,6 +806,7 @@
         <div class="hd"><i class="ti ti-arrow-left bk" onclick="goBack()"></i><span class="t">Сделка</span></div>
         <div style="padding:0 18px 18px;">
           <div id="deal-head"></div>
+          <div id="deal-stages" style="margin:12px 0 0;"></div>
           <p style="font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px;">Цепочка</p>
           <div id="deal-chain" style="display:flex;flex-direction:column;gap:2px;margin-bottom:14px;"></div>
           <div id="deal-actions" style="display:flex;flex-direction:column;gap:8px;"></div>
@@ -1540,7 +1544,7 @@ function saveDogovor(){
     total=parseInt((document.getElementById('total-s').value||'').replace(/\D/g,''),10)||0;
     pred=document.getElementById('pred-s').value||(kind==='t'?'товар':'услуга');
   }
-  var rec={num:0,co:coName(),cp:c?c.name:'Контрагент',pred:pred,total:total,stages:stages,role:dogRole,kind:kind,start:document.getElementById('dg-start').value||'',end:document.getElementById('dg-end').value||''};
+  var rec={num:0,co:coName(),cp:c?c.name:'Контрагент',pred:pred,total:total,stages:stages,role:dogRole,kind:kind,start:document.getElementById('dg-start').value||'',end:document.getElementById('dg-end').value||'',cost:parseInt((document.getElementById('dg-cost')?document.getElementById('dg-cost').value:'').replace(/\D/g,''),10)||0};
   if(draftContractIdx>=0&&contracts[draftContractIdx]){
     rec.num=contracts[draftContractIdx].num;
     contracts[draftContractIdx]=rec;
@@ -2069,7 +2073,8 @@ function renderHome(){
   var bt=buildTasks(), tasks=bt.tasks, done=bt.done;
   var shown=tasks.slice(0,3).join('');
   if(tasks.length>3) shown+='<div class="row" style="justify-content:center;border-style:dashed;border-width:1.5px;" onclick="nav(\'tasks\')"><span style="font-size:13px;font-weight:500;color:var(--color-text-info);">Показать все дела ('+tasks.length+')</span></div>';
-  tb.innerHTML=tasks.length?shown:'<div style="border:1.5px dashed var(--color-border-secondary);border-radius:8px;padding:16px;text-align:center;"><p style="font-size:13px;color:var(--color-text-tertiary);margin:0;line-height:1.55;">Всё спокойно — дел нет.<br>Мы напомним, когда что-то потребуется</p></div>';
+  var _dc=contracts.filter(mine).length+invoices.filter(mine).length+inbills.filter(mine).length;
+  tb.innerHTML=tasks.length?shown:(_dc?'<div style="border:1.5px dashed var(--color-border-secondary);border-radius:8px;padding:16px;text-align:center;"><p style="font-size:13px;color:var(--color-text-tertiary);margin:0;line-height:1.55;">Всё спокойно — дел нет.<br>Мы напомним, когда что-то потребуется</p></div>':homeIntroHtml());
   document.getElementById('home-cnt-wait').textContent=tasks.length;
   document.getElementById('home-cnt-done').textContent=done;
   var tw=document.getElementById('home-tile-wait');
@@ -2111,6 +2116,7 @@ function openDeal(i){
   document.getElementById('deal-head').innerHTML=
     '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;"><p style="font-size:18px;font-weight:600;margin:0;">'+k.cp+'</p><span class="pill" style="background:var(--color-background-secondary);color:var(--color-text-secondary);">'+(k.role==='i'?'вы исполнитель':'вы заказчик')+'</span></div>'
     +'<p style="font-size:13px;color:var(--color-text-secondary);margin:0;">'+k.pred+' · договор №'+k.num+' · '+money(k.total)+'</p>';
+  var ds=document.getElementById('deal-stages'); if(ds) ds.innerHTML=dealStagesHtml(k,i);
   var ch='';
   ch+=chainRow('ok','ti-writing-sign','Договор №'+k.num+' подписан','WhatsApp · «Да, согласен»');
   var invs=invoicesOf(k.num), paid=contractPaid(k.num);
@@ -2349,6 +2355,10 @@ function renderStats(){
     +(toPay?finRow('К оплате (вы должны)',money(toPay),'var(--color-text-danger)'):'')
     +(contractedI?finRow('Ещё не выставлено',money(Math.max(0,contractedI-invoiced))):'')
     +(overdue?finRow('Просрочено',money(overdue),'var(--color-text-danger)'):'');
+  var costAll=0, profitAll=0, profC=0;
+  myC.forEach(function(k){if(k.role==='i'&&k.cost){costAll+=k.cost;profitAll+=k.total-k.cost;profC++;}});
+  if(profC) f.innerHTML+=finRow('Себестоимость ('+profC+' сдел.)',money(costAll))
+    +finRow('Чистая прибыль по сделкам',money(profitAll),profitAll>=0?'var(--color-text-success)':'var(--color-text-danger)');
 }
 var inbills=[]; var currentInBill=-1; var inCp=-1; var inMatchNum=null; var ipProof=false; var doverCtx=-1;
 try{inbills=JSON.parse(localStorage.getItem('buhhub-inbills')||'[]');}catch(e){}
@@ -3249,28 +3259,29 @@ function regConfirm(){
   if(hello&&regUser.name) hello.textContent=regUser.name+', добро пожаловать 👋';
   nav('onboard');
 }
-function tgStepHtml(n,title,desc,st){
+function tgStepHtml(n,title,desc,st,last){
   var c=st==='done'?['var(--color-background-success)','var(--color-text-success)']:st==='now'?['var(--color-background-info)','var(--color-text-info)']:['var(--color-background-secondary)','var(--color-text-tertiary)'];
   var icon=st==='done'?'<i class="ti ti-check" style="font-size:15px;"></i>':n;
   return '<div style="display:flex;gap:11px;align-items:flex-start;">'
     +'<div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">'
     +'<span style="width:28px;height:28px;border-radius:50%;background:'+c[0]+';color:'+c[1]+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">'+icon+'</span>'
-    +(n<4?'<span style="width:2px;height:24px;background:var(--color-border-tertiary);"></span>':'')
+    +(!last?'<span style="width:2px;height:24px;background:var(--color-border-tertiary);"></span>':'')
     +'</div>'
     +'<div style="min-width:0;padding-top:4px;"><p style="font-size:14px;font-weight:500;margin:0;'+(st==='next'?'color:var(--color-text-tertiary);':'')+'">'+title+(st==='now'?' <span class="pill" style="background:var(--color-background-info);color:var(--color-text-info);">вы здесь</span>':'')+'</p><p style="font-size:12px;color:var(--color-text-tertiary);margin:1px 0 0;line-height:1.45;">'+desc+'</p></div></div>';
 }
 function startGetPaid(){
   var hasI=contracts.filter(function(k){return mine(k)&&k.role==='i';}).length>0;
   var steps=[
-    ['Договорённость','что продаёте, за сколько и когда платят — станет договором в PDF'],
-    ['Счёт','по договорённости в один тап — уйдёт клиенту в WhatsApp'],
-    ['Оплата','клиент платит по платёжке — вы отмечаете, платформа следит за сроками'],
-    ['Закрывающие','накладная или акт — соберём сами, останется подписать']
+    ['Договор или расписка','фиксируете условия — уйдёт на подписание в WhatsApp, напомним обеим сторонам'],
+    ['Оплата','счёт и платёжка по условиям договора — предоплата, постоплата или этапами'],
+    ['Закрывающие','товар: накладная и доверенность · услуга: АВР — плюс акт сверки'],
+    ['ЭСФ','электронная счёт-фактура — фиксация сделки для esf.gov.kz'],
+    ['Прибыль','себестоимость и чистая прибыль сделки — видно, что вы заработали']
   ];
   var box=document.getElementById('tg-steps');
   if(box) box.innerHTML=steps.map(function(s,i){
     var st=hasI?(i===0?'done':(i===1?'now':'next')):(i===0?'now':'next');
-    return tgStepHtml(i+1,s[0],s[1],st);
+    return tgStepHtml(i+1,s[0],s[1],st,i===steps.length-1);
   }).join('');
   var btn=document.getElementById('tg-btn');
   if(btn){
@@ -3278,6 +3289,57 @@ function startGetPaid(){
     else{btn.textContent='Зафиксировать договорённость';btn.onclick=function(){nav('drole');};}
   }
   nav('task-get');
+}
+function dealStagesHtml(k,i){
+  var paid=0;
+  if(k.role==='z'){inbillsOf(k.num).forEach(function(x){paid+=x.b.paid;});}
+  else{paid=contractPaid(k.num);}
+  var paidFull=k.total>0&&paid>=k.total;
+  var closDone=closersNeeded(k).every(function(n){var r=closersOf(k.num).filter(function(c){return c.type===n.type;})[0];return r&&r.status==='signed';});
+  var invNums=invoicesOf(k.num).map(function(x){return x.v.num;});
+  var hasEsf=esfs.some(function(e){return e.co===k.co&&invNums.indexOf(e.invNum)>=0;});
+  var sts=[
+    'done',
+    paidFull?'done':'now',
+    closDone?'done':(paidFull?'now':'next'),
+    hasEsf?'done':(closDone?'now':'next'),
+    k.cost?'done':((closDone||hasEsf)?'now':'next')
+  ];
+  var names=['Договор','Оплата','Закрывающие','ЭСФ','Прибыль'];
+  var dots=names.map(function(nm,j){
+    var st=sts[j];
+    var c=st==='done'?['var(--color-background-success)','var(--color-text-success)']:st==='now'?['var(--color-background-info)','var(--color-text-info)']:['var(--color-background-secondary)','var(--color-text-tertiary)'];
+    var icon=st==='done'?'<i class="ti ti-check" style="font-size:13px;"></i>':(j+1);
+    return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;">'
+      +'<span style="width:24px;height:24px;border-radius:50%;background:'+c[0]+';color:'+c[1]+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;">'+icon+'</span>'
+      +'<span style="font-size:10px;color:'+(st==='next'?'var(--color-text-tertiary)':c[1])+';white-space:nowrap;">'+nm+'</span></div>';
+  }).join('<span style="flex:0 0 8px;height:2px;background:var(--color-border-tertiary);margin-top:11px;"></span>');
+  var fin;
+  if(k.cost){
+    var pr=k.total-k.cost;
+    fin='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;background:var(--color-background-success);border-radius:8px;margin-top:10px;">'
+      +'<span style="font-size:12px;color:var(--color-text-success);">себестоимость '+money(k.cost)+'</span>'
+      +'<span style="font-size:13px;font-weight:600;color:'+(pr>=0?'var(--color-text-success)':'var(--color-text-danger)')+';">прибыль '+money(pr)+'</span></div>';
+  }else{
+    fin='<div style="display:flex;gap:8px;margin-top:10px;">'
+      +'<input class="inp" id="deal-cost-inp" style="flex:1;padding:9px 12px;font-size:13px;" placeholder="себестоимость · 0 ₸" inputmode="numeric" oninput="this.value=this.value.replace(/\\D/g,\'\')">'
+      +'<button class="btn" style="width:auto;padding:9px 14px;font-size:13px;" onclick="saveDealCost('+i+')">Прибыль</button></div>';
+  }
+  return '<div style="display:flex;align-items:flex-start;">'+dots+'</div>'+fin;
+}
+function saveDealCost(i){
+  var inp=document.getElementById('deal-cost-inp'); if(!inp) return;
+  var v=parseInt((inp.value||'').replace(/\D/g,''),10)||0;
+  if(!v){inp.focus();return;}
+  contracts[i].cost=v; saveContracts(); openDeal(i);
+}
+function homeIntroHtml(){
+  var names=['Договор или расписка','Оплата','Закрывающие документы','ЭСФ для налоговой','Прибыль сделки'];
+  return '<div style="border:1px solid var(--color-border-info);background:var(--color-background-info);border-radius:10px;padding:14px;">'
+    +'<p style="font-size:14px;font-weight:600;margin:0 0 2px;color:var(--color-text-info);">Как это работает</p>'
+    +'<p style="font-size:12px;color:var(--color-text-info);margin:0 0 10px;line-height:1.45;">каждая сделка — пять шагов, платформа ведёт по ним сама и напоминает</p>'
+    +names.map(function(nm,j){return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="width:20px;height:20px;border-radius:50%;background:#fff;color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">'+(j+1)+'</span><span style="font-size:13px;color:var(--color-text-info);">'+nm+'</span></div>';}).join('')
+    +'<button class="btn" style="margin-top:8px;" onclick="startGetPaid()">Начать первую сделку</button></div>';
 }
 function renderSignWarn(){
   var w=document.getElementById('sign-warn'); if(!w) return;
