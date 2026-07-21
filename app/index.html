@@ -2093,9 +2093,9 @@ function renderHome(){
     var invAll=myI.length+myB.length;
     var docAll=myC.length+invAll+dovers.filter(mine).length+sverki.filter(mine).length+esfs.filter(mine).length+closers.filter(mine).length;
     hs.innerHTML=secBtn('Сделки',myC.length,'ti-folder','nav(\'deals\')')
-      +secBtn('Договоры',myC.length,'ti-writing-sign','openDocCat(\'contracts\')')
       +secBtn('Счета',invAll,'ti-receipt','openDocCat(\'invoices\')')
-      +secBtn('Все документы',docAll,'ti-file-text','nav(\'documents\')');
+      +secBtn('Все документы',docAll,'ti-file-text','nav(\'documents\')')
+      +secBtn('Показатели','<i class="ti ti-chart-bar" style="font-size:18px;"></i>','ti-chart-line','nav(\'stats\')');
   }
   var hm=document.getElementById('home-money');
   if(hm){
