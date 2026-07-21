@@ -445,8 +445,6 @@
           <div class="row" style="padding:10px 12px;" onclick="openSverka()"><span class="ic" style="width:32px;height:32px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-scale" style="font-size:17px;"></i></span><p style="flex:1;min-width:0;font-size:14px;font-weight:500;margin:0;">Акт сверки</p><i class="ti ti-chevron-right" style="font-size:16px;color:var(--color-text-tertiary);"></i></div>
           <p style="font-size:11px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:6px 0 -2px;">Этап 4 · ЭСФ</p>
           <div class="row" style="padding:10px 12px;" onclick="openEsf()"><span class="ic" style="width:32px;height:32px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-receipt-tax" style="font-size:17px;"></i></span><p style="flex:1;min-width:0;font-size:14px;font-weight:500;margin:0;">Счёт-фактура (ЭСФ)</p><i class="ti ti-chevron-right" style="font-size:16px;color:var(--color-text-tertiary);"></i></div>
-          <p style="font-size:11px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:6px 0 -2px;">Этап 5 · Прибыль</p>
-          <div class="row" style="padding:10px 12px;" onclick="nav('stats')"><span class="ic" style="width:32px;height:32px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-chart-bar" style="font-size:17px;"></i></span><p style="flex:1;min-width:0;font-size:14px;font-weight:500;margin:0;">Показатели и финансы</p><i class="ti ti-chevron-right" style="font-size:16px;color:var(--color-text-tertiary);"></i></div>
         </div>
       </div>
     </section>
@@ -1142,7 +1140,6 @@
         <div style="padding:0 18px;">
           <div style="display:flex;align-items:center;gap:12px;padding:14px 12px;background:var(--color-background-secondary);border-radius:8px;margin-bottom:14px;"><span style="width:42px;height:42px;border-radius:50%;background:var(--color-background-info);color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;" class="company-avatar">М</span><div><p style="font-size:15px;font-weight:500;margin:0;" class="company-name">Моя компания</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;" id="company-bin-line">пройдите онбординг — данные появятся</p></div></div>
           <div style="display:flex;align-items:center;gap:12px;padding:14px 12px;border:2px solid var(--color-border-info);border-radius:8px;margin-bottom:14px;cursor:pointer;" onclick="nav('upgrade')"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-info);color:var(--color-text-info);"><i class="ti ti-user-shield" style="font-size:20px;"></i></span><div style="flex:1;"><p style="font-size:14px;font-weight:500;margin:0;">Доверить специалисту</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;">сейчас: самостоятельный тариф</p></div><i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-info);"></i></div>
-          <div style="display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--color-border-tertiary);cursor:pointer;" onclick="nav('stats')"><i class="ti ti-chart-bar" style="font-size:19px;color:var(--color-text-secondary);"></i><span style="flex:1;font-size:14px;">Показатели и финансы</span><i class="ti ti-chevron-right" style="font-size:16px;color:var(--color-text-tertiary);"></i></div>
           <div style="display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--color-border-tertiary);cursor:pointer;" onclick="openMyReq()"><i class="ti ti-id-badge-2" style="font-size:19px;color:var(--color-text-secondary);"></i><span style="flex:1;font-size:14px;">Реквизиты компании</span><i class="ti ti-chevron-right" style="font-size:16px;color:var(--color-text-tertiary);"></i></div>
           <div style="display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--color-border-tertiary);"><i class="ti ti-briefcase" style="font-size:19px;color:var(--color-text-secondary);"></i><span style="flex:1;font-size:14px;">Виды деятельности (ОКЭД)</span><i class="ti ti-chevron-right" style="font-size:16px;color:var(--color-text-tertiary);"></i></div>
           <div style="display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--color-border-tertiary);cursor:pointer;" onclick="openEmployees()"><i class="ti ti-users" style="font-size:19px;color:var(--color-text-secondary);"></i><span style="flex:1;font-size:14px;">Сотрудники</span><i class="ti ti-chevron-right" style="font-size:16px;color:var(--color-text-tertiary);"></i></div>
@@ -2094,8 +2091,7 @@ function renderHome(){
     var docAll=myC.length+invAll+dovers.filter(mine).length+sverki.filter(mine).length+esfs.filter(mine).length+closers.filter(mine).length;
     hs.innerHTML=secBtn('Сделки',myC.length,'ti-folder','nav(\'deals\')')
       +secBtn('Счета',invAll,'ti-receipt','openDocCat(\'invoices\')')
-      +secBtn('Все документы',docAll,'ti-file-text','nav(\'documents\')')
-      +secBtn('Показатели','<i class="ti ti-chart-bar" style="font-size:18px;"></i>','ti-chart-line','nav(\'stats\')');
+      +secBtn('Все документы',docAll,'ti-file-text','nav(\'documents\')');
   }
   var hm=document.getElementById('home-money');
   if(hm){
@@ -2111,14 +2107,16 @@ function renderHome(){
     if(!(gotIn||waitIn||paidOut||oweOut||profN)){hm.innerHTML='';}
     else{
       var tile=function(sum,label,bg,fg){return '<div style="background:'+bg+';border-radius:8px;padding:10px;"><p style="font-size:15px;font-weight:600;color:'+fg+';margin:0;white-space:nowrap;">'+money(sum)+'</p><p style="font-size:11px;color:'+fg+';margin:2px 0 0;">'+label+'</p></div>';};
-      var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2px 0 0;cursor:pointer;" onclick="nav(\'stats\')">'
+      var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2px 0 0;cursor:pointer;" onclick="toggleHomeFin()">'
         +tile(gotIn,'нам оплатили','var(--color-background-success)','var(--color-text-success)')
         +tile(paidOut,'мы заплатили','var(--color-background-secondary)','var(--color-text-secondary)')
         +tile(waitIn,'нам должны','var(--color-background-warning)','var(--color-text-warning)')
         +tile(oweOut,'мы должны','var(--color-background-danger)','var(--color-text-danger)')
         +'</div>';
-      if(profN) html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--color-background-info);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="nav(\'stats\')"><span style="font-size:12px;color:var(--color-text-info);">чистая прибыль по сделкам</span><span style="font-size:13px;font-weight:600;color:var(--color-text-info);">'+money(profit)+'</span></div>';
+      if(profN) html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--color-background-info);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="toggleHomeFin()"><span style="font-size:12px;color:var(--color-text-info);">чистая прибыль по сделкам</span><span style="font-size:13px;font-weight:600;color:var(--color-text-info);">'+money(profit)+'</span></div>';
       if(over) html+='<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--color-background-danger);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="nav(\'documents\')"><i class="ti ti-alert-triangle" style="font-size:15px;color:var(--color-text-danger);"></i><span style="font-size:12px;font-weight:500;color:var(--color-text-danger);">просрочено '+money(over)+' — сроки оплаты прошли</span></div>';
+      html+='<div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;cursor:pointer;" onclick="toggleHomeFin()"><span style="font-size:12px;font-weight:500;color:var(--color-text-secondary);">динамика по месяцам</span><i id="home-fin-caret" class="ti ti-chevron-down" style="font-size:14px;color:var(--color-text-tertiary);transition:transform .15s;"></i></div>';
+      html+='<div id="home-fin-det" style="display:none;"></div>';
       hm.innerHTML=html+'<div style="height:8px;"></div>';
     }
   }
@@ -3393,6 +3391,42 @@ function homeIntroHtml(){
     +'<p style="font-size:12px;color:var(--color-text-info);margin:0 0 10px;line-height:1.45;">каждая сделка — пять шагов, платформа ведёт по ним сама и напоминает</p>'
     +names.map(function(nm,j){return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="width:20px;height:20px;border-radius:50%;background:#fff;color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">'+(j+1)+'</span><span style="font-size:13px;color:var(--color-text-info);">'+nm+'</span></div>';}).join('')
     +'<button class="btn" style="margin-top:8px;" onclick="startGetPaid()">Начать первую сделку</button></div>';
+}
+function toggleHomeFin(){
+  var d=document.getElementById('home-fin-det'), c=document.getElementById('home-fin-caret');
+  if(!d) return;
+  var open=d.style.display!=='none';
+  if(open){d.style.display='none';if(c)c.style.transform='';return;}
+  var myI=invoices.filter(mine), myB=inbills.filter(mine), myC=contracts.filter(mine);
+  var now=new Date(); var months=[];
+  for(var mi=5;mi>=0;mi--){var md=new Date(now.getFullYear(),now.getMonth()-mi,1);months.push({y:md.getFullYear(),m:md.getMonth(),inn:0,out:0});}
+  var MN=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  var bucket=function(ds,amt,key){if(!ds)return;var dd=new Date(ds);months.forEach(function(b){if(b.y===dd.getFullYear()&&b.m===dd.getMonth())b[key]+=amt;});};
+  myI.forEach(function(v){(v.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'inn');});});
+  myB.forEach(function(b){(b.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'out');});});
+  var mx=1; months.forEach(function(b){mx=Math.max(mx,b.inn,b.out);});
+  var any=months.some(function(b){return b.inn||b.out;});
+  var short=function(n){if(n>=1000000)return (Math.round(n/100000)/10)+'м';if(n>=1000)return Math.round(n/1000)+'к';return ''+n;};
+  var html='';
+  if(!any) html='<p style="font-size:12px;color:var(--color-text-tertiary);margin:4px 0 8px;text-align:center;">график появится после первых оплат</p>';
+  else{
+    html='<div style="display:flex;gap:6px;align-items:flex-end;margin-top:4px;">'+months.map(function(b){
+      var h1=Math.round(64*b.inn/mx), h2=Math.round(64*b.out/mx);
+      return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;">'
+        +'<div style="display:flex;gap:3px;align-items:flex-end;height:80px;">'
+        +'<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;"><span style="font-size:9px;color:var(--color-text-success);">'+(b.inn?short(b.inn):'')+'</span><div style="width:12px;height:'+(b.inn?Math.max(h1,3):0)+'px;background:var(--color-text-success);opacity:.75;border-radius:3px 3px 0 0;"></div></div>'
+        +'<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;"><span style="font-size:9px;color:var(--color-text-danger);">'+(b.out?short(b.out):'')+'</span><div style="width:12px;height:'+(b.out?Math.max(h2,3):0)+'px;background:var(--color-text-danger);opacity:.55;border-radius:3px 3px 0 0;"></div></div>'
+        +'</div><span style="font-size:10px;color:var(--color-text-tertiary);">'+MN[b.m]+'</span></div>';
+    }).join('')+'</div>'
+    +'<div style="display:flex;gap:14px;margin:6px 0 8px;"><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-success);opacity:.75;border-radius:2px;margin-right:4px;"></span>получено</span><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-danger);opacity:.55;border-radius:2px;margin-right:4px;"></span>оплачено вами</span></div>';
+  }
+  var contracted=0, contractedI=0, invoiced=0;
+  myC.forEach(function(k){contracted+=k.total;if(k.role==='i')contractedI+=k.total;});
+  myI.forEach(function(v){invoiced+=v.total;});
+  var notInv=Math.max(0,contractedI-invoiced);
+  html+='<div style="display:flex;justify-content:space-between;padding:7px 12px;background:var(--color-background-secondary);border-radius:8px;margin-bottom:6px;"><span style="font-size:12px;color:var(--color-text-secondary);">законтрактовано</span><span style="font-size:12px;font-weight:600;">'+money(contracted)+'</span></div>';
+  if(notInv) html+='<div style="display:flex;justify-content:space-between;padding:7px 12px;background:var(--color-background-secondary);border-radius:8px;"><span style="font-size:12px;color:var(--color-text-secondary);">ещё не выставлено счетов</span><span style="font-size:12px;font-weight:600;">'+money(notInv)+'</span></div>';
+  d.innerHTML=html; d.style.display='block'; if(c)c.style.transform='rotate(180deg)';
 }
 function updateGnav(id){
   var gn=document.getElementById('global-nav'); if(!gn) return;
