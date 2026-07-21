@@ -419,7 +419,7 @@
         <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 18px 12px;"><div style="display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="toggleCompanyMenu(event)"><span style="font-size:16px;font-weight:500;" class="company-name">Моя компания</span><i class="ti ti-chevron-down" style="font-size:16px;color:var(--color-text-secondary);" id="company-caret"></i></div><div style="display:flex;align-items:center;gap:10px;"><span style="width:34px;height:34px;border-radius:50%;background:#1d63a8;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(29,99,168,.35);" onclick="nav('create')" title="Новый документ"><i class="ti ti-plus" style="font-size:19px;"></i></span><span style="width:32px;height:32px;border-radius:50%;background:var(--color-background-info);color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;" class="company-avatar">М</span></div></div>
         <div id="company-menu" style="display:none;position:absolute;top:54px;left:12px;right:12px;background:var(--color-background-primary);border:1px solid var(--color-border-secondary);border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.14);z-index:5;overflow:hidden;"></div>
         <div style="padding:4px 18px 0;"><p style="font-size:22px;font-weight:500;margin:0 0 2px;">Добрый день 👋</p><p style="font-size:14px;color:var(--color-text-secondary);margin:0 0 16px;" id="home-sub">начните с первого документа — это пара минут</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 8px;"><div id="home-tile-wait" style="background:var(--color-background-secondary);border-radius:8px;padding:12px;"><p style="font-size:24px;font-weight:500;color:var(--color-text-secondary);margin:0;" id="home-cnt-wait">0</p><p style="font-size:13px;color:var(--color-text-secondary);margin:2px 0 0;">ждут действий</p></div><div id="home-tile-done" style="background:var(--color-background-secondary);border-radius:8px;padding:12px;"><p style="font-size:24px;font-weight:500;color:var(--color-text-secondary);margin:0;" id="home-cnt-done">0</p><p style="font-size:13px;color:var(--color-text-secondary);margin:2px 0 0;">готово</p></div></div><div id="home-money"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 8px;"><div id="home-tile-wait" style="background:var(--color-background-secondary);border-radius:8px;padding:12px;cursor:pointer;" onclick="nav('tasks')"><p style="font-size:24px;font-weight:500;color:var(--color-text-secondary);margin:0;" id="home-cnt-wait">0</p><p style="font-size:13px;color:var(--color-text-secondary);margin:2px 0 0;">ждут действий</p></div><div id="home-tile-done" style="background:var(--color-background-secondary);border-radius:8px;padding:12px;"><p style="font-size:24px;font-weight:500;color:var(--color-text-secondary);margin:0;" id="home-cnt-done">0</p><p style="font-size:13px;color:var(--color-text-secondary);margin:2px 0 0;">готово</p></div></div><div id="home-money"></div></div>
         <div style="padding:8px 18px 0;"><p style="font-size:14px;font-weight:500;margin:0 0 8px;">Ждут вас</p>
           <div id="home-tasks"></div>
           <p style="font-size:14px;font-weight:500;margin:14px 0 8px;">Разделы</p>
@@ -2106,16 +2106,16 @@ function renderHome(){
     inbills.filter(mine).forEach(function(b){if(b.due&&b.due<today&&b.paid<b.sum)over+=b.sum-b.paid;});
     if(!(gotIn||waitIn||paidOut||oweOut||profN)){hm.innerHTML='';}
     else{
-      var tile=function(sum,label,bg,fg){return '<div style="background:'+bg+';border-radius:8px;padding:10px;"><p style="font-size:15px;font-weight:600;color:'+fg+';margin:0;white-space:nowrap;">'+money(sum)+'</p><p style="font-size:11px;color:'+fg+';margin:2px 0 0;">'+label+'</p></div>';};
-      var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2px 0 0;cursor:pointer;" onclick="toggleHomeFin()">'
-        +tile(gotIn,'нам оплатили','var(--color-background-success)','var(--color-text-success)')
-        +tile(paidOut,'мы заплатили','var(--color-background-secondary)','var(--color-text-secondary)')
-        +tile(waitIn,'нам должны','var(--color-background-warning)','var(--color-text-warning)')
-        +tile(oweOut,'мы должны','var(--color-background-danger)','var(--color-text-danger)')
+      var tile=function(kind,sum,label,bg,fg){return '<div style="background:'+bg+';border-radius:8px;padding:10px;cursor:pointer;" onclick="toggleHomeFin(\''+kind+'\')"><p style="font-size:15px;font-weight:600;color:'+fg+';margin:0;white-space:nowrap;">'+money(sum)+'</p><p style="font-size:11px;color:'+fg+';margin:2px 0 0;">'+label+'</p></div>';};
+      var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2px 0 0;">'
+        +tile('income',gotIn,'доход · нам оплатили','var(--color-background-success)','var(--color-text-success)')
+        +tile('expense',paidOut,'расход · мы оплатили','var(--color-background-secondary)','var(--color-text-secondary)')
+        +tile('owed',waitIn,'нам должны','var(--color-background-warning)','var(--color-text-warning)')
+        +tile('owe',oweOut,'мы должны','var(--color-background-danger)','var(--color-text-danger)')
         +'</div>';
-      if(profN) html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--color-background-info);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="toggleHomeFin()"><span style="font-size:12px;color:var(--color-text-info);">чистая прибыль по сделкам</span><span style="font-size:13px;font-weight:600;color:var(--color-text-info);">'+money(profit)+'</span></div>';
+      if(profN) html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--color-background-info);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="toggleHomeFin(\'all\')"><span style="font-size:12px;color:var(--color-text-info);">чистая прибыль по сделкам</span><span style="font-size:13px;font-weight:600;color:var(--color-text-info);">'+money(profit)+'</span></div>';
       if(over) html+='<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--color-background-danger);border-radius:8px;margin-top:8px;cursor:pointer;" onclick="nav(\'documents\')"><i class="ti ti-alert-triangle" style="font-size:15px;color:var(--color-text-danger);"></i><span style="font-size:12px;font-weight:500;color:var(--color-text-danger);">просрочено '+money(over)+' — сроки оплаты прошли</span></div>';
-      html+='<div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;cursor:pointer;" onclick="toggleHomeFin()"><span style="font-size:12px;font-weight:500;color:var(--color-text-secondary);">динамика по месяцам</span><i id="home-fin-caret" class="ti ti-chevron-down" style="font-size:14px;color:var(--color-text-tertiary);transition:transform .15s;"></i></div>';
+      html+='<div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;cursor:pointer;" onclick="toggleHomeFin(\'all\')"><span style="font-size:12px;font-weight:500;color:var(--color-text-secondary);">динамика по месяцам</span><i id="home-fin-caret" class="ti ti-chevron-down" style="font-size:14px;color:var(--color-text-tertiary);transition:transform .15s;"></i></div>';
       html+='<div id="home-fin-det" style="display:none;"></div>';
       hm.innerHTML=html+'<div style="height:8px;"></div>';
     }
@@ -3392,40 +3392,81 @@ function homeIntroHtml(){
     +names.map(function(nm,j){return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="width:20px;height:20px;border-radius:50%;background:#fff;color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">'+(j+1)+'</span><span style="font-size:13px;color:var(--color-text-info);">'+nm+'</span></div>';}).join('')
     +'<button class="btn" style="margin-top:8px;" onclick="startGetPaid()">Начать первую сделку</button></div>';
 }
-function toggleHomeFin(){
+function toggleHomeFin(kind){
+  kind=kind||'all';
   var d=document.getElementById('home-fin-det'), c=document.getElementById('home-fin-caret');
   if(!d) return;
   var open=d.style.display!=='none';
-  if(open){d.style.display='none';if(c)c.style.transform='';return;}
+  if(open&&window._hfKind===kind){d.style.display='none';if(c)c.style.transform='';window._hfKind=null;return;}
+  window._hfKind=kind;
   var myI=invoices.filter(mine), myB=inbills.filter(mine), myC=contracts.filter(mine);
-  var now=new Date(); var months=[];
-  for(var mi=5;mi>=0;mi--){var md=new Date(now.getFullYear(),now.getMonth()-mi,1);months.push({y:md.getFullYear(),m:md.getMonth(),inn:0,out:0});}
-  var MN=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
-  var bucket=function(ds,amt,key){if(!ds)return;var dd=new Date(ds);months.forEach(function(b){if(b.y===dd.getFullYear()&&b.m===dd.getMonth())b[key]+=amt;});};
-  myI.forEach(function(v){(v.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'inn');});});
-  myB.forEach(function(b){(b.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'out');});});
-  var mx=1; months.forEach(function(b){mx=Math.max(mx,b.inn,b.out);});
-  var any=months.some(function(b){return b.inn||b.out;});
+  var today=new Date().toISOString().slice(0,10);
   var short=function(n){if(n>=1000000)return (Math.round(n/100000)/10)+'м';if(n>=1000)return Math.round(n/1000)+'к';return ''+n;};
+  var head=function(t){return '<p style="font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:8px 0 6px;">'+t+'</p>';};
+  var rowKV=function(k,v,color){return '<div style="display:flex;justify-content:space-between;padding:7px 12px;background:var(--color-background-secondary);border-radius:8px;margin-bottom:6px;"><span style="font-size:12px;color:var(--color-text-secondary);">'+k+'</span><span style="font-size:12px;font-weight:600;'+(color?'color:'+color+';':'')+'">'+v+'</span></div>';};
+  var chart=function(mode){
+    var now=new Date(); var months=[];
+    for(var mi=5;mi>=0;mi--){var md=new Date(now.getFullYear(),now.getMonth()-mi,1);months.push({y:md.getFullYear(),m:md.getMonth(),inn:0,out:0});}
+    var MN=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+    var bucket=function(ds,amt,key){if(!ds)return;var dd=new Date(ds);months.forEach(function(b){if(b.y===dd.getFullYear()&&b.m===dd.getMonth())b[key]+=amt;});};
+    if(mode!=='out') myI.forEach(function(v){(v.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'inn');});});
+    if(mode!=='in') myB.forEach(function(b){(b.payments||[]).forEach(function(pp){bucket(pp.date,pp.sum,'out');});});
+    var mx=1; months.forEach(function(b){mx=Math.max(mx,b.inn,b.out);});
+    var any=months.some(function(b){return b.inn||b.out;});
+    if(!any) return '<p style="font-size:12px;color:var(--color-text-tertiary);margin:4px 0 8px;text-align:center;">график появится после первых оплат</p>';
+    var bar=function(v,color,op){var h=Math.round(64*v/mx);return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;"><span style="font-size:9px;color:'+color+';">'+(v?short(v):'')+'</span><div style="width:12px;height:'+(v?Math.max(h,3):0)+'px;background:'+color+';opacity:'+op+';border-radius:3px 3px 0 0;"></div></div>';};
+    var out='<div style="display:flex;gap:6px;align-items:flex-end;margin-top:4px;">'+months.map(function(b){
+      var bars='';
+      if(mode!=='out') bars+=bar(b.inn,'var(--color-text-success)','.75');
+      if(mode!=='in') bars+=bar(b.out,'var(--color-text-danger)','.55');
+      return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;"><div style="display:flex;gap:3px;align-items:flex-end;height:80px;">'+bars+'</div><span style="font-size:10px;color:var(--color-text-tertiary);">'+MN[b.m]+'</span></div>';
+    }).join('')+'</div>';
+    if(mode==='both') out+='<div style="display:flex;gap:14px;margin:6px 0 8px;"><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-success);opacity:.75;border-radius:2px;margin-right:4px;"></span>доход</span><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-danger);opacity:.55;border-radius:2px;margin-right:4px;"></span>расход</span></div>';
+    else out+='<div style="height:8px;"></div>';
+    return out;
+  };
+  var unpaidList=function(items){
+    if(!items.length) return '<p style="font-size:12px;color:var(--color-text-tertiary);margin:4px 0 8px;text-align:center;">всё оплачено — долгов нет</p>';
+    var lim=items.slice(0,4);
+    var out=lim.map(function(it){
+      var late=it.due&&it.due<today;
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--color-background-secondary);border-radius:8px;margin-bottom:6px;'+(it.go?'cursor:pointer;':'')+'" '+(it.go?'onclick="'+it.go+'"':'')+'><div style="min-width:0;"><p style="font-size:13px;font-weight:500;margin:0;">'+it.cp+'</p><p style="font-size:11px;color:'+(late?'var(--color-text-danger)':'var(--color-text-tertiary)')+';margin:1px 0 0;">'+(late?'просрочен · ':'')+(it.due?'срок '+fmtDate(it.due):'без срока')+'</p></div><span style="font-size:13px;font-weight:600;white-space:nowrap;">'+money(it.rest)+'</span></div>';
+    }).join('');
+    if(items.length>4) out+='<p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 6px;text-align:center;">и ещё '+(items.length-4)+'</p>';
+    return out;
+  };
   var html='';
-  if(!any) html='<p style="font-size:12px;color:var(--color-text-tertiary);margin:4px 0 8px;text-align:center;">график появится после первых оплат</p>';
-  else{
-    html='<div style="display:flex;gap:6px;align-items:flex-end;margin-top:4px;">'+months.map(function(b){
-      var h1=Math.round(64*b.inn/mx), h2=Math.round(64*b.out/mx);
-      return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;">'
-        +'<div style="display:flex;gap:3px;align-items:flex-end;height:80px;">'
-        +'<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;"><span style="font-size:9px;color:var(--color-text-success);">'+(b.inn?short(b.inn):'')+'</span><div style="width:12px;height:'+(b.inn?Math.max(h1,3):0)+'px;background:var(--color-text-success);opacity:.75;border-radius:3px 3px 0 0;"></div></div>'
-        +'<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;"><span style="font-size:9px;color:var(--color-text-danger);">'+(b.out?short(b.out):'')+'</span><div style="width:12px;height:'+(b.out?Math.max(h2,3):0)+'px;background:var(--color-text-danger);opacity:.55;border-radius:3px 3px 0 0;"></div></div>'
-        +'</div><span style="font-size:10px;color:var(--color-text-tertiary);">'+MN[b.m]+'</span></div>';
-    }).join('')+'</div>'
-    +'<div style="display:flex;gap:14px;margin:6px 0 8px;"><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-success);opacity:.75;border-radius:2px;margin-right:4px;"></span>получено</span><span style="font-size:11px;color:var(--color-text-secondary);"><span style="display:inline-block;width:9px;height:9px;background:var(--color-text-danger);opacity:.55;border-radius:2px;margin-right:4px;"></span>оплачено вами</span></div>';
+  if(kind==='income'){
+    var gotIn=0, waitIn=0; myI.forEach(function(v){gotIn+=v.paid;waitIn+=Math.max(0,v.total-v.paid);});
+    html+=head('Доход — что нам оплатили');
+    html+=chart('in');
+    html+=rowKV('получено всего',money(gotIn),'var(--color-text-success)');
+    if(waitIn) html+=rowKV('ожидается ещё',money(waitIn),'var(--color-text-warning)');
+  }else if(kind==='expense'){
+    var pd=0, po=0; myB.forEach(function(b){if(b.contractNum)pd+=b.paid;else po+=b.paid;});
+    html+=head('Расход — что мы оплатили');
+    html+=chart('out');
+    html+=rowKV('расходы по сделкам',money(pd));
+    html+=rowKV('общие расходы компании',money(po));
+    html+='<p style="font-size:11px;color:var(--color-text-tertiary);margin:0 0 6px;">счёт привязан к договору — расход сделки; без договора — общий расход</p>';
+  }else if(kind==='owed'){
+    html+=head('Нам должны — по выставленным счетам');
+    var arr=[]; myI.forEach(function(v,idx){var r=v.total-v.paid;if(r>0)arr.push({cp:v.cp,rest:r,due:v.due});});
+    html+=unpaidList(arr);
+  }else if(kind==='owe'){
+    html+=head('Мы должны — по входящим счетам');
+    var arr2=[]; myB.forEach(function(b){var r=b.sum-b.paid;if(r>0)arr2.push({cp:b.cp,rest:r,due:b.due});});
+    html+=unpaidList(arr2);
+  }else{
+    html+=head('Динамика по месяцам');
+    html+=chart('both');
+    var contracted=0, contractedI=0, invoiced=0;
+    myC.forEach(function(k){contracted+=k.total;if(k.role==='i')contractedI+=k.total;});
+    myI.forEach(function(v){invoiced+=v.total;});
+    var notInv=Math.max(0,contractedI-invoiced);
+    html+=rowKV('законтрактовано',money(contracted));
+    if(notInv) html+=rowKV('ещё не выставлено счетов',money(notInv));
   }
-  var contracted=0, contractedI=0, invoiced=0;
-  myC.forEach(function(k){contracted+=k.total;if(k.role==='i')contractedI+=k.total;});
-  myI.forEach(function(v){invoiced+=v.total;});
-  var notInv=Math.max(0,contractedI-invoiced);
-  html+='<div style="display:flex;justify-content:space-between;padding:7px 12px;background:var(--color-background-secondary);border-radius:8px;margin-bottom:6px;"><span style="font-size:12px;color:var(--color-text-secondary);">законтрактовано</span><span style="font-size:12px;font-weight:600;">'+money(contracted)+'</span></div>';
-  if(notInv) html+='<div style="display:flex;justify-content:space-between;padding:7px 12px;background:var(--color-background-secondary);border-radius:8px;"><span style="font-size:12px;color:var(--color-text-secondary);">ещё не выставлено счетов</span><span style="font-size:12px;font-weight:600;">'+money(notInv)+'</span></div>';
   d.innerHTML=html; d.style.display='block'; if(c)c.style.transform='rotate(180deg)';
 }
 function updateGnav(id){
