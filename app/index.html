@@ -60,13 +60,21 @@
   .hd{display:flex;align-items:center;gap:12px;padding:18px;}
   .side{display:none!important;}
   .stage{padding:16px 0;}
+  .phone .navbar{display:none;}
+  .gnav{position:fixed;bottom:0;left:0;right:0;z-index:40;display:flex;justify-content:space-around;padding:10px 8px 14px;background:var(--color-background-primary);border-top:1px solid var(--color-border-tertiary);}
+  @media (max-width:1099px){
+    body.has-gnav .view.phoneview .phone{padding-bottom:60px;}
+  }
+  @media (min-width:761px) and (max-width:1099px){
+    .gnav{left:50%;right:auto;transform:translateX(-50%);width:400px;bottom:14px;border:1px solid var(--color-border-tertiary);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.10);}
+  }
   @media (min-width:1100px){
     .view.phoneview .phone{width:640px;}
-    .view.phoneview .navbar{position:fixed;left:calc(50vw - 320px - 192px);top:96px;flex-direction:column;justify-content:flex-start;gap:4px;width:168px;margin:0;padding:14px 10px 10px;background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06);}
-    .view.phoneview .navbar::before{content:"BuhHub";display:block;font-size:16px;font-weight:600;padding:0 8px 10px;color:var(--color-text-primary);}
-    .view.phoneview .nav-i{flex-direction:row;gap:11px;font-size:14px;padding:9px 10px;border-radius:8px;width:100%;justify-content:flex-start;}
-    .view.phoneview .nav-i:hover{background:var(--color-background-secondary);}
-    .view.phoneview .nav-i.on{background:var(--color-background-info);color:var(--color-text-info);font-weight:500;}
+    .gnav{left:calc(50vw - 320px - 192px);right:auto;bottom:auto;top:96px;flex-direction:column;justify-content:flex-start;gap:4px;width:168px;padding:14px 10px 10px;border:1px solid var(--color-border-tertiary);border-top:1px solid var(--color-border-tertiary);border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06);}
+    .gnav::before{content:"BuhHub";display:block;font-size:16px;font-weight:600;padding:0 8px 10px;color:var(--color-text-primary);}
+    .gnav .nav-i{flex-direction:row;gap:11px;font-size:14px;padding:9px 10px;border-radius:8px;width:100%;justify-content:flex-start;}
+    .gnav .nav-i:hover{background:var(--color-background-secondary);}
+    .gnav .nav-i.on{background:var(--color-background-info);color:var(--color-text-info);font-weight:500;}
   }
   @media (max-width:760px){
     .side{display:none;}
@@ -140,6 +148,13 @@
   </aside>
 
   <main class="stage">
+
+    <div id="global-nav" class="gnav" style="display:none;">
+      <span class="nav-i" data-tab="home" onclick="nav('home')"><i class="ti ti-home" style="font-size:21px;"></i>Главная</span>
+      <span class="nav-i" data-tab="docs" onclick="nav('documents')"><i class="ti ti-file-text" style="font-size:21px;"></i>Документы</span>
+      <span class="nav-i" data-tab="bal" onclick="nav('balance')"><i class="ti ti-scale" style="font-size:21px;"></i>Баланс</span>
+      <span class="nav-i" data-tab="more" onclick="nav('more')"><i class="ti ti-dots" style="font-size:21px;"></i>Ещё</span>
+    </div>
 
     <section class="view" data-view="spec-board">
       <div class="desk">
@@ -1262,6 +1277,7 @@ function nav(id){
   try{
     if(id==='home'&&typeof renderHome==='function') renderHome();
     if(id==='sign'&&typeof renderSignWarn==='function') renderSignWarn();
+    if(typeof updateGnav==='function') updateGnav(id);
     if(id==='documents'&&typeof renderDocs==='function') renderDocs();
     if(id==='balance'&&typeof renderBalance==='function') renderBalance();
     if(id==='stats'&&typeof renderStats==='function') renderStats();
@@ -3340,6 +3356,17 @@ function homeIntroHtml(){
     +'<p style="font-size:12px;color:var(--color-text-info);margin:0 0 10px;line-height:1.45;">каждая сделка — пять шагов, платформа ведёт по ним сама и напоминает</p>'
     +names.map(function(nm,j){return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="width:20px;height:20px;border-radius:50%;background:#fff;color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">'+(j+1)+'</span><span style="font-size:13px;color:var(--color-text-info);">'+nm+'</span></div>';}).join('')
     +'<button class="btn" style="margin-top:8px;" onclick="startGetPaid()">Начать первую сделку</button></div>';
+}
+function updateGnav(id){
+  var gn=document.getElementById('global-nav'); if(!gn) return;
+  var sec=document.querySelector('.view[data-view="'+id+'"]');
+  var pre=['welcome','reg','reg-code','onboard','onboard2'].indexOf(id)>=0;
+  var show=!!(sec&&sec.classList.contains('phoneview'))&&!pre;
+  gn.style.display=show?'':'none';
+  document.body.classList[show?'add':'remove']('has-gnav');
+  var map={home:'home',documents:'docs',doclist:'docs',folder:'docs','folder-pro':'docs',balance:'bal',more:'more',stats:'more','my-req':'more',employees:'more',upgrade:'more','upgrade-done':'more',companies:'more'};
+  var tab=map[id]||'home';
+  gn.querySelectorAll('.nav-i').forEach(function(el){el.classList[el.getAttribute('data-tab')===tab?'add':'remove']('on');});
 }
 function renderSignWarn(){
   var w=document.getElementById('sign-warn'); if(!w) return;
