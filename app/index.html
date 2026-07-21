@@ -326,15 +326,15 @@
           <div style="flex:1;">
             <p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 10px;">Бумаги вашего бизнеса ведут себя сами · <span style="color:var(--color-text-info);cursor:pointer;" onclick="nav('welcome')">что это?</span></p>
             <p style="font-size:20px;font-weight:500;margin:0 0 4px;">Как к вам обращаться?</p>
-            <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 16px;line-height:1.5;">Без паролей и почты — вход по коду из WhatsApp</p>
+            <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 16px;line-height:1.5;">Без паролей, почты и кодов — только имя и номер WhatsApp</p>
             <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 6px;">Имя</p>
             <input class="inp" id="reg-name" style="margin-bottom:12px;" placeholder="как вас зовут">
             <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 6px;">Телефон (WhatsApp)</p>
             <input class="inp" id="reg-phone" style="margin-bottom:4px;" placeholder="+7 777 123 45 67" inputmode="tel" maxlength="16" oninput="fmtPhone(this)">
             <p id="reg-err" style="display:none;font-size:12px;color:var(--color-text-danger);margin:0 0 8px;"></p>
-            <p style="font-size:12px;color:var(--color-text-tertiary);margin:0;">на этот номер придёт код подтверждения — и сюда же будут приходить напоминания о делах</p>
+            <p style="font-size:12px;color:var(--color-text-tertiary);margin:0;">сюда будут приходить напоминания о делах · номер подтвердим один раз — при первой отправке документа</p>
           </div>
-          <button class="btn" onclick="regSend()">Получить код в WhatsApp</button>
+          <button class="btn" onclick="regSend()">Начать работу</button>
         </div>
       </div>
     </section>
@@ -3241,10 +3241,11 @@ function regSend(){
   if(!phoneOk(phone)) errs.push('телефон — формат +7 777 123 45 67');
   if(errs.length){e.textContent='Проверьте: '+errs.join('; ');e.style.display='block';return;}
   e.style.display='none';
-  window._regPending={name:name,phone:phone};
-  document.getElementById('rc-phone').textContent=phone;
-  document.getElementById('rc-code').value='';
-  nav('reg-code');
+  regUser={name:name,phone:phone};
+  try{localStorage.setItem('buhhub-user',JSON.stringify(regUser));}catch(ex){}
+  var hello=document.getElementById('ob-hello');
+  if(hello&&regUser.name) hello.textContent=regUser.name+', добро пожаловать 👋';
+  nav('onboard');
 }
 function regConfirm(){
   var code=(document.getElementById('rc-code').value||'').trim();
