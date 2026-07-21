@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuhHub — журнал работ</title>
+<style>
+  :root{--bg:#f4f3ee;--card:#fff;--text:#1b1b19;--sec:#6c6b64;--ter:#9c9a92;--line:rgba(0,0,0,.1);
+    --blue:#185fa5;--green:#3b6d11;--greenbg:#e8f3e2;--yellow:#854f0b;--yellowbg:#faeeda;--bluebg:#e6f1fb;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 16px 80px;}
+  h1{font-size:26px;margin:0 0 4px;}
+  .sub{color:var(--sec);font-size:14px;margin-bottom:24px;}
+  .links{margin-bottom:28px;font-size:14px;}
+  .links a{color:var(--blue);text-decoration:none;margin-right:16px;}
+  .day{font-size:13px;font-weight:600;color:var(--ter);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 10px;}
+  .entry{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;}
+  .entry .t{font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .entry .d{color:var(--sec);font-size:14px;margin-top:4px;line-height:1.45;}
+  .tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;}
+  .tag.done{background:var(--greenbg);color:var(--green);}
+  .tag.progress{background:var(--bluebg);color:var(--blue);}
+  .tag.planned{background:var(--bg);color:var(--ter);border:1px solid var(--line);}
+  .tag.deferred{background:var(--yellowbg);color:var(--yellow);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Журнал работ BuhHub</h1>
+  <div class="sub">Каждая работа по проекту отмечается здесь — что сделано, когда и зачем. Обновляется по ходу работы.</div>
+  <div class="links">
+    <a href="/">Лендинг</a>
+    <a href="/app/">Приложение (текущая версия)</a>
+    <a href="/app/v1/">Версия 1 — до редизайна (для сравнения)</a>
+  </div>
+  <div id="feed"></div>
+</div>
+<script>
+// Новые записи добавлять В НАЧАЛО массива. status: done | progress | planned | deferred
+const LOG = [
+  {date:'21 июля 2026', status:'done', title:'Карта сценария «Как это будет»',
+   desc:'Новый экран для задачи «Мне должны заплатить»: четыре шага до денег (договорённость → счёт → оплата → закрывающие) с отметкой «вы здесь». Предприниматель заранее видит весь путь — идея «предсказуемость как в Kaspi».'},
+  {date:'21 июля 2026', status:'done', title:'Задачи вместо документов',
+   desc:'Модалка «Новый документ» переделана: вместо списка из 8 типов документов — три задачи («Мне должны заплатить», «Мне нужно заплатить», «Договориться о сделке») + свёртка «Знаю, какой документ нужен» со старым списком. Предприниматель не обязан знать, что такое АВР.'},
+  {date:'21 июля 2026', status:'done', title:'Мгновенный вход',
+   desc:'Гость попадает сразу на регистрацию (имя + телефон), а не на повторение лендинга. Ценность — одной строкой над формой, полный рассказ по ссылке «что это?». Путь до кабинета: 4 экрана.'},
+  {date:'21 июля 2026', status:'done', title:'Предупреждение о пустых реквизитах при подписании',
+   desc:'Экран подписания больше не говорит «реквизиты обеих сторон готовы», если ваш ИИК/банк пустые: жёлтое предупреждение «В договоре не хватает: …» + кнопка «Дозаполнить мои реквизиты». Защита от позора перед контрагентом.'},
+  {date:'21 июля 2026', status:'done', title:'Бейдж «демо» на светофоре благонадёжности',
+   desc:'Проверка контрагента в свёрнутом виде теперь помечена «демо» — чтобы никто не принял тестовую «задолженность 84 500 ₸» реальной компании за правду. Раньше пометка была видна только при раскрытии.'},
+  {date:'21 июля 2026', status:'done', title:'Десктопная версия — шаг 1',
+   desc:'На мониторах шире 1100px кабинет разворачивается до 600px вместо телефонных 340px — формами и списками можно пользоваться с компьютера. Полноценная раскладка с боковым меню — следующим этапом.'},
+  {date:'21 июля 2026', status:'done', title:'Главная замечает прогресс',
+   desc:'Подзаголовок «начните с первого документа» исчезает после любого первого документа (раньше — только после договора).'},
+  {date:'21 июля 2026', status:'done', title:'Версия 1 сохранена для сравнения',
+   desc:'Прототип до редизайна закоммичен (тег v1-documents) и доступен на /app/v1/ — можно открыть рядом с новой версией и сравнить.'},
+  {date:'21 июля 2026', status:'done', title:'Журнал работ (эта страница)',
+   desc:'Теперь каждая работа по проекту фиксируется здесь с датой и статусом — ничего не остаётся незамеченным.'},
+  {date:'21 июля 2026', status:'planned', title:'Десктоп — полноценная раскладка',
+   desc:'Боковое меню вместо нижней навигации, списки таблицами, формы в две колонки.'},
+  {date:'21 июля 2026', status:'deferred', title:'Исходящий счёт без договора',
+   desc:'Сейчас «Я выставляю счёт» требует договор. В жизни счёт-оферта без договора — норма. Отложено: требует решения по модели данных (входящий без договора уже можно). Обсудить со специалистом.'},
+];
+const STATUS_LABEL = {done:'сделано', progress:'в работе', planned:'запланировано', deferred:'отложено'};
+const feed = document.getElementById('feed');
+let lastDay = '';
+LOG.forEach(e=>{
+  if(e.date!==lastDay){ lastDay=e.date; const d=document.createElement('div'); d.className='day'; d.textContent=e.date; feed.appendChild(d); }
+  const el=document.createElement('div'); el.className='entry';
+  el.innerHTML='<div class="t">'+e.title+' <span class="tag '+e.status+'">'+STATUS_LABEL[e.status]+'</span></div><div class="d">'+e.desc+'</div>';
+  feed.appendChild(el);
+});
+if(!LOG.length){ feed.innerHTML='<div class="entry"><div class="d">Записей пока нет.</div></div>'; }
+</script>
+</body>
+</html>

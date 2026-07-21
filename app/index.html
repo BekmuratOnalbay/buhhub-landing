@@ -60,6 +60,9 @@
   .hd{display:flex;align-items:center;gap:12px;padding:18px;}
   .side{display:none!important;}
   .stage{padding:16px 0;}
+  @media (min-width:1100px){
+    .view.phoneview .phone{width:600px;}
+  }
   @media (max-width:760px){
     .side{display:none;}
     .stage{padding:0;}
@@ -316,6 +319,7 @@
         <div class="hd"><i class="ti ti-arrow-left bk" onclick="nav('welcome')"></i><span class="t">Регистрация</span></div>
         <div style="display:flex;flex-direction:column;min-height:540px;padding:6px 18px 18px;">
           <div style="flex:1;">
+            <p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 10px;">Бумаги вашего бизнеса ведут себя сами · <span style="color:var(--color-text-info);cursor:pointer;" onclick="nav('welcome')">что это?</span></p>
             <p style="font-size:20px;font-weight:500;margin:0 0 4px;">Как к вам обращаться?</p>
             <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 16px;line-height:1.5;">Без паролей и почты — вход по коду из WhatsApp</p>
             <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 6px;">Имя</p>
@@ -421,7 +425,12 @@
         <div style="display:flex;align-items:center;justify-content:space-between;padding:18px;"><span style="font-size:18px;font-weight:500;">Новый документ</span><i class="ti ti-x bk" onclick="goBack()"></i></div>
         <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:9px;">
           <div class="row" style="padding:14px;border-color:var(--color-border-info);background:var(--color-background-info);" onclick="nav('recognize')"><span class="ic" style="width:40px;height:40px;border-radius:8px;background:#fff;color:var(--color-text-info);"><i class="ti ti-camera" style="font-size:21px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:15px;font-weight:500;margin:0;color:var(--color-text-info);">Сфоткать или загрузить</p><p style="font-size:13px;color:var(--color-text-info);margin:1px 0 0;">разберёмся сами, что это за документ</p></div><i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-info);"></i></div>
-          <p style="font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:8px 0 0;">Или создать</p>
+          <p style="font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:8px 0 0;">Что нужно сделать?</p>
+          <div class="row" style="padding:14px;" onclick="startGetPaid()"><span class="ic" style="width:40px;height:40px;border-radius:8px;background:var(--color-background-success);color:var(--color-text-success);"><i class="ti ti-arrow-down-left" style="font-size:21px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:15px;font-weight:500;margin:0;">Мне должны заплатить</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;">получить деньги за товар или услугу</p></div><i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-tertiary);"></i></div>
+          <div class="row" style="padding:14px;" onclick="nav('recognize')"><span class="ic" style="width:40px;height:40px;border-radius:8px;background:var(--color-background-warning);color:var(--color-text-warning);"><i class="ti ti-arrow-up-right" style="font-size:21px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:15px;font-weight:500;margin:0;">Мне нужно заплатить</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;">оплатить счёт от поставщика — платёжка и документы</p></div><i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-tertiary);"></i></div>
+          <div class="row" style="padding:14px;" onclick="nav('drole')"><span class="ic" style="width:40px;height:40px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-writing-sign" style="font-size:21px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:15px;font-weight:500;margin:0;">Договориться о сделке</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;">зафиксировать: что, за сколько, когда платят</p></div><i class="ti ti-chevron-right" style="font-size:18px;color:var(--color-text-tertiary);"></i></div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;cursor:pointer;" onclick="var x=document.getElementById('create-alldocs');var c=document.getElementById('create-caret');var o=x.style.display!=='none';x.style.display=o?'none':'flex';c.style.transform=o?'':'rotate(180deg)';"><span style="font-size:13px;font-weight:500;color:var(--color-text-secondary);">Знаю, какой документ нужен</span><i id="create-caret" class="ti ti-chevron-down" style="font-size:15px;color:var(--color-text-tertiary);transition:transform .15s;"></i></div>
+          <div id="create-alldocs" style="display:none;flex-direction:column;gap:9px;">
           <div class="row" onclick="nav('drole')"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-writing-sign" style="font-size:20px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Договор</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">зафиксировать договорённость</p></div><i class="ti ti-chevron-right" style="font-size:17px;color:var(--color-text-tertiary);"></i></div>
           <div class="row" onclick="nav('invoice-dir')"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-file-invoice" style="font-size:20px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Счёт на оплату</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">мне выставили или я выставляю</p></div><i class="ti ti-chevron-right" style="font-size:17px;color:var(--color-text-tertiary);"></i></div>
           <div class="row" onclick="openNakladPick()"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-truck" style="font-size:20px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Накладная</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">передача товара</p></div><i class="ti ti-chevron-right" style="font-size:17px;color:var(--color-text-tertiary);"></i></div>
@@ -429,6 +438,22 @@
           <div class="row" onclick="openDoverPick()"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-id-badge-2" style="font-size:20px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Доверенность</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">кто заберёт товар</p></div><i class="ti ti-chevron-right" style="font-size:17px;color:var(--color-text-tertiary);"></i></div>
           <div class="row" onclick="openSverka()"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-scale" style="font-size:20px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Акт сверки</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">кто кому сколько должен за период</p></div><i class="ti ti-chevron-right" style="font-size:17px;color:var(--color-text-tertiary);"></i></div>
           <div class="row" onclick="openEsf()"><span class="ic" style="width:38px;height:38px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary);"><i class="ti ti-receipt-tax" style="font-size:20px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Счёт-фактура</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">ЭСФ — налоговый документ к сделке</p></div><i class="ti ti-chevron-right" style="font-size:17px;color:var(--color-text-tertiary);"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view phoneview" data-view="task-get">
+      <div class="phone">
+        <div class="hd"><i class="ti ti-arrow-left bk" onclick="goBack()"></i><span class="t">Получить оплату</span></div>
+        <div style="display:flex;flex-direction:column;min-height:540px;padding:6px 18px 18px;">
+          <div style="flex:1;">
+            <p style="font-size:20px;font-weight:500;margin:0 0 4px;">Как это будет</p>
+            <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 16px;line-height:1.5;">весь путь до денег — четыре шага, большую часть платформа делает сама</p>
+            <div id="tg-steps"></div>
+            <div style="display:flex;gap:8px;padding:11px 12px;background:var(--color-background-info);border:1px solid var(--color-border-info);border-radius:8px;margin-top:14px;"><i class="ti ti-bell-ringing" style="font-size:16px;color:var(--color-text-info);flex-shrink:0;margin-top:1px;"></i><p style="font-size:12px;color:var(--color-text-info);margin:0;line-height:1.5;">мы напомним о каждом шаге — ничего держать в голове не нужно</p></div>
+          </div>
+          <button class="btn" id="tg-btn" onclick="nav('drole')">Начать</button>
         </div>
       </div>
     </section>
@@ -641,11 +666,12 @@
       <div class="phone">
         <div class="hd"><i class="ti ti-arrow-left bk" onclick="goBack()"></i><span class="t">Подписание</span></div>
         <div style="padding:0 18px;">
-          <div style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--color-border-tertiary);border-radius:8px;margin-bottom:10px;"><span class="ic" style="width:40px;height:40px;border-radius:8px;background:var(--color-background-danger);color:var(--color-text-danger);"><i class="ti ti-file-type-pdf" style="font-size:21px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Договор — PDF готов</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;">по стандарту КЗ · реквизиты обеих сторон · ваша подпись</p></div><span class="pill" style="background:var(--color-background-success);color:var(--color-text-success);flex-shrink:0;">сохранён</span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--color-border-tertiary);border-radius:8px;margin-bottom:10px;"><span class="ic" style="width:40px;height:40px;border-radius:8px;background:var(--color-background-danger);color:var(--color-text-danger);"><i class="ti ti-file-type-pdf" style="font-size:21px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;">Договор — PDF готов</p><p style="font-size:12px;color:var(--color-text-secondary);margin:1px 0 0;" id="sign-pdf-sub">по стандарту КЗ · реквизиты обеих сторон · ваша подпись</p></div><span class="pill" style="background:var(--color-background-success);color:var(--color-text-success);flex-shrink:0;">сохранён</span></div>
           <div style="display:flex;gap:10px;padding:12px;background:var(--color-background-info);border:1px solid var(--color-border-info);border-radius:8px;margin-bottom:14px;"><i class="ti ti-scale" style="font-size:18px;color:var(--color-text-info);flex-shrink:0;"></i><p style="font-size:12px;color:var(--color-text-info);margin:0;line-height:1.5;">В текст вшит пункт: стороны признают юридическую силу согласий, отправленных в WhatsApp с номеров, указанных в реквизитах (ст. 152 ГК РК)</p></div>
           <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 6px;">Куда отправим</p>
           <div style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--color-border-tertiary);border-radius:8px;margin-bottom:4px;"><span class="ic" style="width:36px;height:36px;border-radius:50%;background:var(--color-background-success);color:var(--color-text-success);"><i class="ti ti-brand-whatsapp" style="font-size:20px;"></i></span><div style="flex:1;min-width:0;"><p style="font-size:14px;font-weight:500;margin:0;" id="sign-cp">Контрагент</p><p style="font-size:13px;color:var(--color-text-secondary);margin:1px 0 0;" id="sign-phone">номер из реквизитов</p></div></div>
           <p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 14px;">контрагенту не нужно ничего печатать и ставить — ответит в чате</p>
+          <div id="sign-warn"></div>
         </div>
         <div style="padding:4px 18px 18px;display:flex;flex-direction:column;gap:8px;"><button class="btn" style="display:flex;align-items:center;justify-content:center;gap:8px;" onclick="waDogovor()"><i class="ti ti-brand-whatsapp" style="font-size:19px;"></i> Отправить на подписание</button><button class="btn-o" onclick="printDogovor()">Скачать PDF</button><p style="font-size:12px;color:var(--color-text-tertiary);text-align:center;margin:2px 0 0;">откроется чат WhatsApp с готовым текстом — прикрепите скачанный PDF</p></div>
       </div>
@@ -1227,6 +1253,7 @@ function nav(id){
   var st=document.querySelector('.stage'); if(st) st.scrollTop=0; window.scrollTo(0,0);
   try{
     if(id==='home'&&typeof renderHome==='function') renderHome();
+    if(id==='sign'&&typeof renderSignWarn==='function') renderSignWarn();
     if(id==='documents'&&typeof renderDocs==='function') renderDocs();
     if(id==='balance'&&typeof renderBalance==='function') renderBalance();
     if(id==='stats'&&typeof renderStats==='function') renderStats();
@@ -1866,7 +1893,7 @@ function relCardHtml(rel,id){
     +'<div style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:'+c[0]+';cursor:pointer;" onclick="var x=document.getElementById(\''+id+'\');x.style.display=x.style.display===\'none\'?\'block\':\'none\';">'
     +'<i class="ti '+c[2]+'" style="font-size:19px;color:'+c[1]+';flex-shrink:0;"></i>'
     +'<div style="flex:1;min-width:0;"><p style="font-size:13px;font-weight:600;margin:0;color:'+c[1]+';">'+rel.head+'</p><p style="font-size:12px;margin:1px 0 0;color:'+c[1]+';line-height:1.4;">'+rel.sub+'</p></div>'
-    +'<i class="ti ti-chevron-down" style="font-size:15px;color:'+c[1]+';flex-shrink:0;"></i></div>'
+    +'<span class="pill" style="background:rgba(255,255,255,.75);color:'+c[1]+';flex-shrink:0;">демо</span><i class="ti ti-chevron-down" style="font-size:15px;color:'+c[1]+';flex-shrink:0;"></i></div>'
     +'<div id="'+id+'" style="display:none;">'
     +rel.checks.map(function(ch){
       var cc=ch.st==='ok'?['ti-check','var(--color-text-success)']:ch.st==='warn'?['ti-alert-triangle','var(--color-text-warning)']:['ti-x','var(--color-text-danger)'];
@@ -2046,7 +2073,7 @@ function renderHome(){
   var td=document.getElementById('home-tile-done');
   if(done){td.style.background='var(--color-background-success)';td.querySelectorAll('p').forEach(function(p){p.style.color='var(--color-text-success)';});}
   var sub=document.getElementById('home-sub');
-  sub.textContent=contracts.filter(mine).length?(tasks.length?(tasks.length+' '+(tasks.length===1?'дело ждёт':'дела ждут')+' вас'):'всё спокойно — дел нет'):'начните с первого документа — это пара минут';
+  sub.textContent=(contracts.filter(mine).length+invoices.filter(mine).length+inbills.filter(mine).length)?(tasks.length?(tasks.length+' '+(tasks.length===1?'дело ждёт':'дела ждут')+' вас'):'всё спокойно — дел нет'):'начните с первого документа — это пара минут';
   var hs=document.getElementById('home-sections');
   if(hs){
     var myC=contracts.filter(mine), myI=invoices.filter(mine), myB=inbills.filter(mine);
@@ -3217,9 +3244,63 @@ function regConfirm(){
   if(hello&&regUser.name) hello.textContent=regUser.name+', добро пожаловать 👋';
   nav('onboard');
 }
+function tgStepHtml(n,title,desc,st){
+  var c=st==='done'?['var(--color-background-success)','var(--color-text-success)']:st==='now'?['var(--color-background-info)','var(--color-text-info)']:['var(--color-background-secondary)','var(--color-text-tertiary)'];
+  var icon=st==='done'?'<i class="ti ti-check" style="font-size:15px;"></i>':n;
+  return '<div style="display:flex;gap:11px;align-items:flex-start;">'
+    +'<div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">'
+    +'<span style="width:28px;height:28px;border-radius:50%;background:'+c[0]+';color:'+c[1]+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;">'+icon+'</span>'
+    +(n<4?'<span style="width:2px;height:24px;background:var(--color-border-tertiary);"></span>':'')
+    +'</div>'
+    +'<div style="min-width:0;padding-top:4px;"><p style="font-size:14px;font-weight:500;margin:0;'+(st==='next'?'color:var(--color-text-tertiary);':'')+'">'+title+(st==='now'?' <span class="pill" style="background:var(--color-background-info);color:var(--color-text-info);">вы здесь</span>':'')+'</p><p style="font-size:12px;color:var(--color-text-tertiary);margin:1px 0 0;line-height:1.45;">'+desc+'</p></div></div>';
+}
+function startGetPaid(){
+  var hasI=contracts.filter(function(k){return mine(k)&&k.role==='i';}).length>0;
+  var steps=[
+    ['Договорённость','что продаёте, за сколько и когда платят — станет договором в PDF'],
+    ['Счёт','по договорённости в один тап — уйдёт клиенту в WhatsApp'],
+    ['Оплата','клиент платит по платёжке — вы отмечаете, платформа следит за сроками'],
+    ['Закрывающие','накладная или акт — соберём сами, останется подписать']
+  ];
+  var box=document.getElementById('tg-steps');
+  if(box) box.innerHTML=steps.map(function(s,i){
+    var st=hasI?(i===0?'done':(i===1?'now':'next')):(i===0?'now':'next');
+    return tgStepHtml(i+1,s[0],s[1],st);
+  }).join('');
+  var btn=document.getElementById('tg-btn');
+  if(btn){
+    if(hasI){btn.textContent='Выставить счёт';btn.onclick=function(){openInvPick();};}
+    else{btn.textContent='Зафиксировать договорённость';btn.onclick=function(){nav('drole');};}
+  }
+  nav('task-get');
+}
+function renderSignWarn(){
+  var w=document.getElementById('sign-warn'); if(!w) return;
+  var c=companies[activeCompany]||{};
+  var miss=[];
+  if(!c.iik) miss.push('ваш ИИК (счёт)');
+  if(!c.bank) miss.push('банк и БИК');
+  var cp=(typeof chosenContractor!=='undefined'&&contractors[chosenContractor])||{};
+  var cpMiss=[]; if(!cp.iik) cpMiss.push('ИИК'); if(!cp.bank) cpMiss.push('банк');
+  var sub=document.getElementById('sign-pdf-sub');
+  if(!miss.length&&!cpMiss.length){w.innerHTML='';if(sub)sub.textContent='по стандарту КЗ · реквизиты обеих сторон · ваша подпись';return;}
+  if(sub) sub.textContent='по стандарту КЗ · ваша подпись';
+  var html='';
+  if(miss.length){
+    html+='<div style="border:1px solid var(--color-border-tertiary);background:var(--color-background-warning);border-radius:8px;padding:11px 12px;margin-bottom:8px;">'
+      +'<div style="display:flex;gap:8px;"><i class="ti ti-alert-triangle" style="font-size:16px;color:var(--color-text-warning);flex-shrink:0;margin-top:1px;"></i>'
+      +'<div style="min-width:0;"><p style="font-size:13px;font-weight:500;color:var(--color-text-warning);margin:0;">В договоре не хватает: '+miss.join(', ')+'</p>'
+      +'<p style="font-size:12px;color:var(--color-text-warning);margin:2px 0 0;line-height:1.45;">контрагент увидит пустые поля — лучше дозаполнить до отправки</p>'
+      +'<p style="font-size:13px;font-weight:500;color:var(--color-text-info);margin:6px 0 0;cursor:pointer;" onclick="openMyReq()">Дозаполнить мои реквизиты →</p></div></div></div>';
+  }
+  if(cpMiss.length){
+    html+='<p style="font-size:12px;color:var(--color-text-tertiary);margin:0 0 12px;">у контрагента пока нет: '+cpMiss.join(', ')+' — он сможет прислать после подписания</p>';
+  }
+  w.innerHTML=html;
+}
 if(companies.length){applyCompany();renderCompanies();nav('home');}
 else if(regUser){var hl=document.getElementById('ob-hello');if(hl&&regUser.name)hl.textContent=regUser.name+', добро пожаловать 👋';nav('onboard');}
-else{nav('welcome');}
+else{nav('reg');}
 </script>
 </body>
 </html>
