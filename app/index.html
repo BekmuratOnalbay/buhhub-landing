@@ -1926,7 +1926,8 @@ function addCompany(){
   companies.push({name:name,bin:bin,ceo:ceoTxt});
   activeCompany=companies.length-1;
   applyCompany();renderCompanies();saveCompanies();
-  nav('companies');
+  if(companies.length===1){if(typeof renderHome==='function')renderHome();nav('home');}
+  else nav('companies');
 }
 function toggleCompanyMenu(ev){
   if(ev) ev.stopPropagation();
