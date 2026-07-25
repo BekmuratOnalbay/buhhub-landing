@@ -158,6 +158,28 @@
   .back{color:var(--red);font-weight:700;cursor:pointer;font-size:14px}
   .light{display:inline-flex;align-items:center;gap:7px;background:var(--green-soft);color:var(--green);font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 12px}
 
+  /* ══ Деньги: план-факт ══ */
+  .fp-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:520px){.fp-sum{grid-template-columns:1fr 1fr}}
+  .fp-sum .m{background:var(--card);border-radius:14px;padding:13px 15px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .fp-sum .m small{color:var(--mut);font-size:11.5px;display:block}
+  .fp-sum .m b{font-size:18px;letter-spacing:-.01em}
+  .fp-sum .m.in b{color:var(--green)} .fp-sum .m.out b{color:var(--red)}
+  .fpr{display:flex;align-items:center;gap:12px;padding:11px 0}
+  .fpr+.fpr{border-top:1px solid var(--line)}
+  .fpr .d{min-width:52px;text-align:center;border-radius:11px;padding:6px 4px;background:#f6f6f8;flex:none}
+  .fpr .d b{font-size:15px;display:block;line-height:1.1}
+  .fpr .d small{font-size:10px;color:var(--mut);text-transform:uppercase}
+  .fpr .fb{font-size:14.5px;display:block}
+  .fpr .fs{color:var(--mut);font-size:12.5px;display:block}
+  .fpr .amt{margin-left:auto;text-align:right;flex:none;font-weight:800;font-size:14.5px}
+  .fpr .amt.in{color:var(--green)} .fpr .amt.out{color:var(--red)}
+  .fpr .amt small{display:block;font-weight:600;font-size:11px}
+  .fpr.done{opacity:.55}
+  .fbar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:#eef0f3;margin-top:8px}
+  .fbar i{display:block;height:100%}
+  .fplan-note{display:flex;gap:10px;background:var(--blue-soft);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45}
+
   /* ══ Таблицы документов (bnect-паттерн) ══ */
   .dtabs{display:flex;gap:2px;background:#eceef1;border-radius:13px;padding:4px;overflow-x:auto}
   .dtabs::-webkit-scrollbar{display:none}
@@ -383,6 +405,60 @@
             <div class="m"><small>Мы должны</small><b>240 000 ₸</b></div>
           </div>
           <div class="profit"><span>Прибыль по сделкам</span><span>+1 280 000 ₸</span></div>
+          <div class="btn ghost" style="margin-top:12px" data-go="fplan">📅 План-факт: что придёт и уйдёт в августе</div>
+        </div>
+      </section>
+
+      <!-- ═══ ДЕНЬГИ: ПЛАН-ФАКТ ═══ -->
+      <section class="view" id="v-fplan">
+        <span class="back" data-go="home">‹ Главная</span>
+        <h1 class="pg">Деньги: план-факт</h1>
+        <div class="pg-sub">Считается само — из этапов ваших договоров и счетов. Ничего вводить не нужно.</div>
+
+        <div class="fp-sum">
+          <div class="m in"><small>Придёт в августе · по договорам</small><b>+2 380 000 ₸</b></div>
+          <div class="m out"><small>Уйдёт в августе · по договорам</small><b>−860 000 ₸</b></div>
+          <div class="m"><small>Останется (прогноз)</small><b>+1 520 000 ₸</b></div>
+        </div>
+
+        <div class="kcard">
+          <h2>Июль · факт <span class="all" style="color:var(--mut);font-weight:400;text-transform:none;letter-spacing:0">план выполнен на 87%</span></h2>
+          <div class="fbar"><i style="width:74%;background:var(--green)"></i><i style="width:13%;background:var(--amber)"></i></div>
+          <div class="hint" style="margin-top:6px">Пришло 2 140 000 из плановых 2 460 000 ₸ · жёлтое — счёт № 27 «Нур Опт» (780 000 ₸, просрочен, напомнили)</div>
+        </div>
+
+        <div class="kcard">
+          <h2>Август · план по этапам договоров</h2>
+          <div class="fpr">
+            <div class="d"><b>5</b><small>авг</small></div>
+            <div><span class="fb">Аванс по договору № 08-2026</span><span class="fs">ТОО «Алтай Строй» · этап 1 из 2 · напомним сами</span></div>
+            <div class="amt in">+600 000 ₸<small>придёт</small></div>
+          </div>
+          <div class="fpr">
+            <div class="d"><b>12</b><small>авг</small></div>
+            <div><span class="fb">Оплата поставщику за материалы</span><span class="fs">ТОО «КазСнаб» · по счёту № 41 · платёжка будет готова</span></div>
+            <div class="amt out">−460 000 ₸<small>уйдёт</small></div>
+          </div>
+          <div class="fpr">
+            <div class="d"><b>15</b><small>авг</small></div>
+            <div><span class="fb">Просроченный счёт № 27 — дожимаем</span><span class="fs">ТОО «Нур Опт» · перенесён из июля · 3-е напоминание ушло</span></div>
+            <div class="amt in">+780 000 ₸<small>ожидаем</small></div>
+          </div>
+          <div class="fpr">
+            <div class="d"><b>25</b><small>авг</small></div>
+            <div><span class="fb">Остаток по договору № 08-2026</span><span class="fs">ТОО «Алтай Строй» · этап 2 · после отгрузки 40 шт</span></div>
+            <div class="amt in">+600 000 ₸<small>придёт</small></div>
+          </div>
+          <div class="fpr">
+            <div class="d"><b>25</b><small>авг</small></div>
+            <div><span class="fb">Налоги и взносы</span><span class="fs">посчитает и подготовит Айгерим · платёжка придёт заранее</span></div>
+            <div class="amt out">−400 000 ₸<small>уйдёт</small></div>
+          </div>
+        </div>
+
+        <div class="fplan-note">
+          <div>💡</div>
+          <div><b>Совет от Айгерим:</b> если «Нур Опт» не оплатит до 15-го, август всё равно закрывается в плюс — но новый договор с ними советую только с предоплатой 50%. Могу заложить в шаблон.</div>
         </div>
       </section>
 
