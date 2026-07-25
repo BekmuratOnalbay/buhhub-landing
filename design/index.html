@@ -158,6 +158,57 @@
   .back{color:var(--red);font-weight:700;cursor:pointer;font-size:14px}
   .light{display:inline-flex;align-items:center;gap:7px;background:var(--green-soft);color:var(--green);font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 12px}
 
+  /* ══ Таблицы документов (bnect-паттерн) ══ */
+  .dtabs{display:flex;gap:2px;background:#eceef1;border-radius:13px;padding:4px;overflow-x:auto}
+  .dtabs::-webkit-scrollbar{display:none}
+  .dtab{padding:9px 14px;border-radius:10px;font-size:13.5px;font-weight:600;color:var(--mut);white-space:nowrap;cursor:pointer}
+  .dtab b{font-weight:700}
+  .dtab.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .dtab .cnt2{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;background:#eceef1;border-radius:999px;padding:1px 7px;color:var(--mut)}
+  .dtab.on .cnt2{background:var(--red-soft);color:var(--red)}
+  .dth,.dtr{display:grid;grid-template-columns:110px 1.8fr 1.2fr 92px 110px 130px;gap:10px;align-items:center}
+  .dth{padding:12px 14px 8px;color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  .dtr{background:var(--card);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .dtr:hover{box-shadow:0 3px 12px rgba(0,0,0,.08)}
+  .dtr .num{font-weight:800;font-size:13.5px}
+  .dtr .num small{display:block;color:var(--mut);font-size:11px;font-weight:500}
+  .dtr b{font-size:14px}
+  .dtr small{color:var(--mut);font-size:12px;display:block}
+  .dtr .sum3{font-weight:700;font-size:13.5px;text-align:right}
+  @media(max-width:900px){
+    .dth{display:none}
+    .dtr{grid-template-columns:1fr auto;row-gap:4px}
+    .dtr .h-m{display:none}
+  }
+
+  /* ══ Кабинет специалиста ══ */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--card);border-radius:14px;padding:13px 15px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .kpi small{color:var(--mut);font-size:11.5px;display:block}
+  .kpi b{font-size:19px;letter-spacing:-.01em}
+  .kpi.warn b{color:var(--amber)} .kpi.bad b{color:var(--red)} .kpi.good b{color:var(--green)}
+  .cth,.ctr{display:grid;grid-template-columns:1.7fr 130px 1.4fr 1fr 120px;gap:10px;align-items:center}
+  .cth{padding:10px 14px 6px;color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  .ctr{background:var(--card);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .ctr b{font-size:14.5px;display:block}
+  .ctr small{color:var(--mut);font-size:12px}
+  .stt{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700}
+  .stt i{width:10px;height:10px;border-radius:50%;font-style:normal}
+  .stt.g{color:var(--green)} .stt.g i{background:var(--green)}
+  .stt.a{color:var(--amber)} .stt.a i{background:var(--amber)}
+  .stt.r{color:var(--red)} .stt.r i{background:var(--red)}
+  .enter{font-size:12.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:6px 12px;text-align:center;cursor:pointer}
+  @media(max-width:900px){
+    .cth{display:none}
+    .ctr{grid-template-columns:1fr auto;row-gap:6px}
+    .ctr .h-m{display:none}
+  }
+  .rolebar{background:linear-gradient(135deg,#1a1a1a,#333);color:#fff;border-radius:var(--r);padding:13px 16px;display:flex;align-items:center;gap:12px}
+  .rolebar b{font-size:14.5px}
+  .rolebar small{opacity:.75;font-size:12px;display:block}
+  .rolebar .sw{margin-left:auto;background:rgba(255,255,255,.15);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+
   /* ══ Работа (self-service) ══ */
   .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   @media(max-width:520px){.tiles{grid-template-columns:repeat(4,1fr)}}
@@ -266,6 +317,7 @@
     <div class="nav-i" data-v="tarif">🔒 Тариф</div>
     <div class="spacer"></div>
     <div class="nav-i" data-v="ob1" style="color:var(--mut);font-size:13px">▶ Демо: первый вход</div>
+    <div class="nav-i" data-v="spec" style="color:var(--mut);font-size:13px">▶ Демо: кабинет специалиста</div>
     <div class="wa" style="box-shadow:none;border:1px solid var(--line)"><span class="dot"></span> Айгерим на связи</div>
   </aside>
 
@@ -427,16 +479,68 @@
           </div>
         </div>
 
+        <div class="dtabs">
+          <div class="dtab on">Все <span class="cnt2">47</span></div>
+          <div class="dtab">Ждут вас <span class="cnt2">1</span></div>
+          <div class="dtab">На подписании <span class="cnt2">3</span></div>
+          <div class="dtab">Ждут оплаты <span class="cnt2">2</span></div>
+          <div class="dtab">Подписанные <span class="cnt2">38</span></div>
+          <div class="dtab">Отчётность <span class="cnt2">3</span></div>
+        </div>
         <div class="chips">
-          <div class="chip2 on">Все</div><div class="chip2">Договоры</div><div class="chip2">Счета</div><div class="chip2">Накладные</div><div class="chip2">АВР</div><div class="chip2">Сверки</div><div class="chip2">ЭСФ</div><div class="chip2">Отчётность</div>
+          <div class="chip2 on">Все типы</div><div class="chip2">Договоры</div><div class="chip2">Счета</div><div class="chip2">Накладные</div><div class="chip2">АВР</div><div class="chip2">Сверки</div><div class="chip2">ЭСФ</div>
         </div>
 
-        <div class="kcard">
-          <div class="row" data-go="doc"><div class="ic">✍️</div><div><b>АВР Р-1 № 14 · «Алтай Строй»</b><small>отправлен сегодня · срок подписания: 2 дня</small></div><div class="r"><span class="st b">у контрагента</span></div><span class="chev">›</span></div>
-          <div class="row"><div class="ic">🏛</div><div><b>Форма 910 · 1-е полугодие</b><small>срок 15 авг · сдаём 12 авг</small></div><div class="r"><span class="st b">готова</span></div><span class="chev">›</span></div>
-          <div class="row"><div class="ic">🧾</div><div><b>Счёт № 27 · «Нур Опт»</b><small>780 000 ₸ · срок оплаты прошёл 4 дня назад</small></div><div class="r"><span class="st a">напомнили</span></div><span class="chev">›</span></div>
-          <div class="row"><div class="ic">📄</div><div><b>ЭСФ № 112 · ИП Серик</b><small>зарегистрирован в ИС ЭСФ · 21 июля</small></div><div class="r"><span class="st g">принят ✓</span></div><span class="chev">›</span></div>
-          <div class="row"><div class="ic">⚖️</div><div><b>Акт сверки · «Нур Опт»</b><small>по нашим данным вам должны на 180 000 ₸ больше</small></div><div class="r"><span class="st a">проверяем</span></div><span class="chev">›</span></div>
+        <div>
+          <div class="dth"><span>№ / дата</span><span>Документ</span><span>Контрагент</span><span></span><span style="text-align:right">Сумма</span><span>Статус</span></div>
+          <div class="dtr" data-go="doc">
+            <div class="num">АВР № 14<small>сегодня</small></div>
+            <div><b>Акт выполненных работ Р-1</b><small>договор № 07-2026 · подписан вами ✓</small></div>
+            <div class="h-m"><b style="font-weight:600">ТОО «Алтай Строй»</b><small>открыли 09:15</small></div>
+            <div class="h-m"></div>
+            <div class="sum3 h-m">1 200 000 ₸</div>
+            <div><span class="st b">у контрагента</span></div>
+          </div>
+          <div class="dtr">
+            <div class="num">б/н<small>сегодня</small></div>
+            <div><b>Доп. соглашение к № 07-2026</b><small>изменение этапа оплаты</small></div>
+            <div class="h-m"><b style="font-weight:600">ТОО «Алтай Строй»</b></div>
+            <div class="h-m"></div>
+            <div class="sum3 h-m">—</div>
+            <div><span class="st r">ждёт вас</span></div>
+          </div>
+          <div class="dtr">
+            <div class="num">910<small>до 15 авг</small></div>
+            <div><b>Форма 910 · 1-е полугодие</b><small>проверена · сдаём 12 августа</small></div>
+            <div class="h-m"><b style="font-weight:600">КГД</b></div>
+            <div class="h-m"></div>
+            <div class="sum3 h-m">—</div>
+            <div><span class="st b">готова</span></div>
+          </div>
+          <div class="dtr">
+            <div class="num">Счёт № 27<small>14 июля</small></div>
+            <div><b>Счёт на оплату</b><small>просрочен 4 дня · напомнили вчера</small></div>
+            <div class="h-m"><b style="font-weight:600">ТОО «Нур Опт»</b></div>
+            <div class="h-m"></div>
+            <div class="sum3 h-m">780 000 ₸</div>
+            <div><span class="st a">ждёт оплаты</span></div>
+          </div>
+          <div class="dtr">
+            <div class="num">ЭСФ № 112<small>21 июля</small></div>
+            <div><b>Электронная счёт-фактура</b><small>зарегистрирован в ИС ЭСФ</small></div>
+            <div class="h-m"><b style="font-weight:600">ИП Серик</b></div>
+            <div class="h-m"></div>
+            <div class="sum3 h-m">340 000 ₸</div>
+            <div><span class="st g">принят ✓</span></div>
+          </div>
+          <div class="dtr">
+            <div class="num">Сверка<small>полугодие</small></div>
+            <div><b>Акт сверки взаиморасчётов</b><small>по нашим данным вам должны на 180 000 ₸ больше</small></div>
+            <div class="h-m"><b style="font-weight:600">ТОО «Нур Опт»</b></div>
+            <div class="h-m"></div>
+            <div class="sum3 h-m">180 000 ₸</div>
+            <div><span class="st a">проверяем</span></div>
+          </div>
         </div>
       </section>
 
@@ -474,6 +578,69 @@
             <div class="btn" style="flex:1">Открыть договор</div>
             <div class="btn ghost" style="flex:1">Периметр PDF</div>
           </div>
+        </div>
+      </section>
+
+      <!-- ═══ КАБИНЕТ СПЕЦИАЛИСТА ═══ -->
+      <section class="view" id="v-spec">
+        <div class="rolebar">
+          <div class="ava">АС</div>
+          <div><b>Кабинет специалиста · Айгерим</b><small>тот же стиль, та же логика — видно всех клиентов сразу</small></div>
+          <div class="sw" data-go="home">← Кабинет клиента</div>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi"><small>Компаний на сопровождении</small><b>12</b></div>
+          <div class="kpi good"><small>Всё зелёное</small><b>8</b></div>
+          <div class="kpi warn"><small>Требуют внимания</small><b>3</b></div>
+          <div class="kpi bad"><small>Риск просрочки</small><b>1</b></div>
+        </div>
+
+        <div class="kcard" style="background:var(--red-soft);border:none">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <div style="font-size:20px">✍️</div>
+            <div style="flex:1"><b>8 документов по 4 клиентам готовы к отправке</b><div style="font-size:12.5px;color:#a33">проверены системой: суммы, реквизиты, номера сходятся</div></div>
+            <div class="btn" style="padding:10px 18px;font-size:13.5px">Подписать и отправить все</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="cth"><span>Компания</span><span>Статус</span><span>Ближайший срок</span><span>Им должны</span><span></span></div>
+          <div class="ctr">
+            <div><b>ТОО «Айгерим Трейд»</b><small>упрощёнка · 12 сделок</small></div>
+            <div><span class="stt g"><i></i>всё сдано</span></div>
+            <div class="h-m"><b style="font-weight:600;font-size:13px">910 · 12 авг</b><small>готова</small></div>
+            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">1 980 000 ₸</small></div>
+            <div><span class="enter">Войти как клиент</span></div>
+          </div>
+          <div class="ctr">
+            <div><b>ИП Мадияр</b><small>услуги · 5 сделок</small></div>
+            <div><span class="stt a"><i></i>3 дела</span></div>
+            <div class="h-m"><b style="font-weight:600;font-size:13px">АВР · сегодня</b><small>2 подписи ждём</small></div>
+            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">640 000 ₸</small></div>
+            <div><span class="enter">Войти как клиент</span></div>
+          </div>
+          <div class="ctr">
+            <div><b>ТОО «СтройДом KZ»</b><small>ОУР · 18 сделок</small></div>
+            <div><span class="stt r"><i></i>риск: 200.00 до чт</span></div>
+            <div class="h-m"><b style="font-weight:600;font-size:13px">ф. 200 · 31 июля</b><small>ждём зарплатные данные</small></div>
+            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">3 240 000 ₸</small></div>
+            <div><span class="enter">Войти как клиент</span></div>
+          </div>
+          <div class="ctr">
+            <div><b>ИП Салтанат</b><small>розница · 7 сделок</small></div>
+            <div><span class="stt g"><i></i>всё сдано</span></div>
+            <div class="h-m"><b style="font-weight:600;font-size:13px">ЭСФ · 5 авг</b><small>подготовлен</small></div>
+            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">0 ₸</small></div>
+            <div><span class="enter">Войти как клиент</span></div>
+          </div>
+        </div>
+
+        <div class="kcard">
+          <h2>Очередь задач · сегодня <span class="all">Распределить автоматически</span></h2>
+          <div class="task"><div class="t1"><div><b>Дожать зарплатные данные «СтройДом»</b><small>без них форма 200 под риском · дедлайн четверг</small></div><span class="who2 me">срочно</span></div></div>
+          <div class="task"><div class="t1"><div><b>Проверить счёт № 30, сделанный клиентом</b><small>«Айгерим Трейд» выставила сама — автопроверка прошла, нужен взгляд</small></div><span class="who2 ck">на проверку</span></div></div>
+          <div class="task"><div class="t1"><div><b>Разобрать сверку «Нур Опт»</b><small>расхождение 180 000 ₸ в пользу клиента</small></div><span class="who2 sp">Салтанат · в работе</span></div></div>
         </div>
       </section>
 
