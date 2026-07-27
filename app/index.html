@@ -4,1072 +4,363 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>BuhHub — дизайн v2 · стиль Kaspi Pay</title>
+<title>BuhHub — кабинет предпринимателя</title>
 <style>
   :root{
-    --bg:#f2f3f5; --card:#fff; --ink:#1a1a1a; --mut:#8b8f98; --line:#ececf0;
-    --red:#f14635; --red-soft:#fef0ee;
-    --green:#0bab64; --green-soft:#ebf9f1;
-    --amber:#f5a623; --amber-soft:#fef7e8;
-    --blue:#3b7dd8; --blue-soft:#eef4fc;
-    --r:18px;
+    --bg:#f2f3f5;--card:#fff;--ink:#1a1a1a;--mut:#8b8f98;--faint:#b6bac2;--line:#ececf0;
+    --red:#f14635;--red-soft:#fef0ee;--green:#0bab64;--green-soft:#ebf9f1;
+    --amber:#f5a623;--amber-soft:#fef7e8;--blue:#3b7dd8;--blue-soft:#eef4fc;--r:18px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
   body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.4;-webkit-font-smoothing:antialiased}
-
   .app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:84px}
-  @media(min-width:900px){
-    .app{max-width:1100px;display:grid;grid-template-columns:250px 1fr;gap:0;padding-bottom:40px}
-  }
-
-  /* ══ Desktop sidebar ══ */
+  @media(min-width:900px){.app{max-width:1120px;display:grid;grid-template-columns:250px 1fr;padding-bottom:0}}
   .side{display:none}
   @media(min-width:900px){
     .side{display:flex;flex-direction:column;gap:2px;background:var(--card);border-right:1px solid var(--line);padding:22px 14px;position:sticky;top:0;height:100vh}
     .mnav{display:none!important}
   }
-  .logo{font-size:21px;font-weight:800;letter-spacing:-.02em;padding:0 10px 20px}
+  .logo{font-size:21px;font-weight:800;letter-spacing:-.02em;padding:0 10px 18px}
   .logo span{color:var(--red)}
   .nav-i{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;color:#3a3f47;font-weight:500;cursor:pointer;font-size:14.5px}
   .nav-i:hover{background:#f6f6f8}
   .nav-i.on{background:var(--red-soft);color:var(--red);font-weight:700}
   .nav-i .bdg{margin-left:auto;background:var(--red);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 7px}
   .side .spacer{flex:1}
-
-  /* ══ Header ══ */
+  .wa{display:flex;align-items:center;gap:7px;background:var(--card);border-radius:999px;padding:9px 14px;font-weight:700;font-size:13px;box-shadow:0 1px 4px rgba(0,0,0,.05);cursor:pointer}
+  .wa .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .main{min-width:0}
   .hdr{padding:14px 16px 10px;display:flex;align-items:center;gap:10px;position:sticky;top:0;background:var(--bg);z-index:5}
   @media(min-width:900px){.hdr{padding:18px 28px 8px}}
-  .co{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px}
+  .co{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;cursor:pointer}
   .co small{color:var(--mut);font-weight:400}
   .hdr .grow{flex:1}
-  .bell{width:38px;height:38px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+  .bell{width:38px;height:38px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.05);position:relative;cursor:pointer}
   .bell .n{position:absolute;top:-2px;right:-2px;background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:999px;padding:1px 5px}
-  .wa{display:flex;align-items:center;gap:7px;background:var(--card);border-radius:999px;padding:9px 14px;font-weight:700;font-size:13px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-  .wa .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
-
-  .content{padding:6px 16px 30px;display:flex;flex-direction:column;gap:12px}
-  @media(min-width:900px){.content{padding:6px 28px 40px;max-width:820px}}
+  .zone{padding:6px 16px 30px;display:flex;flex-direction:column;gap:12px}
+  @media(min-width:900px){.zone{padding:6px 28px 40px;max-width:840px}}
   .view{display:none;flex-direction:column;gap:12px}
-  .view.on{display:flex}
-
-  /* ══ Kaspi-style cards ══ */
+  .view.on{display:flex;animation:fade .18s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
   .kcard{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
   .kcard h2{font-size:16px;font-weight:700;margin-bottom:10px;display:flex;align-items:center}
   .kcard h2 .all{margin-left:auto;color:var(--red);font-size:13.5px;font-weight:600;cursor:pointer}
-
+  h1.pg{font-size:22px;font-weight:800;letter-spacing:-.02em;padding:4px 0 0}
+  .pg-sub{color:var(--mut);font-size:13.5px;margin-top:-4px}
+  .back{color:var(--red);font-weight:700;cursor:pointer;font-size:14px;display:inline-block}
   .hero{border-radius:var(--r);padding:20px 18px;background:linear-gradient(160deg,#0bab64,#0e9a5c);color:#fff;box-shadow:0 6px 18px rgba(11,171,100,.25)}
   .hero .t{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;letter-spacing:-.01em}
   .hero .t .ok{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:14px}
-  .hero .s{margin-top:6px;font-size:13.5px;opacity:.92}
+  .hero .s{margin-top:6px;font-size:13.5px;opacity:.93}
   .hero .meta{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-  .hero .chip{background:rgba(255,255,255,.16);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600}
-
-  /* ══ Сроки ══ */
-  .due{display:flex;align-items:center;gap:12px;padding:11px 0}
-  .due+.due{border-top:1px solid var(--line)}
-  .due .cnt{min-width:56px;text-align:center;border-radius:12px;padding:7px 6px;font-weight:800;font-size:14px;line-height:1.1;flex:none}
-  .due .cnt small{display:block;font-size:10px;font-weight:600;opacity:.8}
-  .cnt.ok{background:var(--green-soft);color:var(--green)}
-  .cnt.warn{background:var(--amber-soft);color:var(--amber)}
-  .cnt.hot{background:var(--red-soft);color:var(--red)}
-  .due b{font-size:14.5px;display:block}
-  .due small{color:var(--mut);font-size:12.5px}
-  .due .who{margin-left:auto;flex:none;font-size:12px;font-weight:700;color:var(--mut);background:#f6f6f8;border-radius:999px;padding:4px 10px}
-  .due .who.us{color:var(--green);background:var(--green-soft)}
-
-  .row{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer}
+  .hero .chip{background:rgba(255,255,255,.16);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer}
+  .row{display:flex;align-items:center;gap:12px;padding:12px 2px;cursor:pointer;border-radius:8px}
   .row+.row{border-top:1px solid var(--line)}
+  .row:active{background:#f8f8fa}
   .row .ic{width:40px;height:40px;border-radius:12px;background:#f6f6f8;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
-  .row b{font-size:15px;display:block}
+  .row b{font-size:14.5px;display:block}
   .row small{color:var(--mut);font-size:12.5px;display:block;margin-top:1px}
   .row .r{margin-left:auto;text-align:right;flex:none}
-  .row .r .sum{font-weight:800;font-size:15px}
+  .row .sum{font-weight:800;font-size:14.5px}
   .row .chev{color:#c9ccd3;font-size:18px;flex:none;margin-left:2px}
   .st{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;display:inline-block;margin-top:3px}
   .st.g{background:var(--green-soft);color:var(--green)} .st.b{background:var(--blue-soft);color:var(--blue)}
   .st.a{background:var(--amber-soft);color:var(--amber)} .st.r{background:var(--red-soft);color:var(--red)}
-
+  .todo{display:flex;align-items:center;gap:12px;padding:13px 0}
+  .todo+.todo{border-top:1px solid var(--line)}
+  .todo .cnt{min-width:52px;text-align:center;border-radius:12px;padding:7px 4px;font-weight:800;font-size:14px;line-height:1.1;flex:none}
+  .todo .cnt small{display:block;font-size:10px;font-weight:600;opacity:.8}
+  .cnt.hot{background:var(--red-soft);color:var(--red)} .cnt.warn{background:var(--amber-soft);color:var(--amber)} .cnt.ok{background:var(--green-soft);color:var(--green)}
+  .todo b{font-size:14.5px;display:block} .todo small{color:var(--mut);font-size:12.5px}
+  .todo .go{margin-left:auto;flex:none;color:#c9ccd3;font-size:18px}
   .money{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .money .m{background:#f8f8fa;border-radius:14px;padding:12px 14px}
-  .money .m small{color:var(--mut);font-size:12px;display:block}
-  .money .m b{font-size:17px;letter-spacing:-.01em}
+  .money .m{background:#f8f8fa;border-radius:14px;padding:12px 14px;cursor:pointer}
+  .money .m small{color:var(--mut);font-size:12px;display:block} .money .m b{font-size:17px}
   .money .m.pos b{color:var(--green)}
   .profit{display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-weight:800}
   .profit span:last-child{color:var(--green)}
-
-  h1.pg{font-size:22px;font-weight:800;letter-spacing:-.02em;padding:4px 0 0}
-  .pg-sub{color:var(--mut);font-size:13.5px;margin-top:-6px}
-
-  .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0;-webkit-overflow-scrolling:touch}
+  .btn{background:var(--red);color:#fff;text-align:center;border-radius:14px;padding:13px;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 4px 14px rgba(241,70,53,.22)}
+  .btn.ghost{background:var(--card);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+  .spec{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:11px 13px;cursor:pointer}
+  .ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+  .spec b{font-size:14px}.spec small{display:block;color:var(--mut);font-size:12px;margin-top:1px}
+  .spec .wg{margin-left:auto;background:var(--green-soft);color:var(--green);border-radius:10px;font-size:12px;font-weight:700;padding:6px 10px}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0}
   .chips::-webkit-scrollbar{display:none}
   .chip2{border-radius:999px;padding:8px 15px;font-size:13.5px;font-weight:600;background:var(--card);color:#3a3f47;white-space:nowrap;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.04)}
   .chip2.on{background:var(--ink);color:#fff}
-
-  /* нумерация */
-  .numline{display:flex;align-items:center;gap:10px;background:#f8f8fa;border-radius:14px;padding:12px 14px;margin-top:4px}
-  .numline .nn{font-weight:800;font-size:15px}
-  .numline small{color:var(--mut);font-size:12px;display:block}
-  .numline .okk{margin-left:auto;color:var(--green);font-weight:700;font-size:12.5px;background:var(--green-soft);border-radius:999px;padding:5px 11px;flex:none}
-  .numalert{display:flex;gap:10px;background:var(--red-soft);border-radius:14px;padding:12px 14px;align-items:center}
-  .numalert b{color:var(--red);font-size:13.5px}
-  .numalert small{color:#a33;font-size:12px;display:block}
-  .numalert .fix{margin-left:auto;background:var(--red);color:#fff;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;flex:none;cursor:pointer}
-
-  /* количества */
-  .qty{margin-top:6px}
-  .qty .ql{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
-  .qty .ql b{font-size:13px}
-  .qty .ql .left{color:var(--amber);font-weight:700}
-  .bar{height:8px;border-radius:999px;background:#eef0f3;overflow:hidden}
-  .bar i{display:block;height:100%;border-radius:999px;background:var(--green)}
-  .bar i.part{background:var(--amber)}
-
+  .chip2 .c2{margin-left:6px;font-size:11px;font-weight:700;opacity:.6}
   .chain .step{display:flex;gap:13px}
   .chain .m{display:flex;flex-direction:column;align-items:center}
   .chain .c{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none}
-  .chain .c.done{background:var(--green);color:#fff}
-  .chain .c.run{background:var(--amber-soft);color:var(--amber);border:2px dashed var(--amber)}
-  .chain .c.wait{background:#f0f1f4;color:#b6bac2}
+  .chain .c.done{background:var(--green);color:#fff} .chain .c.run{background:var(--amber-soft);color:var(--amber);border:2px dashed var(--amber)} .chain .c.wait{background:#f0f1f4;color:#b6bac2}
   .chain .vl{width:2px;flex:1;background:var(--line);min-height:14px}
-  .chain .in{padding-bottom:15px}
-  .chain .in b{font-size:14.5px}
-  .chain .in small{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
+  .chain .in{padding-bottom:15px} .chain .in b{font-size:14.5px} .chain .in small{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
   .doc{display:inline-flex;align-items:center;gap:6px;background:#f6f6f8;border-radius:9px;padding:5px 10px;font-size:12.5px;font-weight:600;margin-top:7px;cursor:pointer}
-
-  .feed-i{display:flex;gap:11px;padding:11px 0}
-  .feed-i+.feed-i{border-top:1px solid var(--line)}
-  .feed-i .p{width:9px;height:9px;border-radius:50%;background:var(--green);margin-top:6px;flex:none}
-  .feed-i .p.b{background:var(--blue)} .feed-i .p.a{background:var(--amber)}
-  .feed-i b{font-size:14.5px}
-  .feed-i small{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
-  .feed-i .tm{margin-left:auto;color:#b6bac2;font-size:12px;white-space:nowrap;flex:none}
-
-  .sum2{font-size:32px;font-weight:800;letter-spacing:-.02em}
-  .sum2 small{font-size:15px;color:var(--mut);font-weight:500}
-  .lock{display:inline-flex;align-items:center;gap:6px;background:var(--red-soft);color:var(--red);font-size:12.5px;font-weight:700;border-radius:999px;padding:6px 12px;margin:10px 0 6px}
-  .pi{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
-  .pi span{color:var(--green);font-weight:800}
-  .guar{margin-top:14px;background:var(--green-soft);border-radius:14px;padding:14px;font-size:14px}
-  .guar b{color:var(--green)}
-  .btn{background:var(--red);color:#fff;text-align:center;border-radius:14px;padding:14px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(241,70,53,.25)}
-  .btn.ghost{background:var(--card);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.05)}
-
-  .back{color:var(--red);font-weight:700;cursor:pointer;font-size:14px}
-  .light{display:inline-flex;align-items:center;gap:7px;background:var(--green-soft);color:var(--green);font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 12px}
-
-  /* ══ Режимы меню: простое / полное ══ */
-  body:not(.fullmenu) .m-full{display:none!important}
-  body.fullmenu .m-simple{display:none!important}
-  .menu-sw{display:flex;background:#eceef1;border-radius:999px;padding:3px;margin:0 10px 14px;font-size:11.5px;font-weight:700}
-  .menu-sw div{flex:1;text-align:center;padding:6px 8px;border-radius:999px;color:var(--mut);cursor:pointer;white-space:nowrap}
-  .menu-sw div.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  .menu-sw-m{background:var(--card);border-radius:999px;padding:8px 13px;font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.05);white-space:nowrap}
-  @media(min-width:900px){.menu-sw-m{display:none}}
-
-  /* ══ Деньги: план-факт ══ */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .tile{background:#f8f8fa;border-radius:16px;padding:13px 8px;text-align:center;cursor:pointer}
+  .tile:active{background:#eef0f3}
+  .tile i{font-style:normal;font-size:22px;display:block;margin-bottom:6px}
+  .tile span{font-size:11.5px;font-weight:600;color:#3a3f47;line-height:1.2;display:block}
+  .hint{font-size:12.5px;color:var(--mut);line-height:1.45}
+  .note{display:flex;gap:10px;background:var(--blue-soft);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45}
+  .fab{position:fixed;right:18px;bottom:74px;width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(241,70,53,.4);cursor:pointer;z-index:11}
+  @media(min-width:900px){.fab{bottom:28px;right:calc(50% - 560px + 28px)}}
+  .mnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:10;max-width:520px;margin:0 auto}
+  .mnav div{flex:1;text-align:center;padding:8px 0 max(10px,env(safe-area-inset-bottom));font-size:10.5px;color:var(--mut);cursor:pointer;font-weight:600}
+  .mnav div i{display:block;font-style:normal;font-size:20px;margin-bottom:2px;opacity:.75}
+  .mnav div.on{color:var(--red)} .mnav div.on i{opacity:1}
   .fp-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   @media(max-width:520px){.fp-sum{grid-template-columns:1fr 1fr}}
-  .fp-sum .m{background:var(--card);border-radius:14px;padding:13px 15px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-  .fp-sum .m small{color:var(--mut);font-size:11.5px;display:block}
-  .fp-sum .m b{font-size:18px;letter-spacing:-.01em}
+  .fp-sum .m{background:var(--card);border-radius:14px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .fp-sum .m small{color:var(--mut);font-size:11px;display:block} .fp-sum .m b{font-size:17px}
   .fp-sum .m.in b{color:var(--green)} .fp-sum .m.out b{color:var(--red)}
   .fpr{display:flex;align-items:center;gap:12px;padding:11px 0}
   .fpr+.fpr{border-top:1px solid var(--line)}
-  .fpr .d{min-width:52px;text-align:center;border-radius:11px;padding:6px 4px;background:#f6f6f8;flex:none}
-  .fpr .d b{font-size:15px;display:block;line-height:1.1}
-  .fpr .d small{font-size:10px;color:var(--mut);text-transform:uppercase}
-  .fpr .fb{font-size:14.5px;display:block}
-  .fpr .fs{color:var(--mut);font-size:12.5px;display:block}
-  .fpr .amt{margin-left:auto;text-align:right;flex:none;font-weight:800;font-size:14.5px}
-  .fpr .amt.in{color:var(--green)} .fpr .amt.out{color:var(--red)}
-  .fpr .amt small{display:block;font-weight:600;font-size:11px}
-  .fpr.done{opacity:.55}
-  .fbar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:#eef0f3;margin-top:8px}
-  .fbar i{display:block;height:100%}
-  .fplan-note{display:flex;gap:10px;background:var(--blue-soft);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45}
-
-  /* ══ Таблицы документов (bnect-паттерн) ══ */
-  .dtabs{display:flex;gap:2px;background:#eceef1;border-radius:13px;padding:4px;overflow-x:auto}
-  .dtabs::-webkit-scrollbar{display:none}
-  .dtab{padding:9px 14px;border-radius:10px;font-size:13.5px;font-weight:600;color:var(--mut);white-space:nowrap;cursor:pointer}
-  .dtab b{font-weight:700}
-  .dtab.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-  .dtab .cnt2{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;background:#eceef1;border-radius:999px;padding:1px 7px;color:var(--mut)}
-  .dtab.on .cnt2{background:var(--red-soft);color:var(--red)}
-  .dth,.dtr{display:grid;grid-template-columns:110px 1.8fr 1.2fr 92px 110px 130px;gap:10px;align-items:center}
-  .dth{padding:12px 14px 8px;color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
-  .dtr{background:var(--card);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-  .dtr:hover{box-shadow:0 3px 12px rgba(0,0,0,.08)}
-  .dtr .num{font-weight:800;font-size:13.5px}
-  .dtr .num small{display:block;color:var(--mut);font-size:11px;font-weight:500}
-  .dtr b{font-size:14px}
-  .dtr small{color:var(--mut);font-size:12px;display:block}
-  .dtr .sum3{font-weight:700;font-size:13.5px;text-align:right}
-  @media(max-width:900px){
-    .dth{display:none}
-    .dtr{grid-template-columns:1fr auto;row-gap:4px}
-    .dtr .h-m{display:none}
-  }
-
-  /* ══ Кабинет специалиста ══ */
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
-  .kpi{background:var(--card);border-radius:14px;padding:13px 15px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-  .kpi small{color:var(--mut);font-size:11.5px;display:block}
-  .kpi b{font-size:19px;letter-spacing:-.01em}
-  .kpi.warn b{color:var(--amber)} .kpi.bad b{color:var(--red)} .kpi.good b{color:var(--green)}
-  .cth,.ctr{display:grid;grid-template-columns:1.7fr 130px 1.4fr 1fr 120px;gap:10px;align-items:center}
-  .cth{padding:10px 14px 6px;color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
-  .ctr{background:var(--card);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-  .ctr b{font-size:14.5px;display:block}
-  .ctr small{color:var(--mut);font-size:12px}
-  .stt{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700}
-  .stt i{width:10px;height:10px;border-radius:50%;font-style:normal}
-  .stt.g{color:var(--green)} .stt.g i{background:var(--green)}
-  .stt.a{color:var(--amber)} .stt.a i{background:var(--amber)}
-  .stt.r{color:var(--red)} .stt.r i{background:var(--red)}
-  .enter{font-size:12.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:6px 12px;text-align:center;cursor:pointer}
-  @media(max-width:900px){
-    .cth{display:none}
-    .ctr{grid-template-columns:1fr auto;row-gap:6px}
-    .ctr .h-m{display:none}
-  }
-  .rolebar{background:linear-gradient(135deg,#1a1a1a,#333);color:#fff;border-radius:var(--r);padding:13px 16px;display:flex;align-items:center;gap:12px}
-  .rolebar b{font-size:14.5px}
-  .rolebar small{opacity:.75;font-size:12px;display:block}
-  .rolebar .sw{margin-left:auto;background:rgba(255,255,255,.15);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
-
-  /* ══ Работа (self-service) ══ */
-  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  @media(max-width:520px){.tiles{grid-template-columns:repeat(4,1fr)}}
-  .tile{background:var(--card);border-radius:16px;padding:13px 8px;text-align:center;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-  .tile i{font-style:normal;font-size:22px;display:block;margin-bottom:6px}
-  .tile span{font-size:11.5px;font-weight:600;color:#3a3f47;line-height:1.2;display:block}
-  .tile.hot{background:var(--red-soft)}
-  .tool{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer}
-  .tool+.tool{border-top:1px solid var(--line)}
-  .tool .ic{width:38px;height:38px;border-radius:11px;background:#f6f6f8;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
-  .tool b{font-size:14.5px;display:block}
-  .tool small{color:var(--mut);font-size:12.5px}
-  .tool .r3{margin-left:auto;flex:none}
-  .photo-cta{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#fef0ee,#fff5f4);border-radius:16px;padding:15px}
-  .photo-cta .cam{width:44px;height:44px;border-radius:14px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
-  .photo-cta b{font-size:14.5px;display:block}
-  .photo-cta small{color:var(--mut);font-size:12.5px;line-height:1.4}
-
-  /* ══ Документ: трекинг и подпись ══ */
-  .pdf{display:flex;align-items:center;gap:12px;background:#f6f6f8;border-radius:14px;padding:13px 14px}
-  .pdf .pic{width:44px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
-  .pdf b{font-size:14.5px;display:block}
-  .pdf small{color:var(--mut);font-size:12px}
-  .pdf .dl{margin-left:auto;color:var(--red);font-weight:700;font-size:13px;flex:none;cursor:pointer}
-  .sig{display:flex;align-items:center;gap:11px;padding:11px 0}
-  .sig+.sig{border-top:1px solid var(--line)}
-  .sig .av2{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;background:#eef4fc;color:var(--blue)}
-  .sig b{font-size:14px;display:block}
-  .sig small{color:var(--mut);font-size:12px}
-  .sig .r2{margin-left:auto;flex:none}
-  .wachat{background:#e7dfd4;border-radius:16px;padding:14px 12px;display:flex;flex-direction:column;gap:8px}
-  .msg{max-width:88%;border-radius:12px;padding:9px 12px;font-size:13px;line-height:1.45;position:relative}
-  .msg.out{background:#dff7c8;align-self:flex-end;border-bottom-right-radius:4px}
-  .msg.in{background:#fff;align-self:flex-start;border-bottom-left-radius:4px}
-  .msg .doc2{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.05);border-radius:9px;padding:7px 9px;margin-bottom:6px;font-weight:600;font-size:12.5px}
-  .msg .tm2{display:block;text-align:right;font-size:10px;color:#8a9;margin-top:3px}
-
-  /* ══ Задачи ══ */
-  .task{padding:13px 0}
-  .task+.task{border-top:1px solid var(--line)}
-  .task .t1{display:flex;align-items:flex-start;gap:10px}
-  .task b{font-size:14.5px;display:block}
-  .task small{color:var(--mut);font-size:12.5px;display:block;margin-top:1px}
-  .who2{margin-left:auto;flex:none;font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 10px;white-space:nowrap}
-  .who2.me{background:var(--red-soft);color:var(--red)}
-  .who2.sp{background:var(--green-soft);color:var(--green)}
-  .who2.ck{background:var(--blue-soft);color:var(--blue)}
-  .t-act{display:flex;gap:8px;margin-top:9px}
-  .tbtn{flex:1;text-align:center;border-radius:11px;padding:9px 8px;font-weight:700;font-size:13px;cursor:pointer}
-  .tbtn.self{background:#f0f1f4;color:var(--ink)}
-  .tbtn.deleg{background:var(--red);color:#fff}
-  .anal .ai{display:flex;gap:10px;padding:10px 0}
-  .anal .ai+.ai{border-top:1px solid var(--line)}
-  .anal .em{font-size:17px;flex:none}
-  .anal b{font-size:14px;display:block}
-  .anal small{color:var(--mut);font-size:12.5px;line-height:1.45;display:block;margin-top:1px}
-
-  /* ══ Мастер «Новая сделка» ══ */
-  .fab{position:fixed;right:18px;bottom:74px;width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-size:30px;font-weight:400;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(241,70,53,.4);cursor:pointer;z-index:11}
-  @media(min-width:900px){.fab{bottom:28px;right:calc(50% - 550px + 28px)}}
-  .steps{display:flex;gap:6px;margin:2px 0 4px}
-  .steps i{height:4px;flex:1;border-radius:999px;background:#e3e5ea;font-style:normal}
-  .steps i.on{background:var(--red)}
-  .inp{background:#f6f6f8;border-radius:14px;padding:13px 15px;margin-top:10px}
-  .inp small{color:var(--mut);font-size:12px;display:block}
-  .inp b{font-size:16px}
-  .inp.act{outline:2px solid var(--red);background:#fff}
-  .hint{font-size:12.5px;color:var(--mut);margin-top:8px;line-height:1.45}
-  .tlight{display:flex;gap:11px;background:var(--green-soft);border-radius:14px;padding:13px 14px;margin-top:12px;align-items:flex-start}
-  .tlight .b{width:14px;height:14px;border-radius:50%;background:var(--green);margin-top:2px;flex:none;box-shadow:0 0 0 4px rgba(11,171,100,.15)}
-  .tlight b{color:var(--green);font-size:14px;display:block}
-  .tlight small{color:#3c6;font-size:12.5px;color:#2e7d54}
-  .seg{display:flex;background:#f0f1f4;border-radius:12px;padding:4px;margin-top:10px}
-  .seg div{flex:1;text-align:center;padding:9px 6px;border-radius:9px;font-weight:600;font-size:13.5px;color:var(--mut);cursor:pointer}
-  .seg div.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-  .stage{display:flex;align-items:center;gap:10px;background:#f6f6f8;border-radius:14px;padding:12px 14px;margin-top:8px}
-  .stage .n2{width:26px;height:26px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  .stage b{font-size:14.5px;display:block}
-  .stage small{color:var(--mut);font-size:12px}
-  .stage .ok2{margin-left:auto;color:var(--green);font-weight:700;font-size:12px;flex:none}
-  .done-hero{border-radius:var(--r);padding:26px 20px;background:linear-gradient(160deg,#0bab64,#0e9a5c);color:#fff;text-align:center}
-  .done-hero .big{font-size:42px}
-  .done-hero b{font-size:19px;display:block;margin-top:8px}
-  .done-hero small{display:block;margin-top:6px;font-size:13.5px;opacity:.92;line-height:1.5}
-
-  /* ══ Mobile bottom nav (Kaspi-like) ══ */
-  .mnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:10;max-width:520px;margin:0 auto}
-  .mnav div{flex:1;text-align:center;padding:8px 0 max(10px, env(safe-area-inset-bottom));font-size:10.5px;color:var(--mut);cursor:pointer;font-weight:600}
-  .mnav div i{display:block;font-style:normal;font-size:20px;margin-bottom:2px;opacity:.75}
-  .mnav div.on{color:var(--red)}
-  .mnav div.on i{opacity:1}
+  .fpr .d{min-width:50px;text-align:center;border-radius:11px;padding:6px 4px;background:#f6f6f8;flex:none}
+  .fpr .d b{font-size:15px;display:block;line-height:1.1} .fpr .d small{font-size:10px;color:var(--mut);text-transform:uppercase}
+  .fpr .amt{margin-left:auto;text-align:right;flex:none;font-weight:800;font-size:14px}
+  .fpr .amt.in{color:var(--green)} .fpr .amt.out{color:var(--red)} .fpr .amt small{display:block;font-weight:600;font-size:10.5px}
 </style>
 </head>
 <body>
 <div class="app">
-
-  <!-- Desktop sidebar -->
   <aside class="side">
     <div class="logo">Buh<span>Hub</span></div>
-    <div class="menu-sw"><div class="on" data-menu="simple">Простое меню</div><div data-menu="full">Полное</div></div>
-    <div class="nav-i on" data-v="home">🏠 Главная</div>
-    <div class="nav-i" data-v="docs">📄 Документы <span class="bdg">1</span></div>
-    <div class="nav-i m-simple" data-v="fplan">💰 Деньги</div>
-    <div class="nav-i m-full" data-v="deals">🤝 Сделки <span class="bdg">3</span></div>
-    <div class="nav-i m-full" data-v="tasks">✅ Задачи <span class="bdg">2</span></div>
-    <div class="nav-i m-full" data-v="work">💼 Работа</div>
-    <div class="nav-i m-full" data-v="feed">🕘 События</div>
-    <div class="nav-i m-full" data-v="tarif">🔒 Тариф</div>
+    <div class="nav-i on" data-go="home">🏠 Главная</div>
+    <div class="nav-i" data-go="docs">📄 Документы <span class="bdg">1</span></div>
+    <div class="nav-i" data-go="money">💰 Деньги</div>
     <div class="spacer"></div>
-    <div class="nav-i" data-v="ob1" style="color:var(--mut);font-size:13px">▶ Демо: первый вход</div>
-    <div class="nav-i" data-v="spec" style="color:var(--mut);font-size:13px">▶ Демо: кабинет специалиста</div>
-    <div class="wa" style="box-shadow:none;border:1px solid var(--line)"><span class="dot"></span> Айгерим на связи</div>
+    <div class="spec" data-go="specwin" style="margin-bottom:8px"><div class="ava">АС</div><div><b>Айгерим</b><small>ваш специалист</small></div><div class="wg">на связи</div></div>
+    <div class="wa" data-wa="1"><span class="dot"></span> Написать в WhatsApp</div>
   </aside>
 
-  <div>
+  <div class="main">
     <div class="hdr">
       <div class="co">ТОО «Айгерим Трейд» <small>▾</small></div>
       <div class="grow"></div>
-      <div class="menu-sw-m" id="menuSwM">⚙ Полное меню</div>
-      <div class="bell">🔔<span class="n">2</span></div>
-      <div class="wa"><span class="dot"></span> 💬</div>
+      <div class="bell" data-go="feed">🔔<span class="n">2</span></div>
+      <div class="wa" data-wa="1"><span class="dot"></span> 💬</div>
     </div>
 
-    <div class="content">
+    <div class="zone">
 
-      <!-- ═══ ГЛАВНАЯ ═══ -->
       <section class="view on" id="v-home">
         <div class="hero">
           <div class="t"><span class="ok">✓</span> Всё сдано и подписано</div>
-          <div class="s">Сроки, суммы и номера документов под контролем. Вам ничего не нужно делать.</div>
+          <div class="s">Сроки, суммы и номера под контролем. От вас сейчас — одно дело, остальное делаем мы.</div>
           <div class="meta">
-            <span class="chip">12 сделок · всё сходится</span>
-            <span class="chip">нумерация без пропусков ✓</span>
-            <span class="chip" data-go="map" style="cursor:pointer">🗺 Карта ваших дел ›</span>
+            <span class="chip" data-go="docs">12 сделок · всё сходится</span>
+            <span class="chip" data-go="money">прибыль +1,28 млн ₸</span>
           </div>
         </div>
 
         <div class="kcard">
-          <h2>⏰ Ближайшие сроки <span class="all" data-go="feed">все ›</span></h2>
-          <div class="due">
-            <div class="cnt warn">3<small>дня</small></div>
-            <div><b>Оплата от ТОО «Нур Опт»</b><small>счёт № 27 · 780 000 ₸ · напомнили вчера</small></div>
-            <div class="who us">делаем мы</div>
-          </div>
-          <div class="due">
-            <div class="cnt ok">19<small>дней</small></div>
-            <div><b>Форма 910 за 1-е полугодие</b><small>подготовлена · сдаём 12 августа, раньше срока</small></div>
-            <div class="who us">делаем мы</div>
-          </div>
-          <div class="due">
-            <div class="cnt warn">5<small>дней</small></div>
-            <div><b>Доверенность № 8 истекает</b><small>продлим автоматически, если отгрузка не завершится</small></div>
-            <div class="who us">делаем мы</div>
-          </div>
-          <div class="due">
+          <h2>⏰ Требует вас <span class="all" data-go="docs">все дела ›</span></h2>
+          <div class="todo" data-go="deal">
             <div class="cnt hot">сег<small>одня</small></div>
-            <div><b>Подписать доп. соглашение</b><small>«Алтай Строй» · изменение этапа оплаты — нужно ваше «да»</small></div>
-            <div class="who">нужны вы</div>
+            <div style="flex:1"><b>Подписать доп. соглашение</b><small>«Алтай Строй» · изменение этапа оплаты — нужно ваше «да»</small></div>
+            <div class="go">›</div>
+          </div>
+          <div class="todo" data-go="feed">
+            <div class="cnt ok">—</div>
+            <div style="flex:1"><b>Больше от вас ничего не нужно</b><small>3 дела в работе у специалиста · следите ниже</small></div>
+            <div class="go">›</div>
           </div>
         </div>
 
         <div class="kcard">
-          <h2>Сделки в работе <span class="all" data-go="deals">все ›</span></h2>
-          <div class="row" data-go="deal"><div class="ic">🏗</div><div><b>ТОО «Алтай Строй»</b><small>отгружено 80 из 120 шт · АВР у контрагента</small></div><div class="r"><div class="sum">1 200 000 ₸</div><span class="st b">подписывается</span></div><span class="chev">›</span></div>
-          <div class="row"><div class="ic">📦</div><div><b>ТОО «Нур Опт»</b><small>поставка · счёт № 27 просрочен 4 дня</small></div><div class="r"><div class="sum">780 000 ₸</div><span class="st a">ждём оплату</span></div><span class="chev">›</span></div>
-          <div class="row"><div class="ic">🔧</div><div><b>ИП Серик</b><small>монтаж · все документы подписаны</small></div><div class="r"><div class="sum">340 000 ₸</div><span class="st g">закрыта ✓</span></div><span class="chev">›</span></div>
+          <h2>Сделки в работе <span class="all" data-go="docs">все ›</span></h2>
+          <div class="row" data-go="deal"><div class="ic">🏗</div><div style="flex:1"><b>ТОО «Алтай Строй»</b><small>отгружено 80 из 120 шт · АВР у контрагента</small></div><div class="r"><div class="sum">1 200 000 ₸</div><span class="st b">подписывается</span></div><span class="chev">›</span></div>
+          <div class="row" data-go="doc"><div class="ic">📦</div><div style="flex:1"><b>ТОО «Нур Опт»</b><small>счёт № 27 просрочен 4 дня · напомнили</small></div><div class="r"><div class="sum">780 000 ₸</div><span class="st a">ждём оплату</span></div><span class="chev">›</span></div>
+          <div class="row" data-go="deal"><div class="ic">🔧</div><div style="flex:1"><b>ИП Серик</b><small>все документы подписаны</small></div><div class="r"><div class="sum">340 000 ₸</div><span class="st g">закрыта ✓</span></div><span class="chev">›</span></div>
         </div>
 
         <div class="kcard">
-          <h2>Деньги · июль</h2>
+          <h2>Деньги · июль <span class="all" data-go="money">план-факт ›</span></h2>
           <div class="money">
-            <div class="m pos"><small>Нам оплатили</small><b>2 140 000 ₸</b></div>
-            <div class="m"><small>Мы оплатили</small><b>860 000 ₸</b></div>
-            <div class="m"><small>Нам должны</small><b>1 980 000 ₸</b></div>
-            <div class="m"><small>Мы должны</small><b>240 000 ₸</b></div>
+            <div class="m pos" data-go="money"><small>Нам оплатили</small><b>2 140 000 ₸</b></div>
+            <div class="m" data-go="money"><small>Мы оплатили</small><b>860 000 ₸</b></div>
+            <div class="m" data-go="money"><small>Нам должны</small><b>1 980 000 ₸</b></div>
+            <div class="m" data-go="money"><small>Мы должны</small><b>240 000 ₸</b></div>
           </div>
           <div class="profit"><span>Прибыль по сделкам</span><span>+1 280 000 ₸</span></div>
-          <div class="btn ghost" style="margin-top:12px" data-go="fplan">📅 План-факт: что придёт и уйдёт в августе</div>
         </div>
+
+        <div class="kcard">
+          <h2>Что делает специалист <span class="all" data-go="feed">все события ›</span></h2>
+          <div class="row" data-go="feed"><div class="ic">✍️</div><div style="flex:1"><b>Дожимает подпись АВР № 14</b><small>«Алтай Строй» открыли · напомним в четверг</small></div><span class="chev">›</span></div>
+          <div class="row" data-go="feed"><div class="ic">🏛</div><div style="flex:1"><b>Готовит форму 910</b><small>сдаём 12 августа — раньше срока</small></div><span class="chev">›</span></div>
+        </div>
+
+        <div class="spec" data-wa="1"><div class="ava">АС</div><div><b>Айгерим — ваш специалист</b><small>ответит в WhatsApp, в среднем 7 минут</small></div><div class="wg">Написать</div></div>
       </section>
 
-      <!-- ═══ ДЕНЬГИ: ПЛАН-ФАКТ ═══ -->
-      <section class="view" id="v-fplan">
-        <span class="back" data-go="home">‹ Главная</span>
-        <h1 class="pg">Деньги: план-факт</h1>
-        <div class="pg-sub">Считается само — из этапов ваших договоров и счетов. Ничего вводить не нужно.</div>
-
-        <div class="fp-sum">
-          <div class="m in"><small>Придёт в августе · по договорам</small><b>+2 380 000 ₸</b></div>
-          <div class="m out"><small>Уйдёт в августе · по договорам</small><b>−860 000 ₸</b></div>
-          <div class="m"><small>Останется (прогноз)</small><b>+1 520 000 ₸</b></div>
-        </div>
-
-        <div class="kcard">
-          <h2>Июль · факт <span class="all" style="color:var(--mut);font-weight:400;text-transform:none;letter-spacing:0">план выполнен на 87%</span></h2>
-          <div class="fbar"><i style="width:74%;background:var(--green)"></i><i style="width:13%;background:var(--amber)"></i></div>
-          <div class="hint" style="margin-top:6px">Пришло 2 140 000 из плановых 2 460 000 ₸ · жёлтое — счёт № 27 «Нур Опт» (780 000 ₸, просрочен, напомнили)</div>
-        </div>
-
-        <div class="kcard">
-          <h2>Август · план по этапам договоров</h2>
-          <div class="fpr">
-            <div class="d"><b>5</b><small>авг</small></div>
-            <div><span class="fb">Аванс по договору № 08-2026</span><span class="fs">ТОО «Алтай Строй» · этап 1 из 2 · напомним сами</span></div>
-            <div class="amt in">+600 000 ₸<small>придёт</small></div>
-          </div>
-          <div class="fpr">
-            <div class="d"><b>12</b><small>авг</small></div>
-            <div><span class="fb">Оплата поставщику за материалы</span><span class="fs">ТОО «КазСнаб» · по счёту № 41 · платёжка будет готова</span></div>
-            <div class="amt out">−460 000 ₸<small>уйдёт</small></div>
-          </div>
-          <div class="fpr">
-            <div class="d"><b>15</b><small>авг</small></div>
-            <div><span class="fb">Просроченный счёт № 27 — дожимаем</span><span class="fs">ТОО «Нур Опт» · перенесён из июля · 3-е напоминание ушло</span></div>
-            <div class="amt in">+780 000 ₸<small>ожидаем</small></div>
-          </div>
-          <div class="fpr">
-            <div class="d"><b>25</b><small>авг</small></div>
-            <div><span class="fb">Остаток по договору № 08-2026</span><span class="fs">ТОО «Алтай Строй» · этап 2 · после отгрузки 40 шт</span></div>
-            <div class="amt in">+600 000 ₸<small>придёт</small></div>
-          </div>
-          <div class="fpr">
-            <div class="d"><b>25</b><small>авг</small></div>
-            <div><span class="fb">Налоги и взносы</span><span class="fs">посчитает и подготовит Айгерим · платёжка придёт заранее</span></div>
-            <div class="amt out">−400 000 ₸<small>уйдёт</small></div>
-          </div>
-        </div>
-
-        <div class="fplan-note">
-          <div>💡</div>
-          <div><b>Совет от Айгерим:</b> если «Нур Опт» не оплатит до 15-го, август всё равно закрывается в плюс — но новый договор с ними советую только с предоплатой 50%. Могу заложить в шаблон.</div>
-        </div>
-      </section>
-
-      <!-- ═══ СДЕЛКИ ═══ -->
-      <section class="view" id="v-deals">
-        <h1 class="pg">Сделки</h1>
-        <div class="pg-sub">Зелёная сделка = оплачено, отгружено и подписано всё, до последней штуки и подписи.</div>
-        <div class="chips">
-          <div class="chip2 on">Все · 12</div><div class="chip2">В работе · 3</div><div class="chip2">Ждём оплату · 1</div><div class="chip2">Закрытые · 8</div>
-        </div>
-        <div class="kcard">
-          <div class="row" data-go="deal">
-            <div class="ic">🏗</div>
-            <div style="flex:1;min-width:0">
-              <b>ТОО «Алтай Строй» · 1 200 000 ₸</b>
-              <small>поставка + монтаж · вы исполнитель</small>
-              <div class="qty" style="max-width:340px">
-                <div class="ql"><span>Отгружено <b>80 из 120 шт</b></span><span class="left">осталось 40</span></div>
-                <div class="bar"><i class="part" style="width:67%"></i></div>
-              </div>
-            </div>
-            <div class="r"><span class="st b">АВР подписывается</span></div><span class="chev">›</span>
-          </div>
-          <div class="row">
-            <div class="ic">📦</div>
-            <div style="flex:1"><b>ТОО «Нур Опт» · 780 000 ₸</b><small>оплата просрочена на 4 дня · напомнили</small></div>
-            <div class="r"><span class="st a">ждём оплату</span></div><span class="chev">›</span>
-          </div>
-          <div class="row">
-            <div class="ic">🧱</div>
-            <div style="flex:1"><b>ТОО «КазСнаб» · 460 000 ₸</b><small>вы заказчик · оплачено, ждём накладную поставщика</small></div>
-            <div class="r"><span class="st b">контроль у нас</span></div><span class="chev">›</span>
-          </div>
-          <div class="row">
-            <div class="ic">🔧</div>
-            <div style="flex:1"><b>ИП Серик · 340 000 ₸</b><small>монтаж · закрыта полностью</small></div>
-            <div class="r"><span class="st g">закрыта ✓</span></div><span class="chev">›</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══ СДЕЛКА ═══ -->
-      <section class="view" id="v-deal">
-        <span class="back" data-go="deals">‹ Все сделки</span>
-        <h1 class="pg">ТОО «Алтай Строй» · 1 200 000 ₸</h1>
-        <div class="pg-sub">Договор № 07-2026 · вы исполнитель · <span class="light" style="font-size:11.5px">● благонадёжен</span></div>
-
-        <div class="kcard">
-          <h2>📦 Количество под контролем</h2>
-          <div class="qty">
-            <div class="ql"><span>Двери межкомнатные · <b>отгружено 80 из 120 шт</b></span><span class="left">осталось 40 шт</span></div>
-            <div class="bar"><i class="part" style="width:67%"></i></div>
-          </div>
-          <div class="qty" style="margin-top:12px">
-            <div class="ql"><span>Монтаж · <b>выполнено 100%</b></span><span style="color:var(--green);font-weight:700">✓</span></div>
-            <div class="bar"><i style="width:100%"></i></div>
-          </div>
-          <div style="margin-top:12px;background:var(--amber-soft);border-radius:12px;padding:11px 13px;font-size:13px">
-            ⚠️ Накладная № 12 закрывает только 80 шт. На остаток 40 шт — <b>накладная № 13 подготовлена</b>, отправим при отгрузке. Ничего не потеряется.
-          </div>
-        </div>
-
-        <div class="kcard">
-          <h2>Цепочка сделки</h2>
-          <div class="chain">
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Договор № 07-2026 подписан</b><small>обеими сторонами · 2 июля</small><span class="doc">📄 Договор.pdf</span></div></div>
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Счёт № 31 оплачен полностью</b><small>1 200 000 ₸ · 15 июля · этап 1 и 2 из договора</small><span class="doc">🧾 Счёт № 31.pdf</span></div></div>
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Накладная З-2 № 12 подписана</b><small>80 шт · принято по доверенности № 8 · 18 июля</small><span class="doc">📦 Накладная № 12.pdf</span></div></div>
-            <div class="step"><div class="m"><div class="c run">…</div><div class="vl"></div></div><div class="in"><b>АВР Р-1 № 14 на подписании</b><small>у контрагента в WhatsApp · обычно подписывают за день · напомним сами</small><span class="doc">✍️ АВР № 14 · у контрагента</span></div></div>
-            <div class="step"><div class="m"><div class="c wait">5</div></div><div class="in"><b>Накладная № 13 (остаток 40 шт) → ЭСФ → закрытие</b><small>номера уже зарезервированы, ничего не задвоится</small></div></div>
-          </div>
-        </div>
-
-        <div class="kcard">
-          <h2>Что нужно от вас</h2>
-          <div style="color:var(--mut);padding:2px 0 4px">Ничего. Мы напишем, если что-то потребуется.</div>
-        </div>
-      </section>
-
-      <!-- ═══ ДОКУМЕНТЫ ═══ -->
       <section class="view" id="v-docs">
         <h1 class="pg">Документы</h1>
-        <div class="pg-sub">Сквозная нумерация ведётся автоматически — без пропусков и дублей. Всё в одном месте, не в переписке.</div>
-
+        <div class="pg-sub">Все документы всех сделок — в одном месте, а не в переписке.</div>
+        <div class="chips" id="docChips">
+          <div class="chip2 on">Все<span class="c2">47</span></div>
+          <div class="chip2">Ждут вас<span class="c2">1</span></div>
+          <div class="chip2">На подписании<span class="c2">3</span></div>
+          <div class="chip2">Ждут оплаты<span class="c2">2</span></div>
+          <div class="chip2">Подписанные<span class="c2">38</span></div>
+          <div class="chip2">Отчётность<span class="c2">3</span></div>
+        </div>
         <div class="kcard">
-          <h2>№ Журнал нумерации</h2>
-          <div class="numline"><div><span class="nn">Счёт № 32</span><small>следующий номер · выдаётся автоматически</small></div><span class="okk">без пропусков ✓</span></div>
-          <div class="numline"><div><span class="nn">Накладная № 13</span><small>зарезервирована под остаток «Алтай Строй»</small></div><span class="okk">без дублей ✓</span></div>
-          <div class="numline"><div><span class="nn">АВР № 15</span><small>следующий номер</small></div><span class="okk">✓</span></div>
-          <div class="numalert" style="margin-top:8px">
-            <div>⚠️</div>
-            <div><b>Пропущен счёт № 24</b><small>в старых документах из WhatsApp номера 23 и 25 есть, 24 — нет. Найдём или оформим корректно.</small></div>
-            <div class="fix">разбираем</div>
-          </div>
-        </div>
-
-        <div class="dtabs">
-          <div class="dtab on">Все <span class="cnt2">47</span></div>
-          <div class="dtab">Ждут вас <span class="cnt2">1</span></div>
-          <div class="dtab">На подписании <span class="cnt2">3</span></div>
-          <div class="dtab">Ждут оплаты <span class="cnt2">2</span></div>
-          <div class="dtab">Подписанные <span class="cnt2">38</span></div>
-          <div class="dtab">Отчётность <span class="cnt2">3</span></div>
-        </div>
-        <div class="chips">
-          <div class="chip2 on">Все типы</div><div class="chip2" data-go="deals">📁 По сделкам</div><div class="chip2">Договоры</div><div class="chip2">Счета</div><div class="chip2">Накладные</div><div class="chip2">АВР</div><div class="chip2">Сверки</div><div class="chip2">ЭСФ</div>
-        </div>
-
-        <div>
-          <div class="dth"><span>№ / дата</span><span>Документ</span><span>Контрагент</span><span></span><span style="text-align:right">Сумма</span><span>Статус</span></div>
-          <div class="dtr" data-go="doc">
-            <div class="num">АВР № 14<small>сегодня</small></div>
-            <div><b>Акт выполненных работ Р-1</b><small>договор № 07-2026 · подписан вами ✓</small></div>
-            <div class="h-m"><b style="font-weight:600">ТОО «Алтай Строй»</b><small>открыли 09:15</small></div>
-            <div class="h-m"></div>
-            <div class="sum3 h-m">1 200 000 ₸</div>
-            <div><span class="st b">у контрагента</span></div>
-          </div>
-          <div class="dtr">
-            <div class="num">б/н<small>сегодня</small></div>
-            <div><b>Доп. соглашение к № 07-2026</b><small>изменение этапа оплаты</small></div>
-            <div class="h-m"><b style="font-weight:600">ТОО «Алтай Строй»</b></div>
-            <div class="h-m"></div>
-            <div class="sum3 h-m">—</div>
-            <div><span class="st r">ждёт вас</span></div>
-          </div>
-          <div class="dtr">
-            <div class="num">910<small>до 15 авг</small></div>
-            <div><b>Форма 910 · 1-е полугодие</b><small>проверена · сдаём 12 августа</small></div>
-            <div class="h-m"><b style="font-weight:600">КГД</b></div>
-            <div class="h-m"></div>
-            <div class="sum3 h-m">—</div>
-            <div><span class="st b">готова</span></div>
-          </div>
-          <div class="dtr">
-            <div class="num">Счёт № 27<small>14 июля</small></div>
-            <div><b>Счёт на оплату</b><small>просрочен 4 дня · напомнили вчера</small></div>
-            <div class="h-m"><b style="font-weight:600">ТОО «Нур Опт»</b></div>
-            <div class="h-m"></div>
-            <div class="sum3 h-m">780 000 ₸</div>
-            <div><span class="st a">ждёт оплаты</span></div>
-          </div>
-          <div class="dtr">
-            <div class="num">ЭСФ № 112<small>21 июля</small></div>
-            <div><b>Электронная счёт-фактура</b><small>зарегистрирован в ИС ЭСФ</small></div>
-            <div class="h-m"><b style="font-weight:600">ИП Серик</b></div>
-            <div class="h-m"></div>
-            <div class="sum3 h-m">340 000 ₸</div>
-            <div><span class="st g">принят ✓</span></div>
-          </div>
-          <div class="dtr">
-            <div class="num">Сверка<small>полугодие</small></div>
-            <div><b>Акт сверки взаиморасчётов</b><small>по нашим данным вам должны на 180 000 ₸ больше</small></div>
-            <div class="h-m"><b style="font-weight:600">ТОО «Нур Опт»</b></div>
-            <div class="h-m"></div>
-            <div class="sum3 h-m">180 000 ₸</div>
-            <div><span class="st a">проверяем</span></div>
-          </div>
+          <div class="row" data-go="doc"><div class="ic">✍️</div><div style="flex:1"><b>АВР Р-1 № 14 · «Алтай Строй»</b><small>отправлен · открыт контрагентом 09:15</small></div><div class="r"><span class="st b">у контрагента</span></div><span class="chev">›</span></div>
+          <div class="row" data-go="deal"><div class="ic">📝</div><div style="flex:1"><b>Доп. соглашение · «Алтай Строй»</b><small>изменение этапа оплаты</small></div><div class="r"><span class="st r">ждёт вас</span></div><span class="chev">›</span></div>
+          <div class="row" data-go="doc"><div class="ic">🏛</div><div style="flex:1"><b>Форма 910 · 1-е полугодие</b><small>срок 15 авг · сдаём 12 авг</small></div><div class="r"><span class="st b">готова</span></div><span class="chev">›</span></div>
+          <div class="row" data-go="doc"><div class="ic">🧾</div><div style="flex:1"><b>Счёт № 27 · «Нур Опт»</b><small>780 000 ₸ · просрочен 4 дня</small></div><div class="r"><span class="st a">напомнили</span></div><span class="chev">›</span></div>
+          <div class="row" data-go="doc"><div class="ic">📄</div><div style="flex:1"><b>ЭСФ № 112 · ИП Серик</b><small>зарегистрирован в ИС ЭСФ</small></div><div class="r"><span class="st g">принят ✓</span></div><span class="chev">›</span></div>
+          <div class="row" data-go="doc"><div class="ic">⚖️</div><div style="flex:1"><b>Акт сверки · «Нур Опт»</b><small>вам должны на 180 000 ₸ больше</small></div><div class="r"><span class="st a">проверяем</span></div><span class="chev">›</span></div>
         </div>
       </section>
 
-      <!-- ═══ СОБЫТИЯ ═══ -->
-      <section class="view" id="v-feed">
-        <h1 class="pg">События</h1>
-        <div class="pg-sub">Всё, что сделали специалист и система. Спрашивать «ну что там?» не нужно.</div>
-        <div class="kcard">
-          <div class="feed-i"><div class="p"></div><div><b>АВР № 14 подписан ✓</b><small>«Алтай Строй» подписали в WhatsApp через 40 минут</small></div><span class="tm">14:32</span></div>
-          <div class="feed-i"><div class="p b"></div><div><b>Накладная № 13 зарезервирована</b><small>под остаток 40 шт — номер не задвоится</small></div><span class="tm">12:10</span></div>
-          <div class="feed-i"><div class="p b"></div><div><b>Форма 910 подготовлена</b><small>реквизиты, суммы и НДС сверены с данными сделок</small></div><span class="tm">11:05</span></div>
-          <div class="feed-i"><div class="p a"></div><div><b>Напомнили «Нур Опт» об оплате</b><small>счёт № 27 просрочен на 4 дня · напоминание от системы</small></div><span class="tm">вчера</span></div>
-          <div class="feed-i"><div class="p"></div><div><b>Счёт от «КазСнаб» распознан</b><small>фото из WhatsApp → платёжка готова, реквизиты сверены с госбазой</small></div><span class="tm">вчера</span></div>
-          <div class="feed-i"><div class="p"></div><div><b>ЭСФ № 112 принят КГД</b><small>зарегистрирован в ИС ЭСФ</small></div><span class="tm">21 июля</span></div>
-        </div>
-      </section>
-
-      <!-- ═══ ТАРИФ ═══ -->
-      <section class="view" id="v-tarif">
-        <h1 class="pg">Тариф и договор</h1>
-        <div class="pg-sub">Цена и границы работ зафиксированы письменно — сюрпризов в счёте не бывает.</div>
-        <div class="kcard">
-          <div class="sum2">80 000 ₸ <small>/ месяц</small></div>
-          <div class="lock">🔒 Зафиксировано в договоре № С-042</div>
-          <div>
-            <div class="pi"><span>✓</span> Документы всех сделок: договоры, счета, накладные, АВР, доверенности, сверки</div>
-            <div class="pi"><span>✓</span> Сроки, суммы и нумерация под автоматическим контролем</div>
-            <div class="pi"><span>✓</span> Вся отчётность и ЭСФ — сдаём сами, до срока</div>
-            <div class="pi"><span>✓</span> Ответы на уведомления КГД и запросы банка</div>
-            <div class="pi"><span>✓</span> Напоминания контрагентам об оплатах и подписях</div>
-            <div class="pi" style="border:none"><span>✓</span> Вопросы специалисту без ограничений</div>
-          </div>
-          <div class="guar"><b>Гарантия:</b> просрочка по нашей вине — штраф платим мы. Договор, п. 7.2.</div>
-          <div style="display:flex;gap:10px;margin-top:16px">
-            <div class="btn" style="flex:1">Открыть договор</div>
-            <div class="btn ghost" style="flex:1">Периметр PDF</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══ КАБИНЕТ СПЕЦИАЛИСТА ═══ -->
-      <section class="view" id="v-spec">
-        <div class="rolebar">
-          <div class="ava">АС</div>
-          <div><b>Кабинет специалиста · Айгерим</b><small>тот же стиль, та же логика — видно всех клиентов сразу</small></div>
-          <div class="sw" data-go="home">← Кабинет клиента</div>
-        </div>
-
-        <div class="kpis">
-          <div class="kpi"><small>Компаний на сопровождении</small><b>12</b></div>
-          <div class="kpi good"><small>Всё зелёное</small><b>8</b></div>
-          <div class="kpi warn"><small>Требуют внимания</small><b>3</b></div>
-          <div class="kpi bad"><small>Риск просрочки</small><b>1</b></div>
-        </div>
-
-        <div class="kcard" style="background:var(--red-soft);border:none">
-          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-            <div style="font-size:20px">✍️</div>
-            <div style="flex:1"><b>8 документов по 4 клиентам готовы к отправке</b><div style="font-size:12.5px;color:#a33">проверены системой: суммы, реквизиты, номера сходятся</div></div>
-            <div class="btn" style="padding:10px 18px;font-size:13.5px">Подписать и отправить все</div>
-          </div>
-        </div>
-
-        <div>
-          <div class="cth"><span>Компания</span><span>Статус</span><span>Ближайший срок</span><span>Им должны</span><span></span></div>
-          <div class="ctr">
-            <div><b>ТОО «Айгерим Трейд»</b><small>упрощёнка · 12 сделок</small></div>
-            <div><span class="stt g"><i></i>всё сдано</span></div>
-            <div class="h-m"><b style="font-weight:600;font-size:13px">910 · 12 авг</b><small>готова</small></div>
-            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">1 980 000 ₸</small></div>
-            <div><span class="enter">Войти как клиент</span></div>
-          </div>
-          <div class="ctr">
-            <div><b>ИП Мадияр</b><small>услуги · 5 сделок</small></div>
-            <div><span class="stt a"><i></i>3 дела</span></div>
-            <div class="h-m"><b style="font-weight:600;font-size:13px">АВР · сегодня</b><small>2 подписи ждём</small></div>
-            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">640 000 ₸</small></div>
-            <div><span class="enter">Войти как клиент</span></div>
-          </div>
-          <div class="ctr">
-            <div><b>ТОО «СтройДом KZ»</b><small>ОУР · 18 сделок</small></div>
-            <div><span class="stt r"><i></i>риск: 200.00 до чт</span></div>
-            <div class="h-m"><b style="font-weight:600;font-size:13px">ф. 200 · 31 июля</b><small>ждём зарплатные данные</small></div>
-            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">3 240 000 ₸</small></div>
-            <div><span class="enter">Войти как клиент</span></div>
-          </div>
-          <div class="ctr">
-            <div><b>ИП Салтанат</b><small>розница · 7 сделок</small></div>
-            <div><span class="stt g"><i></i>всё сдано</span></div>
-            <div class="h-m"><b style="font-weight:600;font-size:13px">ЭСФ · 5 авг</b><small>подготовлен</small></div>
-            <div class="h-m"><small style="font-size:13px;color:var(--ink);font-weight:700">0 ₸</small></div>
-            <div><span class="enter">Войти как клиент</span></div>
-          </div>
-        </div>
-
-        <div class="kcard">
-          <h2>Очередь задач · сегодня <span class="all">Распределить автоматически</span></h2>
-          <div class="task"><div class="t1"><div><b>Дожать зарплатные данные «СтройДом»</b><small>без них форма 200 под риском · дедлайн четверг</small></div><span class="who2 me">срочно</span></div></div>
-          <div class="task"><div class="t1"><div><b>Проверить счёт № 30, сделанный клиентом</b><small>«Айгерим Трейд» выставила сама — автопроверка прошла, нужен взгляд</small></div><span class="who2 ck">на проверку</span></div></div>
-          <div class="task"><div class="t1"><div><b>Разобрать сверку «Нур Опт»</b><small>расхождение 180 000 ₸ в пользу клиента</small></div><span class="who2 sp">Салтанат · в работе</span></div></div>
-        </div>
-      </section>
-
-      <!-- ═══ КАРТА ДЕЛ ═══ -->
-      <section class="view" id="v-map">
-        <span class="back" data-go="home">‹ Главная</span>
-        <h1 class="pg">🗺 Карта ваших дел</h1>
-        <div class="pg-sub">Мы разобрали ваши документы и переписку за 2024–2026. Нашли 6 незакрытых дел — ничего делать не нужно, мы уже занимаемся. Следите за статусами.</div>
-
-        <div class="kcard">
-          <h2>Деньги, которые можно вернуть</h2>
-          <div class="row"><div class="ic">💰</div><div><b>Сверка с «Нур Опт» расходится</b><small>по вашим документам вам должны на 180 000 ₸ больше — готовим акт сверки</small></div><div class="r"><span class="st a">разбираем</span></div></div>
-          <div class="row"><div class="ic">🧾</div><div><b>2 счёта без закрывающих · 920 000 ₸</b><small>оплата прошла, документов нет — деньги «висят» юридически · оформляем накладную и АВР</small></div><div class="r"><span class="st b">оформляем</span></div></div>
-        </div>
-
-        <div class="kcard">
-          <h2>Риски перед налоговой</h2>
-          <div class="row"><div class="ic">🏛</div><div><b>Форма 270 не сдана за 2025</b><small>штрафа ещё нет — успеваем · подготовили, сдаём до пятницы</small></div><div class="r"><span class="st b">готовим</span></div></div>
-          <div class="row"><div class="ic">📄</div><div><b>3 сделки были без договора</b><small>оформим расписками — риски закроются задним числом законно</small></div><div class="r"><span class="st b">оформляем</span></div></div>
-        </div>
-
-        <div class="kcard">
-          <h2>Незакрытые подписи</h2>
-          <div class="row"><div class="ic">✍️</div><div><b>3 акта не подписаны контрагентами</b><small>«Алтай Строй», ИП Мади, «КазСнаб» — отправили ссылки на подписание в WhatsApp</small></div><div class="r"><span class="st b">в работе</span></div></div>
-        </div>
-
-        <div class="kcard" style="background:var(--green-soft);border:none">
-          <div style="display:flex;gap:12px;align-items:center">
-            <div style="font-size:26px">✓</div>
-            <div><b style="font-size:15px">Что это значит</b><div style="font-size:13.5px;color:#2e7d54;margin-top:3px">Через 2–3 недели все 6 дел закроются, и главный экран станет зелёным: «Всё сдано и подписано». Дальше держим его зелёным — это наша работа.</div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══ ОНБОРДИНГ · шаг 1 ═══ -->
-      <section class="view" id="v-ob1">
-        <div class="done-hero" style="background:linear-gradient(160deg,#1a1a1a,#333);text-align:left;padding:26px 22px">
-          <b style="font-size:22px">Бумаги вашего бизнеса<br>ведут себя сами</b>
-          <small style="margin-top:10px">Специалист ведёт документы и отчётность — вы просто видите, что всё сдано и подписано. Цена фиксируется письменно.</small>
-        </div>
-        <div class="kcard">
-          <div class="inp act"><small>Как вас зовут</small><b>Бекмурат</b></div>
-          <div class="inp"><small>WhatsApp-номер</small><b>+7 707 ··· ·· ··</b></div>
-          <div class="hint">Без паролей и почты. Номер подтвердим позже — при первой отправке документа.</div>
-          <div class="btn" style="margin-top:14px" data-go="ob2">Продолжить</div>
-        </div>
-        <div class="hint" style="text-align:center">Уже есть кабинет? <b style="color:var(--red)">Войти</b></div>
-      </section>
-
-      <!-- ═══ ОНБОРДИНГ · шаг 2 ═══ -->
-      <section class="view" id="v-ob2">
-        <span class="back" data-go="ob1">‹ Назад</span>
-        <h1 class="pg">Ваша компания</h1>
-        <div class="steps"><i class="on"></i><i class="on"></i><i></i></div>
-        <div class="kcard">
-          <div class="inp act"><small>БИН / ИИН</small><b>020840 001 234</b></div>
-          <div class="hint">Нашли в госбазе — проверьте:</div>
-          <div class="inp"><small>Название</small><b>ТОО «Айгерим Трейд»</b></div>
-          <div class="inp"><small>Вид деятельности</small><b>Оптовая торговля строительными материалами</b></div>
-          <div class="inp"><small>Руководитель</small><b>Оналбай Б.</b></div>
-          <div class="btn" style="margin-top:14px" data-go="ob3">Да, это моя компания</div>
-        </div>
-      </section>
-
-      <!-- ═══ ОНБОРДИНГ · шаг 3 ═══ -->
-      <section class="view" id="v-ob3">
-        <span class="back" data-go="ob2">‹ Назад</span>
-        <h1 class="pg">Покажите ваши документы</h1>
-        <div class="steps"><i class="on"></i><i class="on"></i><i class="on"></i></div>
-        <div class="pg-sub">Как есть — в любом виде. Мы разберём сами и найдём, что не закрыто, не сдано и не подписано.</div>
-        <div class="kcard">
-          <div class="photo-cta" style="margin-bottom:10px">
-            <div class="cam">📷</div>
-            <div><b>Сфотографировать / загрузить файлы</b><small>договоры, счета, акты — хоть пачкой, хоть из галереи</small></div>
-          </div>
-          <div class="photo-cta" style="background:var(--green-soft)">
-            <div class="cam" style="background:var(--green)">💬</div>
-            <div><b>Переслать из WhatsApp</b><small>перешлите чаты с контрагентами и бухгалтером на номер BuhHub — вытащим документы из переписки</small></div>
-          </div>
-          <div class="hint" style="margin-top:10px">Ничего нет под рукой? Не страшно — начните с первой сделки, а документы догрузите потом.</div>
-          <div class="btn" style="margin-top:12px" data-go="ob4">Готово — разбирайте</div>
-          <div class="hint" style="text-align:center;margin-top:8px" data-go="ob4"><b style="color:var(--mut)">Пропустить</b></div>
-        </div>
-      </section>
-
-      <!-- ═══ ОНБОРДИНГ · финал ═══ -->
-      <section class="view" id="v-ob4">
-        <div class="done-hero">
-          <div class="big">🗺</div>
-          <b>Разбираем ваши документы</b>
-          <small>Специалист Айгерим взяла вашу компанию. Через 1–2 дня пришлём в WhatsApp «Карту ваших дел»: что не закрыто, что не сдано, что мы уже чиним.<br><br>Ничего делать не нужно.</small>
-        </div>
-        <div class="kcard">
-          <h2>А пока — попробуйте сами</h2>
-          <div class="row" data-go="new1"><div class="ic">🤝</div><div><b>Оформить первую сделку</b><small>договор за 3 шага — с кем, о чём, как платят</small></div><span class="chev">›</span></div>
-          <div class="row" data-go="map"><div class="ic">🗺</div><div><b>Посмотреть пример Карты дел</b><small>как будет выглядеть разбор</small></div><span class="chev">›</span></div>
-        </div>
-        <div class="btn ghost" data-go="home">В кабинет</div>
-      </section>
-
-      <!-- ═══ РАБОТА (self-service) ═══ -->
-      <section class="view" id="v-work">
-        <h1 class="pg">Работа</h1>
-        <div class="pg-sub">Всё можно сделать самому — быстро и с подстраховкой: каждый документ проверяется, специалист рядом.</div>
-
-        <div class="photo-cta">
-          <div class="cam">📷</div>
-          <div><b>Сфотографируйте любой документ</b><small>счёт, накладную, договор — распознаем, проверим и вставим в нужную сделку. Не знаете, что это — просто фоткайте, разберёмся.</small></div>
-        </div>
-
-        <div class="kcard">
-          <h2>Создать</h2>
-          <div class="tiles">
-            <div class="tile hot" data-go="new1"><i>🤝</i><span>Сделка / договор</span></div>
-            <div class="tile"><i>🧾</i><span>Выставить счёт</span></div>
-            <div class="tile"><i>📥</i><span>Мне выставили</span></div>
-            <div class="tile"><i>📦</i><span>Накладная</span></div>
-            <div class="tile"><i>✍️</i><span>АВР</span></div>
-            <div class="tile"><i>🪪</i><span>Доверенность</span></div>
-            <div class="tile"><i>⚖️</i><span>Акт сверки</span></div>
-            <div class="tile"><i>🏛</i><span>ЭСФ</span></div>
-          </div>
-          <div class="hint" style="margin-top:10px">Номера выдаются автоматически, данные тянутся из сделок и госбазы — с нуля заполнять ничего не придётся. Любую задачу можно в один тап отдать специалисту.</div>
-        </div>
-
-        <div class="kcard">
-          <h2>Справочники и инструменты</h2>
-          <div class="tool"><div class="ic">🏢</div><div><b>Контрагенты</b><small>8 компаний · у всех проверена благонадёжность</small></div><span class="r3 st g">светофор ✓</span><span class="chev">›</span></div>
-          <div class="tool"><div class="ic">🪪</div><div><b>Мои реквизиты</b><small>ИИК, банк, НДС, адрес</small></div><span class="r3 st g">заполнено ✓</span><span class="chev">›</span></div>
-          <div class="tool"><div class="ic">👥</div><div><b>Сотрудники</b><small>2 человека · для доверенностей</small></div><span class="chev">›</span></div>
-          <div class="tool"><div class="ic">🔢</div><div><b>Журнал нумерации</b><small>счета, накладные, АВР — без пропусков</small></div><span class="r3 st g">✓</span><span class="chev">›</span></div>
-          <div class="tool"><div class="ic">📤</div><div><b>Экспорт</b><small>выгрузка документов и данных для 1С / банка</small></div><span class="chev">›</span></div>
-        </div>
-
-        <div class="kcard">
-          <h2>Подстраховка</h2>
-          <div style="color:var(--mut);font-size:13.5px;line-height:1.5">Всё, что вы делаете сами, проверяется перед отправкой (реквизиты, суммы, номера) — а специалист видит результат и поправит, если что. Делаете сами — платите меньше. Надоело — жмите «→ Специалисту» на любой задаче.</div>
-        </div>
-      </section>
-
-      <!-- ═══ ДОКУМЕНТ: карточка, трекинг, подписи ═══ -->
       <section class="view" id="v-doc">
         <span class="back" data-go="docs">‹ Документы</span>
         <h1 class="pg">АВР Р-1 № 14</h1>
-        <div class="pg-sub">Сделка «Алтай Строй» · 1 200 000 ₸ · номер выдан автоматически</div>
-
+        <div class="pg-sub">Сделка «Алтай Строй» · 1 200 000 ₸</div>
         <div class="kcard">
-          <div class="pdf"><div class="pic">📄</div><div><b>АВР Р-1 № 14.pdf</b><small>форма Р-1 (Прил. 50) · проверен: суммы и реквизиты сходятся</small></div><span class="dl">Скачать</span></div>
+          <div class="row" style="cursor:default"><div class="ic">📄</div><div style="flex:1"><b>АВР Р-1 № 14.pdf</b><small>форма Р-1 · проверен: суммы и реквизиты сходятся</small></div><span class="doc">Скачать</span></div>
         </div>
-
         <div class="kcard">
           <h2>Путь документа</h2>
           <div class="chain">
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Создан из сделки</b><small>вчера 16:40 · данные из договора № 07-2026, вручную ничего не вводили</small></div></div>
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Проверен</b><small>суммы = счёту № 31, реквизиты = госбазе, номер без дублей</small></div></div>
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Подписан вами</b><small>вчера 16:41 · одним нажатием в кабинете</small></div></div>
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Отправлен контрагенту в WhatsApp</b><small>вчера 16:42 · доставлен · открыт сегодня 09:15</small></div></div>
-            <div class="step"><div class="m"><div class="c run">…</div><div class="vl"></div></div><div class="in"><b>Ждём подпись контрагента</b><small>обычно подписывают за день · не подпишут до четверга — напомним сами</small></div></div>
-            <div class="step"><div class="m"><div class="c wait">✦</div></div><div class="in"><b>В архив + ЭСФ</b><small>после подписи документ встанет в сделку, ЭСФ уйдёт в ИС ЭСФ</small></div></div>
+            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Создан из сделки</b><small>вчера 16:40 · данные из договора, вручную ничего</small></div></div>
+            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Проверен и подписан вами</b><small>вчера 16:41 · одним нажатием</small></div></div>
+            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Отправлен в WhatsApp · Открыт ✓</b><small>доставлен вчера 16:42 · открыт сегодня 09:15</small></div></div>
+            <div class="step"><div class="m"><div class="c run">…</div><div class="vl"></div></div><div class="in"><b>Ждём подпись контрагента</b><small>не подпишут до четверга — напомним сами</small></div></div>
+            <div class="step"><div class="m"><div class="c wait">✦</div></div><div class="in"><b>Архив + ЭСФ</b><small>после подписи встанет в сделку</small></div></div>
           </div>
         </div>
+        <div class="note"><div>💡</div><div>Специалист следит за подписанием сам. Вам ничего делать не нужно — придёт «подписано ✓».</div></div>
+        <div style="display:flex;gap:10px"><div class="btn" style="flex:1" data-wa="1">Спросить специалиста</div><div class="btn ghost" style="flex:1" data-go="docs">К документам</div></div>
+      </section>
 
+      <section class="view" id="v-deal">
+        <span class="back" data-go="home">‹ Главная</span>
+        <h1 class="pg">ТОО «Алтай Строй» · 1 200 000 ₸</h1>
+        <div class="pg-sub">Договор № 07-2026 · вы исполнитель</div>
         <div class="kcard">
-          <h2>Подписи</h2>
-          <div class="sig"><div class="av2">ВЫ</div><div><b>ТОО «Айгерим Трейд»</b><small>подписано в кабинете · вчера 16:41</small></div><span class="r2 st g">подписано ✓</span></div>
-          <div class="sig"><div class="av2" style="background:#fef0ee;color:var(--red)">АС</div><div><b>ТОО «Алтай Строй»</b><small>открыли документ сегодня 09:15</small></div><span class="r2 st a">ждём · напомним чт</span></div>
+          <h2>📦 Количество под контролем</h2>
+          <div class="hint">Двери · <b>отгружено 80 из 120 шт</b> · осталось 40</div>
+          <div style="height:10px;border-radius:999px;background:#eef0f3;overflow:hidden;margin-top:8px"><i style="display:block;height:100%;width:67%;background:var(--amber)"></i></div>
+          <div class="note" style="margin-top:12px">⚠️ Накладная № 12 закрывает 80 шт. На остаток 40 — <b>накладная № 13 подготовлена</b>. Ничего не потеряется.</div>
         </div>
-
         <div class="kcard">
-          <h2>Как это видит контрагент · WhatsApp</h2>
-          <div class="wachat">
-            <div class="msg out">
-              <div class="doc2">📄 АВР Р-1 № 14.pdf · 1 200 000 ₸</div>
-              Здравствуйте! ТОО «Айгерим Трейд» направляет акт выполненных работ по договору № 07-2026.
-              <b>Подписать за минуту (без регистрации):</b><br>🔗 buhhub.kz/sign/a14x…<br>
-              Откроется страница — подпишите <b>ЭЦП или по QR</b>. Вопросы — просто напишите сюда.
-              <span class="tm2">16:42 ✓✓</span>
-            </div>
-            <div class="msg in">Добрый день, посмотрю сегодня 👍<span class="tm2">09:16</span></div>
-            <div class="msg in" style="opacity:.45">✍️ Подписано ЭЦП · Ахметов Д. С.<span class="tm2">— так придёт подтверждение</span></div>
+          <h2>Цепочка сделки</h2>
+          <div class="chain">
+            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Договор подписан</b><small>2 июля</small><span class="doc" data-go="doc">📄 Договор № 07-2026.pdf</span></div></div>
+            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Счёт оплачен полностью</b><small>1 200 000 ₸ · 15 июля</small><span class="doc" data-go="doc">🧾 Счёт № 31.pdf</span></div></div>
+            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Накладная подписана</b><small>80 шт · 18 июля</small><span class="doc" data-go="doc">📦 Накладная № 12.pdf</span></div></div>
+            <div class="step"><div class="m"><div class="c run">…</div><div class="vl"></div></div><div class="in"><b>АВР № 14 на подписании</b><small>у контрагента · напомним сами</small><span class="doc" data-go="doc">✍️ АВР № 14</span></div></div>
+            <div class="step"><div class="m"><div class="c wait">5</div></div><div class="in"><b>Накладная № 13 → ЭСФ → закрыто</b><small>номера зарезервированы</small></div></div>
           </div>
-          <div class="hint">Контрагент подписывает по ссылке — без регистрации и установки: ЭЦП НУЦ РК или QR (юридически безупречно, бухгалтерии принимают). Если у контрагента совсем нет ЭЦП — запасной вариант: ответ «Да, согласен» в чате (ст. 152 ГК РК, фиксируем номер, время, отпечаток файла).</div>
-          <div class="hint" style="margin-top:10px">Авто-напоминание уйдёт через 2 дня, максимум 3 раза — дальше подключается специалист. Не оплаченный за 30 дней счёт помечается «истёк».</div>
-          <div style="display:flex;gap:10px;margin-top:12px">
-            <div class="btn" style="flex:1">Напомнить сейчас</div>
-            <div class="btn ghost" style="flex:1">→ Специалисту</div>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-            <span class="doc">📜 Сертификат подписания (PDF): кто, когда, каким способом, хэш</span>
-            <span class="doc">✔️ Отметить: подписан на бумаге</span>
-          </div>
+        </div>
+        <div class="kcard"><h2>Что нужно от вас</h2><div class="hint">Ничего. Мы напишем, если что-то потребуется.</div></div>
+      </section>
+
+      <section class="view" id="v-money">
+        <h1 class="pg">Деньги</h1>
+        <div class="pg-sub">Считается само из этапов ваших договоров и счетов. Вводить ничего не нужно.</div>
+        <div class="fp-sum">
+          <div class="m in"><small>Придёт в августе</small><b>+2 380 000 ₸</b></div>
+          <div class="m out"><small>Уйдёт в августе</small><b>−860 000 ₸</b></div>
+          <div class="m"><small>Останется (прогноз)</small><b>+1 520 000 ₸</b></div>
+        </div>
+        <div class="kcard">
+          <h2>Июль · факт</h2>
+          <div style="height:10px;border-radius:999px;background:#eef0f3;overflow:hidden"><i style="display:inline-block;height:100%;width:74%;background:var(--green)"></i><i style="display:inline-block;height:100%;width:13%;background:var(--amber);margin-left:-4px"></i></div>
+          <div class="hint" style="margin-top:6px">Пришло 2 140 000 из 2 460 000 ₸ · жёлтое — просроченный счёт № 27 (напомнили)</div>
+        </div>
+        <div class="kcard">
+          <h2>Август · план по этапам договоров</h2>
+          <div class="fpr"><div class="d"><b>5</b><small>авг</small></div><div style="flex:1"><b style="font-size:14px">Аванс · «Алтай Строй»</b><small class="hint">этап 1 из 2 · напомним сами</small></div><div class="amt in">+600 000<small>придёт</small></div></div>
+          <div class="fpr"><div class="d"><b>12</b><small>авг</small></div><div style="flex:1"><b style="font-size:14px">Оплата поставщику</b><small class="hint">«КазСнаб» · платёжка будет готова</small></div><div class="amt out">−460 000<small>уйдёт</small></div></div>
+          <div class="fpr"><div class="d"><b>15</b><small>авг</small></div><div style="flex:1"><b style="font-size:14px">Просроченный счёт № 27</b><small class="hint">«Нур Опт» · дожимаем</small></div><div class="amt in">+780 000<small>ожидаем</small></div></div>
+          <div class="fpr"><div class="d"><b>25</b><small>авг</small></div><div style="flex:1"><b style="font-size:14px">Налоги и взносы</b><small class="hint">подготовит специалист · заранее</small></div><div class="amt out">−400 000<small>уйдёт</small></div></div>
+        </div>
+        <div class="note"><div>💡</div><div><b>Совет от Айгерим:</b> август закрывается в плюс даже если «Нур Опт» задержит. Новый договор с ними — советую с предоплатой 50%.</div></div>
+      </section>
+
+      <section class="view" id="v-feed">
+        <span class="back" data-go="home">‹ Главная</span>
+        <h1 class="pg">События</h1>
+        <div class="pg-sub">Что сделали специалист и система. Спрашивать «ну что там?» не нужно.</div>
+        <div class="kcard">
+          <div class="row" style="cursor:default"><div class="ic">✅</div><div style="flex:1"><b>АВР № 14 доставлен и открыт</b><small>«Алтай Строй» открыли ссылку · сегодня 09:15</small></div><span class="st b">открыт</span></div>
+          <div class="row" style="cursor:default"><div class="ic">🏛</div><div style="flex:1"><b>Форма 910 подготовлена</b><small>суммы и НДС сверены с данными сделок</small></div><span class="st b">готова</span></div>
+          <div class="row" style="cursor:default"><div class="ic">🔔</div><div style="flex:1"><b>Напомнили «Нур Опт» об оплате</b><small>счёт № 27 · напоминание ушло от системы</small></div><span class="st a">напомнили</span></div>
+          <div class="row" style="cursor:default"><div class="ic">📷</div><div style="flex:1"><b>Счёт от «КазСнаб» распознан</b><small>фото из WhatsApp → платёжка готова</small></div><span class="st g">готово</span></div>
         </div>
       </section>
 
-      <!-- ═══ ЗАДАЧИ ═══ -->
-      <section class="view" id="v-tasks">
-        <h1 class="pg">Задачи</h1>
-        <div class="pg-sub">Каждую задачу можно сделать самому — или передать специалисту одной кнопкой. Ваши задачи специалист проверяет, всю работу — анализирует.</div>
-        <div class="chips">
-          <div class="chip2 on">Все · 6</div><div class="chip2">На вас · 2</div><div class="chip2">У специалиста · 3</div><div class="chip2">Проверено · 1</div>
-        </div>
-
+      <section class="view" id="v-create">
+        <span class="back" data-go="home">‹ Главная</span>
+        <h1 class="pg">Создать</h1>
+        <div class="pg-sub">Фото, файл или с нуля — номера и данные подставим сами.</div>
         <div class="kcard">
-          <h2>На вас <span class="all" style="color:var(--mut);font-weight:400;font-size:12px">2 задачи</span></h2>
-          <div class="task">
-            <div class="t1"><div><b>Выставить счёт на остаток «Алтай Строй»</b><small>№ 33 зарезервирован · 600 000 ₸ · срок — при отгрузке 40 шт</small></div><span class="who2 me">на вас</span></div>
-            <div class="t-act"><div class="tbtn self">Сделаю сам · 2 мин</div><div class="tbtn deleg">→ Специалисту</div></div>
+          <h2>Быстрее всего — фото</h2>
+          <div class="row" data-wa="1"><div class="ic">📷</div><div style="flex:1"><b>Сфотографировать документ</b><small>счёт, накладную, договор — распознаем и вставим в сделку</small></div><span class="chev">›</span></div>
+          <div class="row" data-wa="1"><div class="ic">💬</div><div style="flex:1"><b>Переслать специалисту в WhatsApp</b><small>он оформит за вас</small></div><span class="chev">›</span></div>
+        </div>
+        <div class="kcard">
+          <h2>Или создать</h2>
+          <div class="tiles">
+            <div class="tile" data-go="deal"><i>🤝</i><span>Сделка</span></div>
+            <div class="tile" data-go="doc"><i>🧾</i><span>Счёт</span></div>
+            <div class="tile" data-go="doc"><i>📥</i><span>Мне выставили</span></div>
+            <div class="tile" data-go="doc"><i>📦</i><span>Накладная</span></div>
+            <div class="tile" data-go="doc"><i>✍️</i><span>АВР</span></div>
+            <div class="tile" data-go="doc"><i>🪪</i><span>Доверенность</span></div>
+            <div class="tile" data-go="doc"><i>⚖️</i><span>Сверка</span></div>
+            <div class="tile" data-go="doc"><i>🏛</i><span>ЭСФ</span></div>
           </div>
-          <div class="task">
-            <div class="t1"><div><b>Подписать доп. соглашение «Алтай Строй»</b><small>изменение этапа оплаты · только вы можете согласиться</small></div><span class="who2 me">только вы</span></div>
-            <div class="t-act"><div class="tbtn deleg" style="background:var(--ink)">Открыть и решить</div></div>
-          </div>
-        </div>
-
-        <div class="kcard">
-          <h2>У специалиста</h2>
-          <div class="task"><div class="t1"><div><b>Сдать форму 910 за полугодие</b><small>готова · сдаём 12 августа, раньше срока</small></div><span class="who2 sp">Айгерим · в работе</span></div></div>
-          <div class="task"><div class="t1"><div><b>Дожать подписание АВР № 14</b><small>у контрагента · напомним в четверг</small></div><span class="who2 sp">Айгерим · следим</span></div></div>
-          <div class="task"><div class="t1"><div><b>Разобрать расхождение сверки «Нур Опт»</b><small>по нашим данным вам должны на 180 000 ₸ больше</small></div><span class="who2 sp">Айгерим · разбирает</span></div></div>
-        </div>
-
-        <div class="kcard">
-          <h2>Проверено специалистом</h2>
-          <div class="task"><div class="t1"><div><b>Счёт № 30 — вы сделали сами</b><small>Айгерим проверила: реквизиты, КНП и сумма верны. В цепочку сделки встал правильно.</small></div><span class="who2 ck">проверено ✓</span></div></div>
-        </div>
-
-        <div class="kcard anal">
-          <h2>📊 Анализ от Айгерим · июль</h2>
-          <div class="ai"><span class="em">📈</span><div><b>Прибыль по сделкам +1 280 000 ₸ — маржа 34%</b><small>выше июня на 6 пунктов: сработала предоплата по «Алтай Строй»</small></div></div>
-          <div class="ai"><span class="em">⚠️</span><div><b>«Нур Опт» задерживает оплату второй раз подряд</b><small>совет: со следующей сделки — предоплата 50%. Могу внести в шаблон договора для них</small></div></div>
-          <div class="ai"><span class="em">🏛</span><div><b>Налоговая нагрузка в норме</b><small>до порога упрощёнки далеко — запас по выручке большой</small></div></div>
-          <div class="ai"><span class="em">💡</span><div><b>3 старые сделки были без договоров</b><small>оформили расписками, риски закрыты. Новые сделки советую вести только через конвейер</small></div></div>
+          <div class="hint" style="margin-top:10px">Номера выдаются автоматически, без пропусков. Любое можно в один тап отдать специалисту.</div>
         </div>
       </section>
 
-      <!-- ═══ НОВАЯ СДЕЛКА · шаг 1: с кем ═══ -->
-      <section class="view" id="v-new1">
-        <span class="back" data-go="home">‹ Отмена</span>
-        <h1 class="pg">С кем сделка?</h1>
-        <div class="steps"><i class="on"></i><i></i><i></i></div>
-        <div class="kcard">
-          <div class="inp act"><small>БИН или ИИН контрагента</small><b>860215 400 123</b></div>
-          <div class="hint">Больше ничего вводить не нужно — остальное мы взяли из госбазы:</div>
-          <div class="inp"><small>Название</small><b>ТОО «Алтай Строй»</b></div>
-          <div class="inp"><small>Руководитель</small><b>Ахметов Д. С.</b></div>
-          <div class="tlight">
-            <div class="b"></div>
-            <div><b>Благонадёжен</b><small>6 проверок: налоги оплачены · не банкрот · нет в списках КГД · нет долгов у судебных исполнителей · госзакупки чистые · судов нет</small></div>
-          </div>
-          <div class="btn" style="margin-top:14px" data-go="new2">Дальше</div>
+      <section class="view" id="v-specwin">
+        <span class="back" data-go="home">‹ Назад</span>
+        <div class="kcard" style="text-align:center;padding:26px 20px">
+          <div style="font-size:34px">🧑‍💼</div>
+          <h2 style="justify-content:center;margin-top:8px">Кабинет специалиста — отдельно</h2>
+          <div class="hint" style="margin:6px auto 16px;max-width:320px">Это кабинет предпринимателя: вы отслеживаете и контролируете. Кабинет специалиста (кто ведёт клиентов и делает работу) — отдельная ссылка.</div>
+          <a class="btn" href="/app/spec/" style="display:block;text-decoration:none">Открыть кабинет специалиста</a>
         </div>
-      </section>
-
-      <!-- ═══ НОВАЯ СДЕЛКА · шаг 2: о чём ═══ -->
-      <section class="view" id="v-new2">
-        <span class="back" data-go="new1">‹ Назад</span>
-        <h1 class="pg">О чём договорились?</h1>
-        <div class="steps"><i class="on"></i><i class="on"></i><i></i></div>
-        <div class="kcard">
-          <div class="seg"><div>Я покупаю</div><div class="on">Я продаю</div></div>
-          <div class="seg"><div class="on">Товар</div><div>Услуга</div><div>Товар + услуга</div></div>
-          <div class="inp act"><small>Что продаёте</small><b>Двери межкомнатные</b></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div class="inp"><small>Количество</small><b>120 шт</b></div>
-            <div class="inp"><small>Цена за шт</small><b>10 000 ₸</b></div>
-          </div>
-          <div class="inp" style="background:var(--green-soft)"><small>Сумма договора · посчитали сами</small><b>1 200 000 ₸</b></div>
-          <div class="hint">Количество взяли под контроль: отгрузки будут сверяться с этими 120 шт — частичная поставка не потеряется.</div>
-          <div class="btn" style="margin-top:14px" data-go="new3">Дальше</div>
-        </div>
-      </section>
-
-      <!-- ═══ НОВАЯ СДЕЛКА · шаг 3: как платят ═══ -->
-      <section class="view" id="v-new3">
-        <span class="back" data-go="new2">‹ Назад</span>
-        <h1 class="pg">Как вам платят?</h1>
-        <div class="steps"><i class="on"></i><i class="on"></i><i class="on"></i></div>
-        <div class="kcard">
-          <div class="seg"><div>100% вперёд</div><div class="on">Аванс + остаток</div><div>После работ</div></div>
-          <div class="stage"><div class="n2">1</div><div><b>600 000 ₸ — аванс</b><small>до 5 августа · при подписании</small></div><span class="ok2">✓</span></div>
-          <div class="stage"><div class="n2">2</div><div><b>600 000 ₸ — остаток</b><small>до 25 августа · после отгрузки</small></div><span class="ok2">✓</span></div>
-          <div class="hint">Распределено 1 200 000 из 1 200 000 ₸ · сходится ✓. Мы напомним об оплате каждого этапа — и вам, и контрагенту.</div>
-          <div class="btn" style="margin-top:14px" data-go="new4">Собрать договор</div>
-        </div>
-      </section>
-
-      <!-- ═══ НОВАЯ СДЕЛКА · готово ═══ -->
-      <section class="view" id="v-new4">
-        <div class="done-hero">
-          <div class="big">✓</div>
-          <b>Договор № 08-2026 готов</b>
-          <small>Проверен: реквизиты из госбазы, КНП 710, суммы сходятся.<br>Номер выдан автоматически — без пропусков.</small>
-        </div>
-        <div class="kcard">
-          <h2>Что дальше — делаем мы</h2>
-          <div class="feed-i"><div class="p b"></div><div><b>Отправим на подписание в WhatsApp</b><small>контрагент подпишет по ссылке — ЭЦП или QR, без регистрации; нет ЭЦП — «Да, согласен» в чате (ст. 152 ГК РК)</small></div></div>
-          <div class="feed-i"><div class="p b"></div><div><b>Выставим счёт № 32 на аванс</b><small>сразу после подписания · номер уже зарезервирован</small></div></div>
-          <div class="feed-i"><div class="p b"></div><div><b>Напомним про оплату 5 августа</b><small>и подготовим накладную на отгрузку — 120 шт под контролем</small></div></div>
-        </div>
-        <div class="kcard">
-          <h2>Что нужно от вас</h2>
-          <div style="color:var(--mut)">Ничего. Пришлём «подписано ✓», когда контрагент ответит.</div>
-        </div>
-        <div class="btn" data-go="home">Готово</div>
       </section>
 
     </div>
   </div>
 </div>
 
-<div class="fab" data-go="work" title="Работа">+</div>
-
-<!-- Kaspi-style bottom nav -->
+<div class="fab" data-go="create">+</div>
 <div class="mnav">
-  <div class="on" data-v="home"><i>🏠</i>Главная</div>
-  <div data-v="docs"><i>📄</i>Документы</div>
-  <div class="m-simple" data-v="fplan"><i>💰</i>Деньги</div>
-  <div class="m-full" data-v="deals"><i>🤝</i>Сделки</div>
-  <div class="m-full" data-v="work"><i>💼</i>Работа</div>
-  <div class="m-full" data-v="tasks"><i>✅</i>Задачи</div>
+  <div class="on" data-go="home"><i>🏠</i>Главная</div>
+  <div data-go="docs"><i>📄</i>Документы</div>
+  <div data-go="money"><i>💰</i>Деньги</div>
+  <div data-go="create"><i>➕</i>Создать</div>
 </div>
 
 <script>
-  function show(v){
+  var NAV=['home','docs','money','create'];
+  var PARENT={doc:'docs',deal:'home',feed:'home',specwin:'home'};
+  function go(v){
+    if(!document.getElementById('v-'+v)) v='home';
     document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
-    document.querySelectorAll('[data-v]').forEach(n=>n.classList.toggle('on', n.dataset.v===v));
+    var hi = NAV.indexOf(v)>=0 ? v : (PARENT[v]||'home');
+    document.querySelectorAll('.side [data-go], .mnav [data-go]').forEach(n=>n.classList.toggle('on', n.dataset.go===hi));
     window.scrollTo({top:0});
   }
-  document.querySelectorAll('[data-v]').forEach(n=>n.addEventListener('click',()=>show(n.dataset.v)));
-  document.querySelectorAll('[data-go]').forEach(n=>n.addEventListener('click',e=>{e.stopPropagation();show(n.dataset.go);}));
-  // Переключатель простое/полное меню
-  function setMenu(mode){
-    document.body.classList.toggle('fullmenu', mode==='full');
-    document.querySelectorAll('.menu-sw div').forEach(d=>d.classList.toggle('on', d.dataset.menu===mode));
-    var m=document.getElementById('menuSwM');
-    if(m) m.textContent = mode==='full' ? '⚙ Простое меню' : '⚙ Полное меню';
-  }
-  document.querySelectorAll('.menu-sw div').forEach(d=>d.addEventListener('click',()=>setMenu(d.dataset.menu)));
-  var mBtn=document.getElementById('menuSwM');
-  if(mBtn) mBtn.addEventListener('click',()=>setMenu(document.body.classList.contains('fullmenu')?'simple':'full'));
-  setMenu('simple');
+  var WA='https://wa.me/77753496939?text='+encodeURIComponent('Здравствуйте! Пишу из кабинета BuhHub.');
+  document.addEventListener('click', function(e){
+    var w=e.target.closest('[data-wa]'); if(w){e.preventDefault();window.open(WA,'_blank');return;}
+    var c=e.target.closest('#docChips .chip2'); if(c){document.querySelectorAll('#docChips .chip2').forEach(x=>x.classList.remove('on'));c.classList.add('on');return;}
+    var g=e.target.closest('[data-go]'); if(g){e.preventDefault();go(g.dataset.go);return;}
+  });
+  go('home');
 </script>
 </body>
 </html>

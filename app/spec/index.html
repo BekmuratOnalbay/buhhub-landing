@@ -15,54 +15,84 @@
   html{-webkit-text-size-adjust:100%}
   body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.4;-webkit-font-smoothing:antialiased}
   .app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:84px}
-  @media(min-width:900px){.app{max-width:1100px;display:grid;grid-template-columns:250px 1fr;padding-bottom:40px}}
+  @media(min-width:900px){.app{max-width:1120px;display:grid;grid-template-columns:250px 1fr;padding-bottom:0}}
   .side{display:none}
   @media(min-width:900px){
     .side{display:flex;flex-direction:column;gap:2px;background:var(--card);border-right:1px solid var(--line);padding:22px 14px;position:sticky;top:0;height:100vh}
     .mnav{display:none!important}
   }
-  .logo{font-size:21px;font-weight:800;letter-spacing:-.02em;padding:0 10px 4px}
+  .logo{font-size:21px;font-weight:800;letter-spacing:-.02em;padding:0 10px 2px}
   .logo span{color:var(--red)}
   .logo-sub{font-size:11px;color:var(--mut);font-weight:600;padding:0 10px 16px}
   .nav-i{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;color:#3a3f47;font-weight:500;cursor:pointer;font-size:14.5px}
   .nav-i:hover{background:#f6f6f8}
   .nav-i.on{background:var(--blue-soft);color:var(--blue);font-weight:700}
+  .nav-i .bdg{margin-left:auto;background:var(--red);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 7px}
   .side .spacer{flex:1}
   .ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
   .specrow{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px}
   .specrow b{font-size:13px;display:block}.specrow small{color:var(--mut);font-size:11.5px}
+  .main{min-width:0}
   .hdr{padding:14px 16px 10px;display:flex;align-items:center;gap:10px;position:sticky;top:0;background:var(--bg);z-index:5}
   @media(min-width:900px){.hdr{padding:18px 28px 8px}}
   .hdr h1{font-size:17px;font-weight:700}
   .hdr .grow{flex:1}
-  .bell{width:38px;height:38px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-  .content{padding:6px 16px 30px;display:flex;flex-direction:column;gap:12px}
-  @media(min-width:900px){.content{padding:6px 28px 40px}}
+  .bell{width:38px;height:38px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.05);cursor:pointer}
+  .zone{padding:6px 16px 30px;display:flex;flex-direction:column;gap:12px}
+  @media(min-width:900px){.zone{padding:6px 28px 40px}}
   .view{display:none;flex-direction:column;gap:12px}
-  .view.on{display:flex}
+  .view.on{display:flex;animation:fade .18s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
   .kcard{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-  .kcard h2{font-size:16px;font-weight:700;margin-bottom:10px}
+  .kcard h2{font-size:16px;font-weight:700;margin-bottom:10px;display:flex;align-items:center}
+  .kcard h2 .all{margin-left:auto;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer}
   h1.pg{font-size:22px;font-weight:800;letter-spacing:-.02em;padding:4px 0 0}
-  .pg-sub{color:var(--mut);font-size:13.5px;margin-top:-6px}
+  .pg-sub{color:var(--mut);font-size:13.5px;margin-top:-4px}
+  .back{color:var(--blue);font-weight:700;cursor:pointer;font-size:14px;display:inline-block}
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   @media(max-width:520px){.kpis{grid-template-columns:repeat(2,1fr)}}
-  .kpi{background:var(--card);border-radius:14px;padding:13px 15px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .kpi{background:var(--card);border-radius:14px;padding:13px 15px;box-shadow:0 1px 4px rgba(0,0,0,.04);cursor:pointer}
   .kpi small{color:var(--mut);font-size:11.5px;display:block}
   .kpi b{font-size:22px;letter-spacing:-.01em}
-  .empty{text-align:center;padding:34px 20px;color:var(--mut)}
-  .empty .ic{width:56px;height:56px;border-radius:16px;background:#f4f5f7;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 12px}
-  .empty b{color:var(--ink);font-size:15px;display:block;margin-bottom:4px}
-  .empty p{font-size:13px;line-height:1.45;max-width:320px;margin:0 auto}
-  .empty .cta{display:inline-block;margin-top:14px;background:var(--blue);color:#fff;border-radius:12px;padding:11px 20px;font-weight:700;font-size:13.5px;cursor:pointer}
-  .banner{display:flex;gap:12px;align-items:center;background:var(--blue-soft);border-radius:var(--r);padding:15px 16px}
-  .banner b{font-size:14.5px;display:block}
-  .banner small{color:#3a5f8a;font-size:12.5px}
-  .banner .cta{margin-left:auto;background:var(--blue);color:#fff;border-radius:12px;padding:10px 16px;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex:none}
+  .kpi.warn b{color:var(--amber)} .kpi.bad b{color:var(--red)} .kpi.good b{color:var(--green)}
+  .banner{display:flex;gap:12px;align-items:center;background:var(--red-soft);border-radius:var(--r);padding:15px 16px}
+  .banner b{font-size:14.5px;display:block} .banner small{color:#a33;font-size:12.5px}
+  .banner .cta{margin-left:auto;background:var(--red);color:#fff;border-radius:12px;padding:10px 16px;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex:none}
+  .co-row{display:flex;align-items:center;gap:12px;padding:13px 2px;cursor:pointer}
+  .co-row+.co-row{border-top:1px solid var(--line)}
+  .co-row:active{background:#f8f8fa}
+  .co-row .cav{width:40px;height:40px;border-radius:12px;background:#eef4fc;color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex:none}
+  .co-row b{font-size:14.5px;display:block}
+  .co-row .todo-t{color:var(--ink);font-size:12.5px;display:block;margin-top:2px}
+  .co-row .todo-t.none{color:var(--green)}
+  .stt{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700}
+  .stt i{width:9px;height:9px;border-radius:50%;font-style:normal}
+  .stt.g{color:var(--green)} .stt.g i{background:var(--green)}
+  .stt.a{color:var(--amber)} .stt.a i{background:var(--amber)}
+  .stt.r{color:var(--red)} .stt.r i{background:var(--red)}
+  .chev{color:#c9ccd3;font-size:18px;flex:none}
+  .task{display:flex;gap:11px;padding:12px 0;align-items:flex-start}
+  .task+.task{border-top:1px solid var(--line)}
+  .task .ti{width:34px;height:34px;border-radius:10px;background:#f6f6f8;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none}
+  .task b{font-size:14px;display:block} .task small{color:var(--mut);font-size:12.5px}
+  .task .lab{margin-left:auto;flex:none;font-size:11px;font-weight:700;border-radius:999px;padding:4px 10px;white-space:nowrap}
+  .lab.hot{background:var(--red-soft);color:var(--red)} .lab.ck{background:var(--blue-soft);color:var(--blue)} .lab.sp{background:var(--green-soft);color:var(--green)}
+  .btn{background:var(--blue);color:#fff;text-align:center;border-radius:14px;padding:13px;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 4px 14px rgba(59,125,216,.22)}
+  .btn.ghost{background:var(--card);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+  .btn.red{background:var(--red);box-shadow:0 4px 14px rgba(241,70,53,.22)}
+  .viewas{background:#fff7e0;border:1px solid #ffe08a;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px}
+  .viewas b{color:#946200}
+  .viewas .x{margin-left:auto;color:#946200;font-weight:700;cursor:pointer;flex:none}
+  .hint{font-size:12.5px;color:var(--mut);line-height:1.45}
+  .mem{display:flex;align-items:center;gap:11px;padding:11px 0}
+  .mem+.mem{border-top:1px solid var(--line)}
+  .mem .load{margin-left:auto;flex:none;font-size:12px;font-weight:700}
+  .bar{height:7px;border-radius:999px;background:#eef0f3;overflow:hidden;width:90px;margin-top:5px}
+  .bar i{display:block;height:100%;background:var(--blue)}
   .mnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:10;max-width:520px;margin:0 auto}
   .mnav div{flex:1;text-align:center;padding:8px 0 max(10px,env(safe-area-inset-bottom));font-size:10.5px;color:var(--mut);cursor:pointer;font-weight:600}
   .mnav div i{display:block;font-style:normal;font-size:20px;margin-bottom:2px;opacity:.75}
-  .mnav div.on{color:var(--blue)}
-  .mnav div.on i{opacity:1}
+  .mnav div.on{color:var(--blue)} .mnav div.on i{opacity:1}
 </style>
 </head>
 <body>
@@ -70,105 +100,164 @@
   <aside class="side">
     <div class="logo">Buh<span>Hub</span></div>
     <div class="logo-sub">кабинет специалиста</div>
-    <div class="nav-i on" data-v="board">📊 Обзор</div>
-    <div class="nav-i" data-v="clients">👥 Клиенты</div>
-    <div class="nav-i" data-v="tasks">✅ Задачи</div>
-    <div class="nav-i" data-v="team">🧑‍💼 Команда</div>
+    <div class="nav-i on" data-go="board">📊 Обзор</div>
+    <div class="nav-i" data-go="clients">👥 Клиенты <span class="bdg">3</span></div>
+    <div class="nav-i" data-go="tasks">✅ Задачи <span class="bdg">4</span></div>
+    <div class="nav-i" data-go="team">🧑‍💼 Команда</div>
     <div class="spacer"></div>
-    <div class="specrow"><div class="ava">С</div><div><b>Специалист</b><small>вы вошли как специалист</small></div></div>
+    <div class="specrow"><div class="ava">АС</div><div><b>Айгерим</b><small>специалист · 12 компаний</small></div></div>
   </aside>
-  <div>
-    <div class="hdr">
-      <h1>Кабинет специалиста</h1>
-      <div class="grow"></div>
-      <div class="bell">🔔</div>
-    </div>
-    <div class="content">
 
-      <!-- ОБЗОР -->
+  <div class="main">
+    <div class="hdr">
+      <h1 id="hdrTitle">Обзор</h1>
+      <div class="grow"></div>
+      <div class="bell" data-go="tasks">🔔</div>
+    </div>
+
+    <div class="zone">
+
       <section class="view on" id="v-board">
         <div class="banner">
-          <div style="font-size:22px">🚀</div>
-          <div><b>Начните вести клиентов</b><small>пригласите первого — или заведите свою компанию как клиента</small></div>
-          <div class="cta" data-go="clients">Пригласить</div>
+          <div style="font-size:22px">⚡</div>
+          <div style="flex:1"><b>1 компания под риском просрочки</b><small>«СтройДом» — форма 200 до четверга, нет зарплатных данных</small></div>
+          <div class="cta" data-go="company">Открыть</div>
         </div>
 
         <div class="kpis">
-          <div class="kpi"><small>Компаний</small><b>0</b></div>
-          <div class="kpi"><small>Всё зелёное</small><b>0</b></div>
-          <div class="kpi"><small>Требуют внимания</small><b>0</b></div>
-          <div class="kpi"><small>Риск просрочки</small><b>0</b></div>
+          <div class="kpi" data-go="clients"><small>Компаний</small><b>12</b></div>
+          <div class="kpi good" data-go="clients"><small>Всё зелёное</small><b>8</b></div>
+          <div class="kpi warn" data-go="clients"><small>Требуют внимания</small><b>3</b></div>
+          <div class="kpi bad" data-go="company"><small>Риск просрочки</small><b>1</b></div>
         </div>
 
         <div class="kcard">
-          <h2>Доска клиентов</h2>
-          <div class="empty">
-            <div class="ic">📊</div>
-            <b>Пока нет клиентов на сопровождении</b>
-            <p>Как появятся — здесь будет доска: у кого всё сдано, где горят сроки, где риск. С фильтром и входом в кабинет каждого клиента.</p>
-            <div class="cta" data-go="clients">+ Добавить клиента</div>
+          <div class="banner" style="background:var(--blue-soft);padding:0;box-shadow:none">
+            <div style="font-size:20px;padding-left:2px">✍️</div>
+            <div style="flex:1"><b>8 документов по 4 клиентам готовы</b><small style="color:#3a5f8a">проверены системой: суммы, реквизиты, номера сходятся</small></div>
+            <div class="cta" style="background:var(--blue)">Подписать все</div>
           </div>
+        </div>
+
+        <div class="kcard">
+          <h2>Что сделать сегодня <span class="all" data-go="tasks">все задачи ›</span></h2>
+          <div class="task" data-go="company"><div class="ti">🔴</div><div style="flex:1"><b>Дожать зарплатные данные «СтройДом»</b><small>без них форма 200 под риском · до четверга</small></div><span class="lab hot">срочно</span></div>
+          <div class="task" data-go="company"><div class="ti">👀</div><div style="flex:1"><b>Проверить счёт № 30 «Айгерим Трейд»</b><small>клиент сделал сам — автопроверка прошла, нужен взгляд</small></div><span class="lab ck">проверить</span></div>
+          <div class="task"><div class="ti">⚖️</div><div style="flex:1"><b>Разобрать сверку «Нур Опт»</b><small>расхождение 180 000 ₸ в пользу клиента</small></div><span class="lab sp">Салтанат</span></div>
+        </div>
+
+        <div class="kcard">
+          <h2>Клиенты <span class="all" data-go="clients">все 12 ›</span></h2>
+          <div class="co-row" data-go="company"><div class="cav">СД</div><div style="flex:1"><b>ТОО «СтройДом»</b><span class="todo-t">нужно: собрать зарплатные данные для ф.200</span></div><span class="stt r"><i></i>риск</span><span class="chev">›</span></div>
+          <div class="co-row" data-go="company"><div class="cav">АТ</div><div style="flex:1"><b>ТОО «Айгерим Трейд»</b><span class="todo-t">нужно: проверить счёт клиента № 30</span></div><span class="stt a"><i></i>внимание</span><span class="chev">›</span></div>
+          <div class="co-row" data-go="company"><div class="cav">МД</div><div style="flex:1"><b>ИП Мадияр</b><span class="todo-t none">всё сделано · ждём подписи контрагентов</span></div><span class="stt g"><i></i>зелёный</span><span class="chev">›</span></div>
         </div>
       </section>
 
-      <!-- КЛИЕНТЫ -->
       <section class="view" id="v-clients">
         <h1 class="pg">Клиенты</h1>
-        <div class="pg-sub">Компании на сопровождении: статус, ближайшие сроки, «войти как клиент».</div>
+        <div class="pg-sub">По каждому видно, что нужно сделать. Красный — сначала.</div>
         <div class="kcard">
-          <div class="empty">
-            <div class="ic">👥</div>
-            <b>Список клиентов пуст</b>
-            <p>Добавьте компанию — введите БИН, остальное подтянется из госбазы. Клиент получит доступ к своему кабинету и увидит статусы.</p>
-            <div class="cta">+ Добавить клиента по БИН</div>
-          </div>
+          <div class="co-row" data-go="company"><div class="cav">СД</div><div style="flex:1"><b>ТОО «СтройДом»</b><span class="todo-t">собрать зарплатные данные · ф.200 до чт</span></div><span class="stt r"><i></i>риск</span><span class="chev">›</span></div>
+          <div class="co-row" data-go="company"><div class="cav">АТ</div><div style="flex:1"><b>ТОО «Айгерим Трейд»</b><span class="todo-t">проверить счёт клиента № 30</span></div><span class="stt a"><i></i>внимание</span><span class="chev">›</span></div>
+          <div class="co-row" data-go="company"><div class="cav">НО</div><div style="flex:1"><b>ТОО «Нур Опт»</b><span class="todo-t">разобрать расхождение сверки 180к</span></div><span class="stt a"><i></i>внимание</span><span class="chev">›</span></div>
+          <div class="co-row" data-go="company"><div class="cav">МД</div><div style="flex:1"><b>ИП Мадияр</b><span class="todo-t none">ждём подписи контрагентов</span></div><span class="stt g"><i></i>зелёный</span><span class="chev">›</span></div>
+          <div class="co-row" data-go="company"><div class="cav">СЛ</div><div style="flex:1"><b>ИП Салтанат</b><span class="todo-t none">всё сдано и подписано</span></div><span class="stt g"><i></i>зелёный</span><span class="chev">›</span></div>
+          <div class="co-row" data-go="company"><div class="cav">КС</div><div style="flex:1"><b>ТОО «КазСнаб»</b><span class="todo-t none">всё сдано и подписано</span></div><span class="stt g"><i></i>зелёный</span><span class="chev">›</span></div>
         </div>
+        <div class="btn ghost">+ Добавить клиента по БИН</div>
       </section>
 
-      <!-- ЗАДАЧИ -->
+      <section class="view" id="v-company">
+        <span class="back" data-go="clients">‹ Клиенты</span>
+        <h1 class="pg">ТОО «СтройДом»</h1>
+        <div class="pg-sub">ОУР · 18 сделок · <span class="stt r" style="font-size:12px"><i></i>риск просрочки</span></div>
+
+        <div class="kcard" style="background:var(--red-soft)">
+          <h2 style="color:var(--red)">⚠️ Что нужно сделать</h2>
+          <div class="task"><div class="ti">📅</div><div style="flex:1"><b>Форма 200 — до четверга</b><small>не хватает зарплатных данных за июль</small></div><span class="lab hot">2 дня</span></div>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <div class="btn red" style="flex:1">Запросить у клиента</div>
+            <div class="btn ghost" style="flex:1">Назначить помощнице</div>
+          </div>
+        </div>
+
+        <div class="kcard">
+          <h2>Состояние компании</h2>
+          <div class="task"><div class="ti">🏛</div><div style="flex:1"><b>Отчётность</b><small>910 сдана · 200 — в работе · 300 — не срок</small></div><span class="stt a"><i></i></span></div>
+          <div class="task"><div class="ti">✍️</div><div style="flex:1"><b>Документы сделок</b><small>2 АВР ждут подписи контрагентов</small></div><span class="stt a"><i></i></span></div>
+          <div class="task"><div class="ti">💰</div><div style="flex:1"><b>Дебиторка</b><small>им должны 3 240 000 ₸ · 1 счёт просрочен</small></div><span class="stt a"><i></i></span></div>
+        </div>
+
+        <div class="btn" data-go="viewas">Войти как клиент — увидеть его кабинет</div>
+        <div class="hint" style="text-align:center">Откроется кабинет клиента вашими глазами, чтобы сделать за него</div>
+      </section>
+
+      <section class="view" id="v-viewas">
+        <div class="viewas"><div>👁</div><div style="flex:1"><b>Вы работаете от лица ТОО «СтройДом»</b></div><div class="x" data-go="company">выйти</div></div>
+        <div class="kcard">
+          <h2>Кабинет клиента (ваш вид)</h2>
+          <div class="task"><div class="ti">🏛</div><div style="flex:1"><b>Оформить форму 200</b><small>вы делаете это за клиента</small></div><span class="lab sp">делаю</span></div>
+          <div class="task"><div class="ti">✍️</div><div style="flex:1"><b>Дожать подписи 2 АВР</b><small>отправить повторные ссылки контрагентам</small></div><span class="lab sp">делаю</span></div>
+          <div class="task"><div class="ti">⚖️</div><div style="flex:1"><b>Отправить акт сверки</b><small>по просроченному счёту</small></div><span class="lab sp">делаю</span></div>
+        </div>
+        <div class="hint" style="text-align:center">Всё, что вы делаете здесь, клиент видит у себя как «специалист работает».</div>
+        <div class="btn ghost" data-go="company">← Вернуться в свой кабинет</div>
+      </section>
+
       <section class="view" id="v-tasks">
         <h1 class="pg">Задачи</h1>
-        <div class="pg-sub">Всё, что нужно сделать по всем клиентам — с распределением на помощниц.</div>
+        <div class="pg-sub">Со всех компаний. Появляются сами из событий и сроков.</div>
         <div class="kcard">
-          <div class="empty">
-            <div class="ic">✅</div>
-            <b>Задач пока нет</b>
-            <p>Задачи появятся сами из событий: пришёл счёт, подошёл срок сдачи, клиент передал документ. Их можно распределять на помощниц.</p>
-          </div>
+          <h2>Мои <span class="all">Распределить автоматически</span></h2>
+          <div class="task" data-go="company"><div class="ti">🔴</div><div style="flex:1"><b>Зарплатные данные «СтройДом»</b><small>ф.200 под риском · до четверга</small></div><span class="lab hot">срочно</span></div>
+          <div class="task" data-go="company"><div class="ti">👀</div><div style="flex:1"><b>Проверить счёт № 30 «Айгерим Трейд»</b><small>клиент сделал сам · нужен взгляд</small></div><span class="lab ck">проверить</span></div>
+        </div>
+        <div class="kcard">
+          <h2>У помощниц</h2>
+          <div class="task"><div class="ti">⚖️</div><div style="flex:1"><b>Сверка «Нур Опт» · Салтанат</b><small>расхождение 180к</small></div><span class="lab sp">в работе</span></div>
+          <div class="task"><div class="ti">📦</div><div style="flex:1"><b>Накладные «КазСнаб» · Динара</b><small>оформить по 3 отгрузкам</small></div><span class="lab sp">в работе</span></div>
         </div>
       </section>
 
-      <!-- КОМАНДА -->
       <section class="view" id="v-team">
         <h1 class="pg">Команда</h1>
-        <div class="pg-sub">Помощницы и их загрузка. Задачи распределяются между ними автоматически.</div>
+        <div class="pg-sub">Помощницы и загрузка. Рутина раздаётся между ними — вы на контроле.</div>
         <div class="kcard">
-          <div class="empty">
-            <div class="ic">🧑‍💼</div>
-            <b>В команде только вы</b>
-            <p>Добавьте помощниц — платформа будет раздавать им рутину, а вы останетесь на контроле и продажах.</p>
-            <div class="cta">+ Добавить помощницу</div>
-          </div>
+          <div class="mem"><div class="ava" style="background:linear-gradient(135deg,#f5a623,#e0940f)">СЛ</div><div style="flex:1"><b>Салтанат</b><div class="bar"><i style="width:60%"></i></div></div><span class="load" style="color:var(--amber)">6 задач</span></div>
+          <div class="mem"><div class="ava" style="background:linear-gradient(135deg,#0bab64,#0e9a5c)">ДН</div><div style="flex:1"><b>Динара</b><div class="bar"><i style="width:35%"></i></div></div><span class="load" style="color:var(--green)">3 задачи</span></div>
         </div>
+        <div class="btn ghost">+ Добавить помощницу</div>
+        <div class="hint" style="text-align:center">Чем больше рутины уходит помощницам, тем больше компаний ведёт один специалист.</div>
       </section>
 
     </div>
   </div>
 </div>
+
 <div class="mnav">
-  <div class="on" data-v="board"><i>📊</i>Обзор</div>
-  <div data-v="clients"><i>👥</i>Клиенты</div>
-  <div data-v="tasks"><i>✅</i>Задачи</div>
-  <div data-v="team"><i>🧑‍💼</i>Команда</div>
+  <div class="on" data-go="board"><i>📊</i>Обзор</div>
+  <div data-go="clients"><i>👥</i>Клиенты</div>
+  <div data-go="tasks"><i>✅</i>Задачи</div>
+  <div data-go="team"><i>🧑‍💼</i>Команда</div>
 </div>
+
 <script>
-  function show(v){
-    document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
-    document.querySelectorAll('[data-v]').forEach(n=>n.classList.toggle('on',n.dataset.v===v));
+  var NAV=['board','clients','tasks','team'];
+  var PARENT={company:'clients',viewas:'clients'};
+  var TITLE={board:'Обзор',clients:'Клиенты',company:'Клиент',viewas:'Работаю как клиент',tasks:'Задачи',team:'Команда'};
+  function go(v){
+    if(!document.getElementById('v-'+v)) v='board';
+    document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
+    var hi = NAV.indexOf(v)>=0 ? v : (PARENT[v]||'board');
+    document.querySelectorAll('.side [data-go], .mnav [data-go]').forEach(n=>n.classList.toggle('on', n.dataset.go===hi));
+    var t=document.getElementById('hdrTitle'); if(t) t.textContent=TITLE[v]||'Обзор';
     window.scrollTo({top:0});
   }
-  document.querySelectorAll('[data-v]').forEach(n=>n.addEventListener('click',()=>show(n.dataset.v)));
-  document.querySelectorAll('[data-go]').forEach(n=>n.addEventListener('click',e=>{e.stopPropagation();show(n.dataset.go);}));
+  document.addEventListener('click', function(e){
+    var g=e.target.closest('[data-go]'); if(g){e.preventDefault();go(g.dataset.go);}
+  });
+  go('board');
 </script>
 </body>
 </html>
