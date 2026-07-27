@@ -105,6 +105,23 @@
   .tile span{font-size:11.5px;font-weight:600;color:#3a3f47;line-height:1.2;display:block}
   .hint{font-size:12.5px;color:var(--mut);line-height:1.45}
   .note{display:flex;gap:10px;background:var(--blue-soft);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45}
+  .prow{display:flex;justify-content:space-between;align-items:center;padding:11px 0;font-size:14px;gap:14px}
+  .prow+.prow{border-top:1px solid var(--line)}
+  .prow span{color:var(--mut);flex:none}
+  .prow b{text-align:right}
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:50}
+  .modal-bg.on{display:flex}
+  @media(min-width:900px){.modal-bg{align-items:center}}
+  .modal{background:#fff;border-radius:22px 22px 0 0;width:100%;max-width:520px;padding:26px 20px 30px;animation:up .25s ease}
+  @media(min-width:900px){.modal{border-radius:22px;max-width:400px}}
+  @keyframes up{from{transform:translateY(50px);opacity:.4}to{transform:none;opacity:1}}
+  .modal .mi{width:60px;height:60px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 14px}
+  .modal .mi.ok{background:var(--green-soft)} .modal .mi.wa2{background:var(--green-soft)}
+  .modal h3{font-size:19px;font-weight:800;text-align:center;letter-spacing:-.01em}
+  .modal .msub{text-align:center;color:var(--mut);font-size:13.5px;margin-top:6px;line-height:1.5}
+  .mcheck{background:#f6f8f6;border-radius:14px;padding:12px 14px;margin-top:16px}
+  .mcheck div{display:flex;gap:8px;font-size:13.5px;padding:5px 0}
+  .mcheck div span{color:var(--green);font-weight:800;flex:none}
   .fab{position:fixed;right:18px;bottom:74px;width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(241,70,53,.4);cursor:pointer;z-index:11}
   @media(min-width:900px){.fab{bottom:28px;right:calc(50% - 560px + 28px)}}
   .mnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:10;max-width:520px;margin:0 auto}
@@ -132,8 +149,7 @@
     <div class="nav-i" data-go="docs">📄 Документы <span class="bdg">1</span></div>
     <div class="nav-i" data-go="money">💰 Деньги</div>
     <div class="spacer"></div>
-    <div class="spec" data-go="specwin" style="margin-bottom:8px"><div class="ava">АС</div><div><b>Айгерим</b><small>ваш специалист</small></div><div class="wg">на связи</div></div>
-    <div class="wa" data-wa="1"><span class="dot"></span> Написать в WhatsApp</div>
+    <div class="wa" data-wa="1" style="justify-content:center;color:#3a3f47">🛟 Позвать специалиста</div>
   </aside>
 
   <div class="main">
@@ -159,8 +175,8 @@
         <div class="kcard">
           <h2>⏰ Требует вас <span class="all" data-go="docs">все дела ›</span></h2>
           <div class="todo" data-go="deal">
-            <div class="cnt hot">сег<small>одня</small></div>
-            <div style="flex:1"><b>Подписать доп. соглашение</b><small>«Алтай Строй» · изменение этапа оплаты — нужно ваше «да»</small></div>
+            <div class="cnt hot">ваш<small>ход</small></div>
+            <div style="flex:1"><b>Выставить счёт по сделке «Береке»</b><small>договор подписан — дальше счёт · нажмите, платформа заполнит сама</small></div>
             <div class="go">›</div>
           </div>
           <div class="todo" data-go="feed">
@@ -189,12 +205,19 @@
         </div>
 
         <div class="kcard">
-          <h2>Что делает специалист <span class="all" data-go="feed">все события ›</span></h2>
-          <div class="row" data-go="feed"><div class="ic">✍️</div><div style="flex:1"><b>Дожимает подпись АВР № 14</b><small>«Алтай Строй» открыли · напомним в четверг</small></div><span class="chev">›</span></div>
-          <div class="row" data-go="feed"><div class="ic">🏛</div><div style="flex:1"><b>Готовит форму 910</b><small>сдаём 12 августа — раньше срока</small></div><span class="chev">›</span></div>
+          <h2>Последние события <span class="all" data-go="feed">все ›</span></h2>
+          <div class="row" data-go="feed"><div class="ic">🔔</div><div style="flex:1"><b>Напоминание клиенту ушло</b><small>«Нур Опт» · счёт № 27 · автоматически</small></div><span class="chev">›</span></div>
+          <div class="row" data-go="feed"><div class="ic">📷</div><div style="flex:1"><b>Счёт с фото распознан</b><small>реквизиты сверены с госбазой · проверьте</small></div><span class="chev">›</span></div>
         </div>
 
-        <div class="spec" data-wa="1"><div class="ava">АС</div><div><b>Айгерим — ваш специалист</b><small>ответит в WhatsApp, в среднем 7 минут</small></div><div class="wg">Написать</div></div>
+        <!-- Специалист = подстраховка по вызову, не навязываем -->
+        <div class="kcard" style="border:1px dashed #d7dbe0;box-shadow:none;background:transparent">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font-size:26px">🛟</div>
+            <div style="flex:1"><b>Боитесь, что где-то ошиблись?</b><div class="hint" style="margin-top:2px">Специалист проверит ваши документы и отчётность — или возьмёт всё на себя. Только когда вам это нужно.</div></div>
+          </div>
+          <div class="btn ghost" style="margin-top:12px" data-wa="1">Позвать специалиста</div>
+        </div>
       </section>
 
       <section class="view" id="v-docs">
@@ -235,31 +258,53 @@
             <div class="step"><div class="m"><div class="c wait">✦</div></div><div class="in"><b>Архив + ЭСФ</b><small>после подписи встанет в сделку</small></div></div>
           </div>
         </div>
-        <div class="note"><div>💡</div><div>Специалист следит за подписанием сам. Вам ничего делать не нужно — придёт «подписано ✓».</div></div>
-        <div style="display:flex;gap:10px"><div class="btn" style="flex:1" data-wa="1">Спросить специалиста</div><div class="btn ghost" style="flex:1" data-go="docs">К документам</div></div>
+        <div class="note"><div>💡</div><div>Напоминание о подписи уйдёт контрагенту само. Как подпишет — увидите здесь «подписано ✓».</div></div>
+        <div style="display:flex;gap:10px"><div class="btn ghost" style="flex:1" data-wa="1">🛟 Не уверены? Спросить специалиста</div><div class="btn ghost" style="flex:1" data-go="docs">К документам</div></div>
       </section>
 
       <section class="view" id="v-deal">
         <span class="back" data-go="home">‹ Главная</span>
-        <h1 class="pg">ТОО «Алтай Строй» · 1 200 000 ₸</h1>
-        <div class="pg-sub">Договор № 07-2026 · вы исполнитель</div>
-        <div class="kcard">
-          <h2>📦 Количество под контролем</h2>
-          <div class="hint">Двери · <b>отгружено 80 из 120 шт</b> · осталось 40</div>
-          <div style="height:10px;border-radius:999px;background:#eef0f3;overflow:hidden;margin-top:8px"><i style="display:block;height:100%;width:67%;background:var(--amber)"></i></div>
-          <div class="note" style="margin-top:12px">⚠️ Накладная № 12 закрывает 80 шт. На остаток 40 — <b>накладная № 13 подготовлена</b>. Ничего не потеряется.</div>
+        <h1 class="pg">ТОО «Береке» · 850 000 ₸</h1>
+        <div class="pg-sub">Договор № 09-2026 · вы исполнитель · этап <b id="stageNo">2</b> из 5</div>
+
+        <!-- ★ ВАШ ХОД — понятная кнопка прямо на текущем этапе (не искать «+») -->
+        <div class="kcard" id="dealCta" style="background:linear-gradient(160deg,#fff6f5,#fff);border:1.5px solid #ffd7d2">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:44px;height:44px;border-radius:14px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none">🧾</div>
+            <div style="flex:1"><b style="font-size:15.5px">Сейчас ваш ход — выставить счёт</b><div class="hint" style="margin-top:2px">Договор подписан. Дальше нужен счёт — платформа заполнит его сама, вам останется проверить.</div></div>
+          </div>
+          <div class="btn" style="margin-top:14px" data-go="prepare">Подготовить счёт →</div>
         </div>
+
         <div class="kcard">
           <h2>Цепочка сделки</h2>
           <div class="chain">
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Договор подписан</b><small>2 июля</small><span class="doc" data-go="doc">📄 Договор № 07-2026.pdf</span></div></div>
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Счёт оплачен полностью</b><small>1 200 000 ₸ · 15 июля</small><span class="doc" data-go="doc">🧾 Счёт № 31.pdf</span></div></div>
-            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Накладная подписана</b><small>80 шт · 18 июля</small><span class="doc" data-go="doc">📦 Накладная № 12.pdf</span></div></div>
-            <div class="step"><div class="m"><div class="c run">…</div><div class="vl"></div></div><div class="in"><b>АВР № 14 на подписании</b><small>у контрагента · напомним сами</small><span class="doc" data-go="doc">✍️ АВР № 14</span></div></div>
-            <div class="step"><div class="m"><div class="c wait">5</div></div><div class="in"><b>Накладная № 13 → ЭСФ → закрыто</b><small>номера зарезервированы</small></div></div>
+            <div class="step"><div class="m"><div class="c done">✓</div><div class="vl"></div></div><div class="in"><b>Договор подписан</b><small>1 августа</small><span class="doc" data-go="doc">📄 Договор № 09-2026.pdf</span></div></div>
+            <div class="step" id="stp2"><div class="m"><div class="c run" id="c2">2</div><div class="vl"></div></div><div class="in"><b id="t2">Выставить счёт — ваш ход</b><small id="s2">платформа заполнит, вы проверите и отправите</small><span class="doc" id="a2" data-go="prepare" style="background:var(--red-soft);color:var(--red)">＋ Подготовить счёт</span></div></div>
+            <div class="step" id="stp3"><div class="m"><div class="c wait" id="c3">3</div><div class="vl"></div></div><div class="in"><b>Оплата от клиента</b><small>напомним ему сами, как выставите</small></div></div>
+            <div class="step"><div class="m"><div class="c wait">4</div><div class="vl"></div></div><div class="in"><b>Закрывающие</b><small>накладная / АВР — соберутся из сделки</small></div></div>
+            <div class="step"><div class="m"><div class="c wait">5</div></div><div class="in"><b>ЭСФ → сделка закрыта</b><small>номера зарезервированы</small></div></div>
           </div>
         </div>
-        <div class="kcard"><h2>Что нужно от вас</h2><div class="hint">Ничего. Мы напишем, если что-то потребуется.</div></div>
+
+        <div class="note"><div>💡</div><div>Сомневаетесь, что заполнили верно? <b data-wa="1" style="color:var(--blue);cursor:pointer">Пусть проверит специалист</b>. А любой документ вне сделки — красной кнопкой «+».</div></div>
+      </section>
+
+      <!-- ПОДГОТОВКА ДОКУМЕНТА (форма) -->
+      <section class="view" id="v-prepare">
+        <span class="back" data-go="deal">‹ Сделка «Береке»</span>
+        <h1 class="pg">Счёт на оплату</h1>
+        <div class="pg-sub">Почти всё заполнено из договора. Проверьте — и готово.</div>
+        <div class="kcard">
+          <div class="prow"><span>Кому</span><b>ТОО «Береке»</b></div>
+          <div class="prow"><span>По договору</span><b>№ 09-2026</b></div>
+          <div class="prow"><span>Предмет</span><b>Двери · 85 шт × 10 000 ₸</b></div>
+          <div class="prow"><span>Сумма</span><b>850 000 ₸ <small style="color:var(--mut);font-weight:500">(из договора)</small></b></div>
+          <div class="prow"><span>КНП</span><b>710 <small style="color:var(--mut);font-weight:500">(товар)</small></b></div>
+          <div class="prow" style="border:none"><span>Номер счёта</span><b>№ 32 <small style="color:var(--green);font-weight:600">без дублей ✓</small></b></div>
+        </div>
+        <div class="note"><div>🔒</div><div>Номер, реквизиты и КНП подставлены автоматически — ошибиться нельзя.</div></div>
+        <div class="btn" onclick="openCheck()">Проверить и подготовить</div>
       </section>
 
       <section class="view" id="v-money">
@@ -336,6 +381,33 @@
   </div>
 </div>
 
+<!-- ПОПАП 1: документ проверен -->
+<div class="modal-bg" id="mCheck">
+  <div class="modal">
+    <div class="mi ok">✓</div>
+    <h3>Счёт № 32 готов и проверен</h3>
+    <div class="msub">Вы всё сделали правильно. Платформа сверила данные:</div>
+    <div class="mcheck">
+      <div><span>✓</span> реквизиты сторон — из госбазы, верны</div>
+      <div><span>✓</span> сумма 850 000 ₸ совпадает с договором</div>
+      <div><span>✓</span> КНП 710, номер № 32 — без дублей</div>
+    </div>
+    <div class="btn" style="margin-top:18px" onclick="sendToClient()">Отправить клиенту →</div>
+    <div class="hint" style="text-align:center;margin-top:12px"><span data-wa="1" style="color:var(--blue);font-weight:600;cursor:pointer">🛟 Всё равно не уверен — пусть глянет специалист</span></div>
+    <div class="hint" style="text-align:center;margin-top:8px;cursor:pointer" onclick="closeModal('mCheck')">Закрыть</div>
+  </div>
+</div>
+
+<!-- ПОПАП 2: отправлено клиенту -->
+<div class="modal-bg" id="mSent">
+  <div class="modal">
+    <div class="mi wa2">💬</div>
+    <h3>Счёт отправлен клиенту</h3>
+    <div class="msub">Ушёл в WhatsApp «ТОО Береке» со ссылкой на оплату. Как оплатит — сделка сама перейдёт на <b>этап 3</b>, а мы напомним ему, если задержит.</div>
+    <div class="btn" style="margin-top:18px" onclick="closeModal('mSent');go('deal')">Готово</div>
+  </div>
+</div>
+
 <div class="fab" data-go="create">+</div>
 <div class="mnav">
   <div class="on" data-go="home"><i>🏠</i>Главная</div>
@@ -346,7 +418,7 @@
 
 <script>
   var NAV=['home','docs','money','create'];
-  var PARENT={doc:'docs',deal:'home',feed:'home',specwin:'home'};
+  var PARENT={doc:'docs',deal:'home',prepare:'home',feed:'home',specwin:'home'};
   function go(v){
     if(!document.getElementById('v-'+v)) v='home';
     document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
@@ -360,6 +432,26 @@
     var c=e.target.closest('#docChips .chip2'); if(c){document.querySelectorAll('#docChips .chip2').forEach(x=>x.classList.remove('on'));c.classList.add('on');return;}
     var g=e.target.closest('[data-go]'); if(g){e.preventDefault();go(g.dataset.go);return;}
   });
+  // ── Гайд-поток: подготовить → попап «всё правильно» → отправить → этап вперёд
+  function openCheck(){document.getElementById('mCheck').classList.add('on');}
+  function closeModal(id){document.getElementById(id).classList.remove('on');}
+  function sendToClient(){
+    closeModal('mCheck');
+    // этап 2 закрыт → этап 3 активен
+    var c2=document.getElementById('c2'), c3=document.getElementById('c3');
+    if(c2){c2.className='c done';c2.textContent='✓';}
+    if(c3){c3.className='c run';c3.textContent='…';}
+    var t2=document.getElementById('t2'),s2=document.getElementById('s2'),a2=document.getElementById('a2'),sn=document.getElementById('stageNo');
+    if(t2)t2.textContent='Счёт № 32 выставлен';
+    if(s2)s2.textContent='отправлен клиенту · ждём оплату';
+    if(a2)a2.style.display='none';
+    if(sn)sn.textContent='3';
+    var cta=document.getElementById('dealCta');
+    if(cta){cta.style.background='var(--green-soft)';cta.style.borderColor='#bbf7d0';
+      cta.innerHTML='<div style="display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:14px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none">✓</div><div style="flex:1"><b style="font-size:15.5px">Счёт выставлен — ваш ход сделан</b><div class="hint" style="margin-top:2px">Дальше ждём оплату. Напомним клиенту сами. От вас пока ничего не нужно.</div></div></div>';}
+    document.getElementById('mSent').classList.add('on');
+  }
+  document.addEventListener('click',function(e){ if(e.target.classList.contains('modal-bg')) e.target.classList.remove('on'); });
   go('home');
 </script>
 </body>
